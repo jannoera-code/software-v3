@@ -916,6 +916,11 @@ Standard 30 days payment terms apply.</textarea>
                             <span class="text-[9px] font-mono text-accent uppercase tracking-widest font-bold block">2-WAY ICAL (.ICS) SYNCHRONIZATION</span>
                             <h4 class="text-xs font-bold text-cream">Connect OTA Calendar Feeds (Airbnb, Booking.com, VRBO)</h4>
                         </div>
+                        <button 
+                          onclick="loadMockICalData()" 
+                          class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-mono text-[10px]">
+                          🧪 Load Demo iCal Feed
+                        </button>
                         <button onclick="renderICalSection()" class="text-[9px] font-mono text-cream/60 hover:text-cream bg-darkcard px-2 py-1 rounded border border-cream/10">🔄 Refresh Connections</button>
                     </div>
 
@@ -4088,6 +4093,60 @@ Standard 30 days payment terms apply.</textarea>
         document.addEventListener('DOMContentLoaded', () => {
             checkAuthAndOnboarding();
         });
+        function loadMockICalData() {
+  const mockICSData = `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Stay In George//Hospitality CRM//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+SUMMARY:NightsBridge - John Doe
+DTSTART;VALUE=DATE:20260905
+DTEND;VALUE=DATE:20260908
+DESCRIPTION:Mock OTA Booking
+STATUS:CONFIRMED
+END:VEVENT
+BEGIN:VEVENT
+SUMMARY:Airbnb - Sarah Smith
+DTSTART;VALUE=DATE:20260912
+DTEND;VALUE=DATE:20260915
+DESCRIPTION:Mock OTA Booking
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
+
+  // Parse the mock string using ICAL library if available
+  if (typeof ICAL !== 'undefined') {
+    const jcalData = ICAL.parse(mockICSData);
+    const comp = new ICAL.Component(jcalData);
+    const vevents = comp.getAllSubcomponents('vevent');
+
+    vevents.forEach(vevent => {
+      const event = new ICAL.Event(vevent);
+      const startDate = event.startDate.toJSDate().toISOString().split('T')[0];
+      const endDate = event.endDate.toJSDate().toISOString().split('T')[0];
+      
+      // Inject directly into your existing stays database
+      staysList.push({
+        id: 'stay-mock-' + Date.now() + Math.random(),
+        guestId: '',
+        guestName: event.summary,
+        roomName: 'Suite 1 (Deluxe Ocean)',
+        checkin: startDate,
+        checkout: endDate,
+        status: 'confirmed',
+        workflowStatus: { quoteSent: true, invoiceSent: true },
+        customChecklist: []
+      });
+    });
+
+    saveStaysDatabase();
+    renderBookingCalendar();
+    alert('✨ Demo iCal bookings loaded successfully into calendar!');
+  } else {
+    alert('iCal parser library not loaded. Ensure ical.js CDN script is included in <head>.');
+  }
+}
     </script>
 </body>
 
