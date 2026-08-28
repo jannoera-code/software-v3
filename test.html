@@ -911,17 +911,19 @@ Standard 30 days payment terms apply.</textarea>
 
                 <!-- iCal Connections & 2-Way Synchronization Management Section -->
                 <div class="bg-darkbg/40 border border-cream/10 p-4 rounded-xl space-y-4">
-                    <div class="flex justify-between items-center border-b border-cream/10 pb-2">
+                    <div class="flex justify-between items-center border-b border-cream/10 pb-2 flex-wrap gap-2">
                         <div>
                             <span class="text-[9px] font-mono text-accent uppercase tracking-widest font-bold block">2-WAY ICAL (.ICS) SYNCHRONIZATION</span>
                             <h4 class="text-xs font-bold text-cream">Connect OTA Calendar Feeds (Airbnb, Booking.com, VRBO)</h4>
                         </div>
-                        <button 
-                          onclick="loadMockICalData()" 
-                          class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-mono text-[10px]">
-                          🧪 Load Demo iCal Feed
-                        </button>
-                        <button onclick="renderICalSection()" class="text-[9px] font-mono text-cream/60 hover:text-cream bg-darkcard px-2 py-1 rounded border border-cream/10">🔄 Refresh Connections</button>
+                        <div class="flex items-center gap-2">
+                            <button
+                              onclick="loadMockICalData()"
+                              class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded-lg font-mono text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
+                              🧪 Load Demo iCal Feed
+                            </button>
+                            <button onclick="renderICalSection()" class="text-[9px] font-mono text-cream/70 hover:text-cream bg-darkcard px-2.5 py-1.5 rounded-lg border border-cream/10 hover:border-cream/20 transition-all cursor-pointer">🔄 Refresh Connections</button>
+                        </div>
                     </div>
 
                     <div id="ical-rooms-container" class="grid grid-cols-1 md:grid-cols-2 gap-4 font-mono text-xs">
@@ -1488,7 +1490,7 @@ Standard 30 days payment terms apply.</textarea>
             `;
 
             rooms.forEach(room => {
-                const roomStays = staysList.filter(s => s.roomName === room);
+                const roomStays = staysList.filter(s => (s.roomName || s.room) === room);
                 let dayCellsHtml = '';
 
                 for (let day = 1; day <= daysInMonth; day++) {
@@ -1662,6 +1664,18 @@ Standard 30 days payment terms apply.</textarea>
             } catch (e) {}
         }
 
+        function getUserRooms() {
+            const activeUser = getCurrentUser();
+            if (activeUser) {
+                const accounts = getAccountsDB();
+                const account = accounts.find(a => a.username.toLowerCase() === activeUser.toLowerCase());
+                if (account && account.rooms && account.rooms.length > 0) {
+                    return account.rooms;
+                }
+            }
+            return ['Suite 1 (Deluxe Ocean)', 'Suite 2 (Honeymoon)', 'Room 3 (Garden View)', 'Room 4 (Penthouse)', 'Villa Beachfront'];
+        }
+
         function renderICalSection() {
             const container = document.getElementById('ical-rooms-container');
             if (!container) return;
@@ -1711,7 +1725,7 @@ Standard 30 days payment terms apply.</textarea>
         }
 
         function generateRoomICalFeed(roomName) {
-            const roomStays = staysList.filter(s => s.room === roomName);
+            const roomStays = staysList.filter(s => (s.roomName || s.room) === roomName);
             const nowIso = new Date().toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
 
             let icsLines = [
@@ -1834,12 +1848,13 @@ Standard 30 days payment terms apply.</textarea>
                     const checkout = endDate.toISOString().split('T')[0];
 
                     // Check if existing stay for same room & dates already present
-                    const exists = staysList.some(s => s.room === roomName && s.checkin === checkin && s.checkout === checkout);
+                    const exists = staysList.some(s => (s.roomName || s.room) === roomName && s.checkin === checkin && s.checkout === checkout);
                     if (!exists) {
                         staysList.push({
                             id: 'stay-ical-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
                             guestName: summary.length > 30 ? summary.substring(0, 30) + '...' : summary,
                             guestEmail: 'ota@booking.com',
+                            roomName: roomName,
                             room: roomName,
                             checkin: checkin,
                             checkout: checkout,
@@ -2767,200 +2782,6 @@ Standard 30 days payment terms apply.</textarea>
                 el.classList.add('hidden');
                 arrow.textContent = '▶';
             }
-        }
-
-
-        function toggleCustomColors() {
-            const enabled = document.getElementById('use-custom-colors').checked;
-            const container = document.getElementById('custom-color-pickers');
-            if (enabled) {
-                container.classList.remove('opacity-40', 'pointer-events-none');
-            } else {
-                container.classList.add('opacity-40', 'pointer-events-none');
-            }
-            updatePreview();
-        }
-
-        function setWizardStep(step) {
-            wizardCurrentStep = step;
-            document.querySelectorAll('.w-step').forEach(el => el.classList.add('hidden'));
-            document.getElementById(`w-step-${step}`).classList.remove('hidden');
-
-            const percent = (step / wizardTotalSteps) * 100;
-            document.getElementById('wizard-progress-bar').style.width = `${percent}%`;
-            document.getElementById('wizard-step-label').textContent = `Step ${step} of ${wizardTotalSteps}`;
-            document.getElementById('wizard-percentage').textContent = `${Math.round(percent)}% Complete`;
-
-            document.getElementById('btn-w-prev').disabled = step === 1;
-            const btnNext = document.getElementById('btn-w-next');
-            if (step === wizardTotalSteps) {
-                btnNext.textContent = 'FINISH & REVIEW';
-            } else {
-                btnNext.textContent = 'NEXT STEP';
-            }
-
-            if (step === 4) {
-                renderWizardItemsList();
-            }
-        }
-
-        function changeWizardStep(dir) {
-            const targetStep = wizardCurrentStep + dir;
-            if (targetStep >= 1 && targetStep <= wizardTotalSteps) {
-                setWizardStep(targetStep);
-            } else if (targetStep > wizardTotalSteps) {
-                updatePreview();
-                alert('Guided setup finished! Review the live invoice / quote document on the right panel.');
-            }
-        }
-
-        function selectWizardDocType(type) {
-            document.getElementById('doc-type').value = type;
-            toggleDocType();
-
-            const btnInvoice = document.getElementById('w-btn-doc-invoice');
-            const btnQuote = document.getElementById('w-btn-doc-quote');
-
-            if (type === 'invoice') {
-                btnInvoice.className = 'border border-accent bg-accent/20 py-3 rounded-xl font-bold tracking-wider text-center transition-all';
-                btnQuote.className = 'border border-cream/10 hover:border-accent bg-darkbg/50 py-3 rounded-xl font-semibold tracking-wider text-center text-cream/60 hover:text-cream transition-all';
-                document.getElementById('w-lbl-due-date').textContent = 'Payment Due Date';
-            } else {
-                btnInvoice.className = 'border border-cream/10 hover:border-accent bg-darkbg/50 py-3 rounded-xl font-semibold tracking-wider text-center text-cream/60 hover:text-cream transition-all';
-                btnQuote.className = 'border border-accent bg-accent/20 py-3 rounded-xl font-bold tracking-wider text-center transition-all';
-                document.getElementById('w-lbl-due-date').textContent = 'Quote Validity Date';
-            }
-
-            document.getElementById('w-doc-number').value = document.getElementById('doc-number').value;
-            updatePreview('preview-meta');
-        }
-
-        function toggleDocType() {
-            const docType = document.getElementById('doc-type').value;
-            const lblDueDate = document.getElementById('lbl-due-date');
-            if (lblDueDate) {
-                lblDueDate.textContent = docType === 'invoice' ? 'Payment Due Date' : 'Quote Validity Date';
-            }
-        }
-
-        function syncWizardInput(targetControlId, val) {
-            document.getElementById(targetControlId).value = val;
-            
-            let previewTriggerId = null;
-            if (targetControlId === 'client-name' || targetControlId === 'client-email' || targetControlId === 'client-address') {
-                previewTriggerId = 'preview-client-info';
-            } else if (targetControlId === 'doc-number' || targetControlId === 'doc-date-issued' || targetControlId === 'doc-date-due') {
-                previewTriggerId = 'preview-meta';
-            } else if (targetControlId === 'doc-notes') {
-                previewTriggerId = 'preview-totals';
-            }
-
-            updatePreview(previewTriggerId);
-        }
-
-        function renderWizardItemsList() {
-            const container = document.getElementById('w-items-list');
-            container.innerHTML = '';
-
-            lineItems.forEach((item, idx) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'flex flex-col gap-2 bg-darkbg/60 border border-cream/10 p-3 rounded-xl text-xs';
-                itemDiv.innerHTML = `
-                    <div class="flex gap-2">
-                        <span class="font-mono text-accent font-bold">#${idx + 1}</span>
-                        <input type="text" value="${item.description}" placeholder="Description" class="flex-1 bg-darkbg border border-cream/5 rounded px-2 py-1 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'description', this.value); highlightField('preview-items-table')">
-                        <button onclick="removeLineItem(${idx}); renderWizardItemsList();" class="text-red-400 font-mono font-bold px-1">&times;</button>
-                    </div>
-                    <div class="grid grid-cols-2 gap-2 pl-5">
-                        <div class="flex items-center gap-1.5">
-                            <span class="text-[9px] text-cream/40 font-mono uppercase">Qty:</span>
-                            <input type="number" value="${item.quantity}" placeholder="Qty" min="1" class="w-14 bg-darkbg border border-cream/5 rounded px-1.5 py-0.5 text-center text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'quantity', this.value); highlightField('preview-items-table')">
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <span class="text-[9px] text-cream/40 font-mono uppercase">Price:</span>
-                            <input type="number" value="${item.unitPrice}" placeholder="Price" min="0" class="w-20 bg-darkbg border border-cream/5 rounded px-2 py-0.5 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'unitPrice', this.value); highlightField('preview-items-table')">
-                        </div>
-                    </div>
-                `;
-                container.appendChild(itemDiv);
-            });
-        }
-
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.getElementById(tabId).classList.remove('hidden');
-
-            const tabs = ['profile', 'details', 'style'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`btn-tab-${t}`);
-                if (`tab-${t}` === tabId) {
-                    btn.className = 'flex-1 py-2 text-center rounded-lg bg-accent text-cream font-bold tracking-wider transition-all';
-                } else {
-                    btn.className = 'flex-1 py-2 text-center rounded-lg bg-darkbg/40 text-cream/60 hover:text-cream tracking-wider transition-all';
-                }
-            });
-        }
-
-        function handleLogoUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                docLogoBase64 = e.target.result;
-                updatePreview('preview-logo');
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function clearLogo() {
-            docLogoBase64 = '';
-            document.getElementById('logo-upload').value = '';
-            updatePreview('preview-logo');
-        }
-
-        function renderLineItemEditors() {
-            const container = document.getElementById('items-container');
-            container.innerHTML = '';
-
-            lineItems.forEach((item, idx) => {
-                const itemDiv = document.createElement('div');
-                itemDiv.className = 'flex items-center gap-2 bg-darkbg/40 border border-cream/10 p-2 rounded-lg text-xs';
-                itemDiv.innerHTML = `
-                    <input type="text" value="${item.description}" placeholder="Item Description" class="flex-1 min-w-0 bg-darkbg border border-cream/5 rounded px-2 py-1 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'description', this.value)">
-                    <input type="number" value="${item.quantity}" placeholder="Qty" min="1" class="w-12 bg-darkbg border border-cream/5 rounded px-1.5 py-1 text-center text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'quantity', this.value)">
-                    <input type="number" value="${item.unitPrice}" placeholder="Price" min="0" class="w-20 bg-darkbg border border-cream/5 rounded px-2 py-1 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'unitPrice', this.value)">
-                    <button onclick="removeLineItem(${idx})" class="text-red-400 hover:text-red-300 font-mono font-bold px-1">&times;</button>
-                `;
-                container.appendChild(itemDiv);
-            });
-        }
-
-        function addLineItem() {
-            lineItems.push({ description: 'Deluxe Service Package', quantity: 1, unitPrice: 1500 });
-            renderLineItemEditors();
-            updatePreview('preview-items-table');
-        }
-
-        function removeLineItem(idx) {
-            if (lineItems.length <= 1) {
-                alert('Invoice must have at least 1 line item.');
-                return;
-            }
-            lineItems.splice(idx, 1);
-            renderLineItemEditors();
-            updatePreview('preview-items-table');
-        }
-
-        function updateLineItem(idx, key, value) {
-            if (key === 'quantity') {
-                lineItems[idx][key] = parseInt(value) || 0;
-            } else if (key === 'unitPrice') {
-                lineItems[idx][key] = parseFloat(value) || 0;
-            } else {
-                lineItems[idx][key] = value;
-            }
-            updatePreview('preview-items-table');
         }
 
         function setThemePreset(themeId) {
@@ -4094,59 +3915,89 @@ Standard 30 days payment terms apply.</textarea>
             checkAuthAndOnboarding();
         });
         function loadMockICalData() {
-  const mockICSData = `BEGIN:VCALENDAR
+            const rooms = getUserRooms();
+            const targetRoom1 = rooms[0] || 'Suite 1 (Deluxe Ocean)';
+            const targetRoom2 = rooms[1] || rooms[0] || 'Suite 2 (Honeymoon)';
+
+            const baseYear = currentCalendarDate.getFullYear();
+            const baseMonth = String(currentCalendarDate.getMonth() + 1).padStart(2, '0');
+
+            const date1Start = `${baseYear}${baseMonth}05`;
+            const date1End = `${baseYear}${baseMonth}08`;
+            const date2Start = `${baseYear}${baseMonth}12`;
+            const date2End = `${baseYear}${baseMonth}15`;
+
+            const mockICSData = `BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Stay In George//Hospitality CRM//EN
+PRODID:-//By Janno Suite Engine//Hospitality CRM//EN
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
-SUMMARY:NightsBridge - John Doe
-DTSTART;VALUE=DATE:20260905
-DTEND;VALUE=DATE:20260908
-DESCRIPTION:Mock OTA Booking
+SUMMARY:Booking.com - John Doe
+DTSTART;VALUE=DATE:${date1Start}
+DTEND;VALUE=DATE:${date1End}
+DESCRIPTION:Demo OTA Booking via iCal
 STATUS:CONFIRMED
 END:VEVENT
 BEGIN:VEVENT
 SUMMARY:Airbnb - Sarah Smith
-DTSTART;VALUE=DATE:20260912
-DTEND;VALUE=DATE:20260915
-DESCRIPTION:Mock OTA Booking
+DTSTART;VALUE=DATE:${date2Start}
+DTEND;VALUE=DATE:${date2End}
+DESCRIPTION:Demo OTA Booking via iCal
 STATUS:CONFIRMED
 END:VEVENT
 END:VCALENDAR`;
 
-  // Parse the mock string using ICAL library if available
-  if (typeof ICAL !== 'undefined') {
-    const jcalData = ICAL.parse(mockICSData);
-    const comp = new ICAL.Component(jcalData);
-    const vevents = comp.getAllSubcomponents('vevent');
+            if (typeof ICAL !== 'undefined') {
+                try {
+                    const jcalData = ICAL.parse(mockICSData);
+                    const comp = new ICAL.Component(jcalData);
+                    const vevents = comp.getAllSubcomponents('vevent');
 
-    vevents.forEach(vevent => {
-      const event = new ICAL.Event(vevent);
-      const startDate = event.startDate.toJSDate().toISOString().split('T')[0];
-      const endDate = event.endDate.toJSDate().toISOString().split('T')[0];
-      
-      // Inject directly into your existing stays database
-      staysList.push({
-        id: 'stay-mock-' + Date.now() + Math.random(),
-        guestId: '',
-        guestName: event.summary,
-        roomName: 'Suite 1 (Deluxe Ocean)',
-        checkin: startDate,
-        checkout: endDate,
-        status: 'confirmed',
-        workflowStatus: { quoteSent: true, invoiceSent: true },
-        customChecklist: []
-      });
-    });
+                    let addedCount = 0;
+                    vevents.forEach((vevent, index) => {
+                        const event = new ICAL.Event(vevent);
+                        const startDate = event.startDate.toJSDate().toISOString().split('T')[0];
+                        const endDate = event.endDate.toJSDate().toISOString().split('T')[0];
+                        const roomName = index % 2 === 0 ? targetRoom1 : targetRoom2;
 
-    saveStaysDatabase();
-    renderBookingCalendar();
-    alert('✨ Demo iCal bookings loaded successfully into calendar!');
-  } else {
-    alert('iCal parser library not loaded. Ensure ical.js CDN script is included in <head>.');
-  }
-}
+                        const exists = staysList.some(s => (s.roomName || s.room) === roomName && s.checkin === startDate && s.checkout === endDate);
+                        if (!exists) {
+                            staysList.push({
+                                id: 'stay-mock-' + Date.now() + '-' + index,
+                                guestId: 'mock-guest-' + index,
+                                guestName: event.summary,
+                                guestEmail: 'demo@ota.com',
+                                roomName: roomName,
+                                room: roomName,
+                                checkin: startDate,
+                                checkout: endDate,
+                                status: 'confirmed',
+                                workflowStatus: { quoteSent: true, invoiceSent: true, pre: true },
+                                customChecklist: [
+                                    { id: 'mc-1', text: 'Confirm Airport Shuttle', done: false }
+                                ]
+                            });
+                            addedCount++;
+                        }
+                    });
+
+                    saveStaysDatabase();
+                    renderBookingCalendar();
+
+                    if (addedCount > 0) {
+                        triggerCelebrationBurst(window.innerWidth / 2, window.innerHeight / 2, `✨ Loaded ${addedCount} Demo iCal Booking(s) into Calendar!`);
+                    } else {
+                        alert('Demo iCal bookings are already loaded in the calendar for this month.');
+                    }
+                } catch (e) {
+                    console.error('Demo iCal load error:', e);
+                    alert('Error parsing demo iCal feed: ' + e.message);
+                }
+            } else {
+                alert('iCal parser library not loaded. Ensure ical.js CDN script is included in <head>.');
+            }
+        }
     </script>
 </body>
 
