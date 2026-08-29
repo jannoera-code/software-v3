@@ -254,7 +254,7 @@
                     <select id="template-selector" class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-2.5 py-1.5 text-cream text-xs focus:outline-none focus:border-accent font-semibold" onchange="loadTemplate(this.value)">
                         <option value="">-- Select Saved Template --</option>
                     </select>
-                    <button onclick="deleteSelectedTemplate()" title="Delete Template" class="text-xs text-red-400 hover:text-red-300 border border-red-500/20 px-2 py-1 rounded bg-darkbg">🗑</button>
+                    <button onclick="deleteSelectedTemplate()" title="Delete Template" aria-label="Delete Template" class="text-xs text-red-400 hover:text-red-300 border border-red-500/20 px-2 py-1 rounded bg-darkbg">🗑</button>
                 </div>
             </div>
 
@@ -433,7 +433,7 @@ Standard 30 days payment terms apply.</textarea>
                                 <select id="palette-selector" class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-2 py-1.5 text-cream font-mono text-[10px] focus:outline-none focus:border-accent" onchange="loadCustomPalette(this.value)">
                                     <option value="">-- Load Saved / Preset Color Palette --</option>
                                 </select>
-                                <button onclick="deleteSelectedPalette()" title="Delete Custom Palette" class="text-[10px] text-red-400 hover:text-red-300 border border-cream/10 px-2 py-1 rounded bg-darkbg">🗑</button>
+                                <button onclick="deleteSelectedPalette()" title="Delete Custom Palette" aria-label="Delete Custom Palette" class="text-[10px] text-red-400 hover:text-red-300 border border-cream/10 px-2 py-1 rounded bg-darkbg">🗑</button>
                             </div>
 
                             <div id="custom-color-pickers" class="grid grid-cols-2 gap-3 text-[10px] opacity-40 pointer-events-none transition-opacity">
