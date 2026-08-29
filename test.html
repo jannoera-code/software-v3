@@ -20,9 +20,9 @@
             theme: {
                 extend: {
                     colors: {
-                        darkbg: '#0E161B',
-                        darkcard: '#16222A',
-                        cream: '#FFFDD0',
+                        darkbg: '#FFFDD0',
+                        darkcard: '#FFFDD0',
+                        cream: '#11161d',
                         accent: {
                             DEFAULT: '#AA4628',
                             hover: '#923A1F'
@@ -141,7 +141,7 @@
     </style>
 </head>
 
-<body class="bg-darkbg text-cream font-sans min-h-screen antialiased flex flex-col justify-between selection:bg-accent selection:text-cream relative overflow-x-hidden pl-0 md:pl-16 pb-20 md:pb-0">
+<body class="bg-[#FFFDD0] text-[#11161d] font-sans min-h-screen antialiased flex flex-col justify-between selection:bg-accent selection:text-[#FFFDD0] relative overflow-x-hidden pl-0 md:pl-16 pb-20 md:pb-0">
 
     <!-- Ambient background glows -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden no-print">
@@ -150,29 +150,24 @@
     </div>
 
     <!-- Header -->
-    <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 border-b border-cream/10 flex flex-col md:flex-row justify-between items-center gap-4 no-print relative z-20">
+    <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 border-b border-[#11161d]/10 flex flex-col md:flex-row justify-between items-center gap-4 no-print relative z-20">
         <div class="flex items-center gap-3 flex-wrap justify-center md:justify-start">
-            <span id="header-company-name-container" class="font-sans font-bold text-xl sm:text-2xl text-cream cursor-pointer" onclick="setUIMode('calendar')">By Janno<span class="text-accent">.</span></span>
-            <span class="h-4 w-px bg-cream/20"></span>
-            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-cream/40">Hospitality Booking & Pricing Suite</span>
+            <span id="header-company-name-container" class="font-sans font-bold text-xl sm:text-2xl text-[#11161d] cursor-pointer" onclick="setUIMode('calendar')">By Janno<span class="text-accent">.</span></span>
+            <span class="h-4 w-px bg-[#11161d]/20"></span>
+            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#11161d]/60">Hospitality Booking & Pricing Suite</span>
         </div>
         <div class="flex items-center gap-2 sm:gap-4 flex-wrap justify-center md:justify-end">
-            <!-- Mode Toggle: Personalized Mode -->
-            <div class="flex items-center gap-2 border border-cream/10 bg-darkcard/50 rounded-lg p-1 text-xs font-mono">
-                <button id="toggle-personal-mode" onclick="togglePersonalMode()" class="px-2 py-1 rounded hover:bg-cream/10 transition-colors text-cream/30 cursor-not-allowed min-h-[44px] sm:min-h-0 flex items-center" disabled title="Upload a logo first to enable Personalized mode">🎨 Personalized Mode</button>
-            </div>
-            
-            <button onclick="launchSetupTutorial()" class="text-xs font-mono text-accent hover:text-cream flex items-center gap-1.5 bg-accent/20 hover:bg-accent/40 px-3 py-1.5 rounded-lg border border-accent/40 font-bold transition-all min-h-[44px] sm:min-h-0">
+            <button onclick="launchSetupTutorial()" class="text-xs font-sans text-accent hover:text-[#11161d] flex items-center gap-1.5 bg-accent/20 hover:bg-accent/40 px-3 py-1.5 rounded-lg border border-accent/40 font-bold transition-all min-h-[44px] sm:min-h-0">
                 🚀 Launch Setup & Tutorial
             </button>
-            <button onclick="setUIMode('calendar')" class="text-xs font-mono text-cream/60 hover:text-cream flex items-center gap-1.5 bg-darkcard px-3 py-1.5 rounded-lg border border-cream/10 min-h-[44px] sm:min-h-0">
+            <button onclick="setUIMode('calendar')" class="text-xs font-sans text-[#11161d]/80 hover:text-[#11161d] flex items-center gap-1.5 bg-[#FFFDD0] px-3 py-1.5 rounded-lg border border-[#11161d]/15 min-h-[44px] sm:min-h-0 font-semibold">
                 📅 Booking Calendar (Home)
             </button>
-            <button onclick="handleSignOut()" class="text-xs font-mono text-red-400 hover:text-red-300 flex items-center gap-1.5 bg-darkcard px-3 py-1.5 rounded-lg border border-red-500/20 transition-colors min-h-[44px] sm:min-h-0">
+            <button onclick="handleSignOut()" class="text-xs font-sans text-red-600 hover:text-red-700 flex items-center gap-1.5 bg-[#FFFDD0] px-3 py-1.5 rounded-lg border border-red-500/30 transition-colors min-h-[44px] sm:min-h-0 font-semibold">
                 🚪 Sign Out
             </button>
             <span id="header-logo-studio-container" class="flex items-center">
-                <a href="index.html" class="text-xs font-mono tracking-widest uppercase hover:text-accent transition-colors">Back to Studio</a>
+                <a href="index.html" class="text-xs font-sans font-bold tracking-widest uppercase text-[#11161d]/70 hover:text-accent transition-colors">BACK TO STUDIO</a>
             </span>
         </div>
     </header>
@@ -1001,13 +996,13 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Visual Landscape Grid Calendar Overview (Month-by-Month) -->
                 <div class="bg-darkbg/40 border border-cream/10 p-4 rounded-xl space-y-3">
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-2 border-b border-cream/10 pb-3">
-                        <div class="flex items-center gap-2 sm:gap-3 font-mono flex-wrap">
-                            <button onclick="changeCalendarMonth(-1)" class="bg-darkbg hover:bg-accent/20 border border-cream/15 text-cream px-2.5 py-1 rounded text-xs min-h-[44px] sm:min-h-0 flex items-center">◀ Prev</button>
-                            <span id="calendar-month-heading" class="text-xs sm:text-sm font-bold text-cream uppercase tracking-wider">September 2026</span>
-                            <button onclick="changeCalendarMonth(1)" class="bg-darkbg hover:bg-accent/20 border border-cream/15 text-cream px-2.5 py-1 rounded text-xs min-h-[44px] sm:min-h-0 flex items-center">Next ▶</button>
-                            <button onclick="resetCalendarToCurrentMonth()" class="bg-accent/20 border border-accent/40 text-cream px-2 py-1 rounded text-[10px] min-h-[44px] sm:min-h-0 flex items-center">Today</button>
+                        <div class="flex items-center gap-2 sm:gap-3 font-sans flex-wrap">
+                            <button onclick="changeCalendarMonth(-1)" class="bg-darkbg hover:bg-accent/20 border border-cream/15 text-cream px-2.5 py-1 rounded text-xs min-h-[44px] sm:min-h-0 flex items-center font-bold">◀ Prev Month</button>
+                            <span id="calendar-month-heading" class="text-xs sm:text-sm font-bold text-cream uppercase tracking-wider font-sans">September 2026</span>
+                            <button onclick="changeCalendarMonth(1)" class="bg-darkbg hover:bg-accent/20 border border-cream/15 text-cream px-2.5 py-1 rounded text-xs min-h-[44px] sm:min-h-0 flex items-center font-bold">Next Month ▶</button>
+                            <button onclick="resetCalendarToCurrentMonth()" class="bg-accent/20 border border-accent/40 text-cream px-2.5 py-1 rounded text-xs font-bold min-h-[44px] sm:min-h-0 flex items-center">Today</button>
                         </div>
-                        <div class="flex items-center gap-2 font-mono text-[10px] w-full sm:w-auto justify-between sm:justify-end flex-wrap">
+                        <div class="flex items-center gap-2 font-sans text-[10px] w-full sm:w-auto justify-between sm:justify-end flex-wrap">
                             <div class="flex items-center gap-1 bg-darkbg border border-cream/10 rounded-lg p-1">
                                 <button onclick="setCalendarViewMode('grid')" id="btn-cal-mode-grid" class="px-2.5 py-1 rounded font-bold bg-accent text-cream transition-all min-h-[36px] sm:min-h-0 flex items-center gap-1">
                                     <span>📊</span> <span>Grid</span>
@@ -1790,7 +1785,7 @@ Standard 30 days payment terms apply.</textarea>
                 const d = new Date(year, month, day);
                 const weekdayLetter = d.toLocaleDateString('en-US', { weekday: 'narrow' });
                 headerDaysHtml += `
-                    <div class="text-center font-mono text-[8px] border-l border-cream/5 py-1 ${d.getDay() === 0 || d.getDay() === 6 ? 'bg-cream/5 text-accent font-bold' : 'text-cream/40'}">
+                    <div class="text-center font-sans text-[10px] border-l border-cream/10 py-1 ${d.getDay() === 0 || d.getDay() === 6 ? 'bg-accent/10 text-accent font-bold' : 'text-[#11161d]/60 font-semibold'}">
                         <div>${weekdayLetter}</div>
                         <div>${day}</div>
                     </div>
@@ -1801,7 +1796,7 @@ Standard 30 days payment terms apply.</textarea>
 
             let gridRowsHtml = `
                 <div class="grid border-b border-cream/10 bg-darkbg/80" style="${gridTemplate}">
-                    <div class="p-2 font-mono text-[9px] uppercase font-bold text-accent sticky left-0 bg-darkcard z-10 border-r border-cream/10">Room / Suite</div>
+                    <div class="p-2 font-sans text-xs uppercase font-bold text-accent sticky left-0 bg-darkcard z-10 border-r border-cream/10">Room / Suite</div>
                     ${headerDaysHtml}
                 </div>
             `;
@@ -1823,8 +1818,8 @@ Standard 30 days payment terms apply.</textarea>
                     if (activeStay) {
                         const isStart = activeStay.checkin === dateFormatted;
                         dayCellsHtml += `
-                            <div class="bg-emerald-600/40 border-l border-emerald-500/40 py-1.5 px-0.5 relative text-[8px] font-mono text-emerald-200 truncate cursor-pointer hover:bg-emerald-600/60 transition-colors" title="${activeStay.guestName} (${activeStay.checkin} to ${activeStay.checkout})">
-                                ${isStart ? `<span class="font-bold text-cream">${activeStay.guestName.split(' ')[0]}</span>` : '•'}
+                            <div class="bg-emerald-600/40 border-l border-emerald-500/40 py-1.5 px-0.5 relative text-[9px] font-sans text-emerald-900 truncate cursor-pointer hover:bg-emerald-600/60 transition-colors font-semibold" title="${activeStay.guestName} (${activeStay.checkin} to ${activeStay.checkout})">
+                                ${isStart ? `<span class="font-bold text-[#11161d]">${activeStay.guestName.split(' ')[0]}</span>` : '•'}
                             </div>
                         `;
                     } else {
@@ -1834,7 +1829,7 @@ Standard 30 days payment terms apply.</textarea>
 
                 gridRowsHtml += `
                     <div class="grid border-b border-cream/5 hover:bg-darkbg/60 transition-colors" style="${gridTemplate}">
-                        <div class="p-2 font-mono text-[9px] text-cream/80 font-bold truncate sticky left-0 bg-darkcard z-10 border-r border-cream/10">${room}</div>
+                        <div class="p-2 font-sans text-xs text-[#11161d] font-bold truncate sticky left-0 bg-darkcard z-10 border-r border-cream/10">${room}</div>
                         ${dayCellsHtml}
                     </div>
                 `;
@@ -3870,12 +3865,20 @@ Standard 30 days payment terms apply.</textarea>
         let tourStepCurrent = 1;
         const tourStepsTotal = 6;
 
+        function getTourTargetId(key) {
+            const isMobile = window.innerWidth < 768;
+            if (isMobile) {
+                return `mb-btn-${key}`;
+            }
+            return `m-btn-${key}`;
+        }
+
         const tourStepsConfig = [
             {
                 step: 1,
                 title: "Company Profile / Settings",
                 text: "Enter your Property Name and upload your logo to customize your brand identity across invoices, quotes, and guest notices.",
-                targetId: "tab-profile",
+                getTargetId: () => "tab-profile",
                 setupView: () => {
                     setUIMode('designer');
                     switchTab('tab-profile');
@@ -3885,36 +3888,46 @@ Standard 30 days payment terms apply.</textarea>
                 step: 2,
                 title: "Invoices & Quotations",
                 text: "Click here to generate custom invoices or use the Quick Wizard for rapid booking quotes and billing.",
-                targetId: "m-btn-designer",
-                setupView: () => {}
+                getTargetId: () => getTourTargetId('designer'),
+                setupView: () => {
+                    setUIMode('designer');
+                }
             },
             {
                 step: 3,
                 title: "Guest CRM Directory",
                 text: "Manage guest profiles, stay records, email contacts, and individual stay notes in your property CRM.",
-                targetId: "m-btn-guests",
-                setupView: () => {}
+                getTargetId: () => getTourTargetId('guests'),
+                setupView: () => {
+                    setUIMode('guests');
+                }
             },
             {
                 step: 4,
                 title: "WhatsApp Suite",
                 text: "Automate pre-arrival instructions, stay check-in messages, and post-checkout review links via WhatsApp.",
-                targetId: "m-btn-whatsapp",
-                setupView: () => {}
+                getTargetId: () => getTourTargetId('whatsapp'),
+                setupView: () => {
+                    setUIMode('whatsapp');
+                }
             },
             {
                 step: 5,
                 title: "Booking Calendar",
                 text: "Create manual stay bookings and configure 2-way iCal synchronization with external channels like Airbnb and Booking.com.",
-                targetId: "m-btn-calendar",
-                setupView: () => {}
+                getTargetId: () => getTourTargetId('calendar'),
+                setupView: () => {
+                    setUIMode('calendar');
+                }
             },
             {
                 step: 6,
                 title: "Direct Booking Rates",
                 text: "Set base nightly rates, weekend & seasonal surcharges, minimum stay rules, and calculate target channel listing prices.",
-                targetId: "m-btn-pricing",
-                setupView: () => {}
+                getTargetId: () => getTourTargetId('pricing'),
+                setupView: () => {
+                    setUIMode('pricing');
+                }
             }
         ];
 
@@ -3978,7 +3991,8 @@ Standard 30 days payment terms apply.</textarea>
             }
 
             setTimeout(() => {
-                const targetEl = document.getElementById(config.targetId);
+                const targetId = typeof config.getTargetId === 'function' ? config.getTargetId() : config.targetId;
+                const targetEl = document.getElementById(targetId);
                 const stepInd = document.getElementById('spotlight-step-indicator');
                 const titleEl = document.getElementById('spotlight-step-title');
                 const textEl = document.getElementById('spotlight-step-text');
@@ -4011,7 +4025,8 @@ Standard 30 days payment terms apply.</textarea>
             const config = tourStepsConfig.find(s => s.step === tourStepCurrent);
             if (!config) return;
 
-            const targetEl = document.getElementById(config.targetId);
+            const targetId = typeof config.getTargetId === 'function' ? config.getTargetId() : config.targetId;
+            const targetEl = document.getElementById(targetId);
             const cutout = document.getElementById('spotlight-cutout');
             const glowBox = document.getElementById('spotlight-glow-box');
             const tooltipCard = document.getElementById('spotlight-tooltip-card');
