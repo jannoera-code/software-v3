@@ -179,13 +179,28 @@
         </div>
         <div class="flex items-center gap-2 sm:gap-4 flex-wrap justify-center md:justify-end">
             <button onclick="launchSetupTutorial()" class="text-xs font-sans text-accent hover:text-[#11161d] flex items-center gap-1.5 bg-accent/20 hover:bg-accent/40 px-3 py-1.5 rounded-lg border border-accent/40 font-bold transition-all min-h-[44px] sm:min-h-0">
-                🚀 Launch Setup & Tutorial
+                <svg class="w-4 h-4 stroke-current text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg>
+                Launch Setup & Tutorial
             </button>
             <button onclick="setUIMode('calendar')" class="text-xs font-sans text-[#11161d]/80 hover:text-[#11161d] flex items-center gap-1.5 bg-[#FFFDD0] px-3 py-1.5 rounded-lg border border-[#11161d]/15 min-h-[44px] sm:min-h-0 font-semibold">
-                📅 Booking Calendar (Home)
+                <svg class="w-4 h-4 stroke-current text-[#11161d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                    <line x1="16" y1="2" x2="16" y2="6"></line>
+                    <line x1="8" y1="2" x2="8" y2="6"></line>
+                    <line x1="3" y1="10" x2="21" y2="10"></line>
+                </svg>
+                Booking Calendar (Home)
             </button>
-            <button onclick="handleSignOut()" class="text-xs font-sans text-red-600 hover:text-red-700 flex items-center gap-1.5 bg-[#FFFDD0] px-3 py-1.5 rounded-lg border border-red-500/30 transition-colors min-h-[44px] sm:min-h-0 font-semibold">
-                🚪 Sign Out
+            <button onclick="handleSignOut()" class="text-xs font-sans text-[#AA4628] hover:text-[#11161d] flex items-center gap-1.5 bg-[#FFFDD0] px-3 py-1.5 rounded-lg border border-[#AA4628]/30 transition-colors min-h-[44px] sm:min-h-0 font-semibold">
+                <svg class="w-4 h-4 stroke-current text-[#AA4628]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                    <polyline points="16 17 21 12 16 7"></polyline>
+                    <line x1="21" y1="12" x2="9" y2="12"></line>
+                </svg>
+                Sign Out
             </button>
             <span id="header-logo-studio-container" class="flex items-center">
                 <a href="index.html" class="text-xs font-sans font-bold tracking-widest uppercase text-[#11161d]/70 hover:text-accent transition-colors">BACK TO STUDIO</a>
@@ -196,27 +211,46 @@
     <!-- MOBILE FIXED BOTTOM NAVIGATION BAR -->
     <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-darkcard border-t border-cream/10 z-50 flex justify-around items-center py-2 px-3 no-print shadow-2xl font-sans text-[10px]">
         <button onclick="setUIMode('calendar')" id="mb-btn-calendar" class="flex flex-col items-center gap-1 text-accent font-bold min-h-[44px] justify-center px-1">
-            <span class="text-base">📅</span>
+            <svg class="w-5 h-5 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="16" y1="2" x2="16" y2="6"></line>
+                <line x1="8" y1="2" x2="8" y2="6"></line>
+                <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
             <span>Calendar</span>
         </button>
         <button onclick="setUIMode('designer')" id="mb-btn-designer" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
-            <span class="text-base">📄</span>
+            <svg class="w-5 h-5 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+            </svg>
             <span>Invoices</span>
         </button>
         <button onclick="setUIMode('guests')" id="mb-btn-guests" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
-            <span class="text-base">👥</span>
-            <span>Guests</span>
+            <svg class="w-5 h-5 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span>Booking Demo</span>
         </button>
         <button onclick="setUIMode('whatsapp')" id="mb-btn-whatsapp" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
-            <span class="text-base">💬</span>
+            <svg class="w-5 h-5 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+            </svg>
             <span>WhatsApp</span>
         </button>
         <button onclick="setUIMode('pricing')" id="mb-btn-pricing" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
-            <span class="text-base">🌐</span>
+            <svg class="w-5 h-5 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
             <span>Rates</span>
         </button>
         <button onclick="launchSetupTutorial()" id="mb-btn-setup" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
-            <span class="text-base">⚙️</span>
+            <svg class="w-5 h-5 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
             <span>Setup</span>
         </button>
     </nav>
@@ -264,24 +298,39 @@
                         <span id="invoice-quote-arrow" class="text-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-300">▶</span>
                     </button>
                     <div id="invoice-quote-submenu" class="hidden pl-11 mt-1 space-y-1 font-sans text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <button onclick="setUIMode('designer')" id="m-btn-designer" class="w-full text-left px-3 py-2 rounded-lg text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-2 transition-all">
-                            🎨 Designer Studio
+                        <button onclick="setUIMode('templates')" id="m-btn-templates" class="w-full text-left px-3 py-2 rounded-lg text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-2 transition-all">
+                            <svg class="w-4 h-4 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                <polyline points="17 21 17 13 7 13 7 21"></polyline>
+                                <polyline points="7 3 7 8 15 8"></polyline>
+                            </svg>
+                            Saved Templates
                         </button>
-                        <button onclick="setUIMode('wizard')" id="m-btn-wizard" class="w-full text-left px-3 py-2 rounded-lg text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-2 transition-all">
-                            ✨ Quick Wizard
+                        <button onclick="setUIMode('designer')" id="m-btn-designer" class="w-full text-left px-3 py-2 rounded-lg text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-2 transition-all">
+                            <svg class="w-4 h-4 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M12 8v8M8 12h8"></path>
+                            </svg>
+                            Design Studio
+                        </button>
+                        <button onclick="setUIMode('accounting')" id="m-btn-accounting" class="w-full text-left px-3 py-2 rounded-lg text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-2 transition-all">
+                            <svg class="w-4 h-4 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="16" rx="2"></rect>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                <line x1="9" y1="20" x2="9" y2="10"></line>
+                            </svg>
+                            Accounting Studio
                         </button>
                     </div>
                 </div>
 
-                <!-- 3. Guest CRM -->
-                <button onclick="setUIMode('guests')" id="m-btn-guests" title="Guest CRM Directory" class="w-full text-left px-3 py-3 rounded-xl text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-3 transition-all">
+                <!-- 3. Booking Demo -->
+                <button onclick="setUIMode('guests')" id="m-btn-guests" title="Booking Demo Portal" class="w-full text-left px-3 py-3 rounded-xl text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-3 transition-all">
                     <svg class="w-5 h-5 flex-shrink-0 stroke-current text-cream/70 group-hover:text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="9" cy="7" r="4"></circle>
-                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
-                    <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold">Guest CRM</span>
+                    <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold">Booking Demo</span>
                 </button>
 
                 <!-- 4. WhatsApp Suite -->
@@ -550,8 +599,11 @@ Standard 30 days payment terms apply.</textarea>
                                 </div>
                             </div>
 
-                            <button onclick="saveCurrentPalette()" class="w-full bg-accent/20 border border-accent/40 hover:bg-accent/40 text-cream font-sans text-[10px] py-2 rounded-lg transition-colors font-bold uppercase">
-                                🎨 Save Custom Hex Palette
+                            <button onclick="saveCurrentPalette()" class="w-full bg-accent/20 border border-accent/40 hover:bg-accent/40 text-cream font-sans text-[10px] py-2 rounded-lg transition-colors font-bold uppercase flex items-center justify-center gap-1.5">
+                                <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+                                </svg>
+                                Save Custom Hex Palette
                             </button>
                         </div>
                     </div>
@@ -715,51 +767,73 @@ Standard 30 days payment terms apply.</textarea>
                 </div>
             </div>
 
-            <!-- ================= GUEST DIRECTORY PANEL ================= -->
+            <!-- ================= GUEST BOOKING DEMO PORTAL PANEL ================= -->
             <div id="guests-panel" class="space-y-5 hidden text-xs">
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                     <div>
-                        <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">CRM Database</span>
-                        <h3 class="text-sm font-bold text-cream mt-0.5">Guest & Client Profiles</h3>
+                        <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">DIRECT GUEST PORTAL DEMO</span>
+                        <h3 class="text-sm font-bold text-cream mt-0.5 flex items-center gap-2">
+                            <svg class="w-4 h-4 stroke-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                                <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                            </svg>
+                            Booking Demo Portal
+                        </h3>
                     </div>
-                    <button onclick="setUIMode('designer')" class="text-[10px] font-sans text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Back</button>
+                    <button onclick="setUIMode('calendar')" class="text-[10px] font-sans text-cream/60 hover:text-cream border border-cream/15 px-2.5 py-1 rounded-lg hover:bg-darkbg transition-colors">Back to Calendar</button>
                 </div>
 
-                <div class="bg-darkbg/40 border border-cream/10 p-4 rounded-xl space-y-3">
-                    <div class="flex justify-between items-center border-b border-cream/5 pb-1">
-                        <span id="g-form-title" class="font-sans text-[9px] text-accent uppercase font-bold block">Create Guest Card</span>
-                        <button id="g-btn-cancel-edit" onclick="cancelGuestEdit()" class="text-[9px] text-cream/40 hover:text-cream font-sans hidden">Cancel Edit</button>
+                <div class="bg-darkbg/60 border border-cream/15 p-5 rounded-2xl space-y-4 shadow-xl">
+                    <div class="border-b border-cream/10 pb-2">
+                        <h4 class="font-sans text-xs font-bold text-cream">Direct Reservation Request Form</h4>
+                        <p class="text-[10px] font-sans text-cream/50">Simulate a direct booking request from a guest perspective.</p>
                     </div>
-                    <input type="hidden" id="g-edit-id" value="">
-                    
-                    <div class="space-y-2">
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="g-input-name" placeholder="Guest Full Name" class="bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
-                            <input type="email" id="g-input-email" placeholder="email@address.com" class="bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="g-input-phone" placeholder="Phone Number (e.g. +27825551212)" class="bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
-                            <input type="text" id="g-input-room" placeholder="Room / Suite (e.g. Suite 4)" class="bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
-                        </div>
-                        <div class="grid grid-cols-2 gap-2 font-sans text-[10px]">
-                            <div>
-                                <label class="block text-cream/40 mb-0.5 text-[8px]">CHECK-IN</label>
-                                <input type="date" id="g-input-checkin" class="bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream w-full">
-                            </div>
-                            <div>
-                                <label class="block text-cream/40 mb-0.5 text-[8px]">CHECK-OUT</label>
-                                <input type="date" id="g-input-checkout" class="bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream w-full">
-                            </div>
-                        </div>
-                        <input type="text" id="g-input-address" placeholder="Physical Address details" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
-                        <button id="g-btn-submit" onclick="saveGuestProfileFromForm()" class="w-full bg-accent/25 border border-accent/40 text-cream font-sans font-bold tracking-wider py-2 rounded hover:bg-accent/40 transition-all uppercase text-[10px]">+ Save Profile</button>
-                    </div>
-                </div>
 
-                <div class="space-y-2">
-                    <span class="font-sans text-[9px] text-cream/40 uppercase tracking-widest block">Saved Directory Profiles</span>
-                    <div id="guest-directory-list" class="space-y-2 max-h-[35vh] overflow-y-auto custom-scroll pr-1">
-                        <!-- Loaded from localStorage -->
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-cream/70 font-sans text-[10px] uppercase font-bold mb-1">Room / Suite Selector</label>
+                            <select id="demo-booking-room" class="w-full bg-darkbg border border-cream/20 rounded-xl px-3 py-2 text-cream font-sans text-xs focus:outline-none focus:border-accent font-semibold">
+                                <option value="Suite 1 (Deluxe Ocean)">Suite 1 (Deluxe Ocean)</option>
+                                <option value="Suite 2 (Honeymoon)" selected>Suite 2 (Honeymoon)</option>
+                                <option value="Room 3 (Garden View)">Room 3 (Garden View)</option>
+                                <option value="Room 4 (Penthouse)">Room 4 (Penthouse)</option>
+                                <option value="Villa Beachfront">Villa Beachfront</option>
+                            </select>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-3 font-sans text-xs">
+                            <div>
+                                <label class="block text-cream/70 mb-1 text-[10px] uppercase font-bold">Check-in Date</label>
+                                <input type="date" id="demo-booking-checkin" value="2026-09-05" class="w-full bg-darkbg border border-cream/20 rounded-xl px-3 py-2 text-cream focus:outline-none focus:border-accent font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-cream/70 mb-1 text-[10px] uppercase font-bold">Check-out Date</label>
+                                <input type="date" id="demo-booking-checkout" value="2026-09-08" class="w-full bg-darkbg border border-cream/20 rounded-xl px-3 py-2 text-cream focus:outline-none focus:border-accent font-semibold">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-cream/70 font-sans text-[10px] uppercase font-bold mb-1">Guest Full Name</label>
+                            <input type="text" id="demo-booking-name" placeholder="e.g. Liam Hemsworth" value="Liam Hemsworth" class="w-full bg-darkbg border border-cream/20 rounded-xl px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent font-semibold">
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-cream/70 font-sans text-[10px] uppercase font-bold mb-1">Email Address</label>
+                                <input type="email" id="demo-booking-email" placeholder="guest@example.com" value="liam@example.com" class="w-full bg-darkbg border border-cream/20 rounded-xl px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent font-semibold">
+                            </div>
+                            <div>
+                                <label class="block text-cream/70 font-sans text-[10px] uppercase font-bold mb-1">WhatsApp Phone Number</label>
+                                <input type="tel" id="demo-booking-phone" placeholder="+27 82 987 6543" value="+27 82 987 6543" class="w-full bg-darkbg border border-cream/20 rounded-xl px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent font-semibold">
+                            </div>
+                        </div>
+
+                        <button onclick="submitDirectBookingDemo()" class="w-full bg-[#AA4628] hover:bg-[#AA4628]/90 text-[#FFFDD0] font-sans font-bold tracking-wider py-3 rounded-xl transition-all uppercase text-xs btn-depth shadow-lg mt-2 flex items-center justify-center gap-2">
+                            <svg class="w-4 h-4 stroke-[#FFFDD0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            Submit Direct Booking Request
+                        </button>
                     </div>
                 </div>
             </div>
@@ -769,7 +843,14 @@ Standard 30 days payment terms apply.</textarea>
                 <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                     <div>
                         <span class="text-[9px] font-sans text-emerald-400 uppercase tracking-widest font-bold">REVENUE & CHANNEL DISTRIBUTION HUB</span>
-                        <h3 class="text-sm font-bold text-cream mt-0.5">🌐 Direct Booking & Channel Rate Engine</h3>
+                        <h3 class="text-sm font-bold text-cream mt-0.5 flex items-center gap-2">
+                            <svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            Direct Booking & Channel Rate Engine
+                        </h3>
                     </div>
                     <div class="flex items-center gap-2">
                         <span id="rate-engine-saved-indicator" class="text-[10px] font-sans text-emerald-400 hidden">✓ Saved to LocalStorage</span>
@@ -907,7 +988,12 @@ Standard 30 days payment terms apply.</textarea>
                 <div class="flex justify-between items-center">
                     <div>
                         <span class="text-[9px] font-sans text-emerald-400 uppercase tracking-widest font-bold">COMMUNICATIONS SUITE</span>
-                        <h3 class="text-sm font-bold text-cream mt-0.5">💬 Guest WhatsApp Messaging Templates</h3>
+                        <h3 class="text-sm font-bold text-cream mt-0.5 flex items-center gap-2">
+                            <svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                            Guest WhatsApp Messaging Templates
+                        </h3>
                     </div>
                     <button onclick="setUIMode('designer')" class="text-[10px] font-sans text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Back</button>
                 </div>
@@ -967,7 +1053,15 @@ Standard 30 days payment terms apply.</textarea>
                 <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                     <div>
                         <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">HOSPITALITY CRM</span>
-                        <h3 class="text-sm font-bold text-cream mt-0.5">📅 Landscape Booking Calendar & Stay Checklists</h3>
+                        <h3 class="text-sm font-bold text-cream mt-0.5 flex items-center gap-2">
+                            <svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Landscape Booking Calendar & Stay Checklists
+                        </h3>
                     </div>
                     <button onclick="openNewStayModal()" class="btn-depth bg-accent hover:bg-accent-hover text-cream px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold">+ Create New Stay Booking</button>
                 </div>
@@ -1026,10 +1120,24 @@ Standard 30 days payment terms apply.</textarea>
                         <div class="flex items-center gap-2 font-sans text-[10px] w-full sm:w-auto justify-between sm:justify-end flex-wrap">
                             <div class="flex items-center gap-1 bg-darkbg border border-cream/10 rounded-lg p-1">
                                 <button onclick="setCalendarViewMode('grid')" id="btn-cal-mode-grid" class="px-2.5 py-1 rounded font-bold bg-accent text-cream transition-all min-h-[36px] sm:min-h-0 flex items-center gap-1">
-                                    <span>📊</span> <span>Grid</span>
+                                    <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <rect x="3" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="3" width="7" height="7"></rect>
+                                        <rect x="14" y="14" width="7" height="7"></rect>
+                                        <rect x="3" y="14" width="7" height="7"></rect>
+                                    </svg>
+                                    <span>Grid</span>
                                 </button>
                                 <button onclick="setCalendarViewMode('agenda')" id="btn-cal-mode-agenda" class="px-2.5 py-1 rounded font-semibold text-cream/60 hover:text-cream transition-all min-h-[36px] sm:min-h-0 flex items-center gap-1">
-                                    <span>📋</span> <span>Daily Agenda</span>
+                                    <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <line x1="8" y1="6" x2="21" y2="6"></line>
+                                        <line x1="8" y1="12" x2="21" y2="12"></line>
+                                        <line x1="8" y1="18" x2="21" y2="18"></line>
+                                        <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                                        <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                                        <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                                    </svg>
+                                    <span>Daily Agenda</span>
                                 </button>
                             </div>
                             <div class="hidden md:flex items-center gap-3 text-[9px]">
@@ -1073,14 +1181,28 @@ Standard 30 days payment terms apply.</textarea>
                             <button
                               onclick="simulateInboundOTAPing()"
                               class="bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
-                              ⚡ Simulate Inbound OTA Ping
+                              <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                              </svg>
+                              Simulate Inbound OTA Ping
                             </button>
                             <button
                               onclick="loadMockICalData()"
                               class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
-                              🧪 Load Demo iCal Feed
+                              <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="17 8 12 3 7 8"></polyline>
+                                <line x1="12" y1="3" x2="12" y2="15"></line>
+                              </svg>
+                              Load Demo iCal Feed
                             </button>
-                            <button onclick="renderICalSection()" class="text-[9px] font-sans text-cream/70 hover:text-cream bg-darkcard px-2.5 py-1.5 rounded-lg border border-cream/10 hover:border-cream/20 transition-all cursor-pointer">🔄 Refresh Connections</button>
+                            <button onclick="renderICalSection()" class="text-[9px] font-sans text-cream/70 hover:text-cream bg-darkcard px-2.5 py-1.5 rounded-lg border border-cream/10 hover:border-cream/20 transition-all cursor-pointer flex items-center gap-1">
+                                <svg class="w-3 h-3 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path d="M23 4v6h-6"></path>
+                                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                                </svg>
+                                Refresh Connections
+                            </button>
                         </div>
                     </div>
 
@@ -1115,7 +1237,11 @@ Standard 30 days payment terms apply.</textarea>
     <!-- Floating Action Bar for Mobile Live Document Preview Toggle -->
     <div id="mobile-preview-action-bar" class="lg:hidden fixed bottom-16 left-4 right-4 z-40 flex justify-center no-print transition-all duration-300 hidden">
         <button onclick="toggleMobilePreview()" id="btn-toggle-mobile-preview" class="btn-depth bg-accent hover:bg-accent-hover text-cream text-xs font-sans font-bold py-2.5 px-5 rounded-full shadow-2xl border border-cream/20 flex items-center gap-2 min-h-[44px]">
-            <span>👁️ Toggle Live Document Preview</span>
+            <svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            <span>Toggle Live Document Preview</span>
         </button>
     </div>
 
@@ -1268,8 +1394,12 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Check-Ins Card Section -->
                 <div class="bg-darkbg/80 border border-emerald-500/30 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-sans text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
-                            <span>🛬</span> Check-Ins (${checkIns.length})
+                        <span class="font-sans text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="12" cy="7" r="4"></circle>
+                            </svg>
+                            Check-Ins (${checkIns.length})
                         </span>
                     </div>
                     <div class="space-y-2">
@@ -1289,8 +1419,13 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Check-Outs Card Section -->
                 <div class="bg-darkbg/80 border border-amber-500/30 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-sans text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
-                            <span>🛫</span> Check-Outs (${checkOuts.length})
+                        <span class="font-sans text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                                <polyline points="16 17 21 12 16 7"></polyline>
+                                <line x1="21" y1="12" x2="9" y2="12"></line>
+                            </svg>
+                            Check-Outs (${checkOuts.length})
                         </span>
                     </div>
                     <div class="space-y-2">
@@ -1310,8 +1445,12 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Pending Tasks Card Section -->
                 <div class="bg-darkbg/80 border border-accent/30 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-sans text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1">
-                            <span>📌</span> Pending Tasks (${pendingTasks.length})
+                        <span class="font-sans text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1.5">
+                            <svg class="w-4 h-4 stroke-current text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <polyline points="12 6 12 12 16 14"></polyline>
+                            </svg>
+                            Pending Tasks (${pendingTasks.length})
                         </span>
                     </div>
                     <div class="space-y-2">
@@ -1321,8 +1460,11 @@ Standard 30 days payment terms apply.</textarea>
                                     <div class="font-bold text-cream text-[11px]">${item.task}</div>
                                     <div class="text-[9px] font-sans text-cream/50">${item.stay.guestName} (${item.stay.roomName})</div>
                                 </div>
-                                <button onclick="executeOneClickStayAutomation('${item.stay.id}', event)" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-1 rounded font-sans hover:bg-accent/40 transition-colors">
-                                    ⚡ Complete
+                                <button onclick="executeOneClickStayAutomation('${item.stay.id}', event)" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-1 rounded font-sans hover:bg-accent/40 transition-colors flex items-center gap-1">
+                                    <svg class="w-3 h-3 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <polyline points="20 6 9 17 4 12"></polyline>
+                                    </svg>
+                                    Complete
                                 </button>
                             </div>
                         `).join('')}
@@ -1361,12 +1503,12 @@ Standard 30 days payment terms apply.</textarea>
             if (previewWrapper.classList.contains('hidden')) {
                 controlWrapper.classList.add('hidden');
                 previewWrapper.classList.remove('hidden');
-                if (btn) btn.innerHTML = '<span>✏️ Edit Document Form</span>';
+                if (btn) btn.innerHTML = '<svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg><span>Edit Document Form</span>';
                 previewWrapper.scrollIntoView({ behavior: 'smooth' });
             } else {
                 previewWrapper.classList.add('hidden');
                 controlWrapper.classList.remove('hidden');
-                if (btn) btn.innerHTML = '<span>👁️ Toggle Live Document Preview</span>';
+                if (btn) btn.innerHTML = '<svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg><span>Toggle Live Document Preview</span>';
                 controlWrapper.scrollIntoView({ behavior: 'smooth' });
             }
         }
@@ -1566,6 +1708,43 @@ Standard 30 days payment terms apply.</textarea>
             } catch (e) {
                 console.error('Stays save error:', e);
             }
+        }
+
+        function submitDirectBookingDemo() {
+            const roomName = document.getElementById('demo-booking-room').value;
+            const checkin = document.getElementById('demo-booking-checkin').value;
+            const checkout = document.getElementById('demo-booking-checkout').value;
+            const name = document.getElementById('demo-booking-name').value.trim();
+            const email = document.getElementById('demo-booking-email').value.trim();
+            const phone = document.getElementById('demo-booking-phone').value.trim();
+
+            if (!name || !email || !checkin || !checkout) {
+                alert('Please fill out all required fields.');
+                return;
+            }
+
+            const newStay = {
+                id: 'stay-demo-' + Date.now(),
+                guestId: 'demo-guest-' + Date.now(),
+                guestName: name,
+                guestEmail: email,
+                guestPhone: phone,
+                roomName: roomName,
+                room: roomName,
+                checkin: checkin,
+                checkout: checkout,
+                status: 'pending_approval',
+                workflowStatus: {},
+                customChecklist: [],
+                isDemo: true
+            };
+
+            staysList.push(newStay);
+            saveStaysDatabase();
+            if (typeof triggerCelebrationBurst === 'function') {
+                triggerCelebrationBurst(window.innerWidth / 2, window.innerHeight / 2, `✨ Direct Booking Request Received for ${name}!`);
+            }
+            setUIMode('calendar');
         }
 
         function populateStayGuestSelector() {
@@ -2024,7 +2203,10 @@ Standard 30 days payment terms apply.</textarea>
 
                         <!-- High Impact 1-Click Automate Button -->
                         <button onclick="executeOneClickStayAutomation('${stay.id}', event)" class="w-full py-2.5 px-3 rounded-xl bg-accent hover:bg-accent-hover text-white font-sans font-bold text-[10px] tracking-wider transition-colors btn-depth flex items-center justify-center gap-1.5 uppercase border border-cream/20">
-                            <span>⚡ 1-CLICK AUTOMATE WORKFLOW</span>
+                            <svg class="w-3.5 h-3.5 stroke-current text-[#FFFDD0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
+                            </svg>
+                            <span>1-CLICK AUTOMATE WORKFLOW</span>
                         </button>
 
                         <!-- Progress Bar with Glow -->
@@ -2119,7 +2301,8 @@ Standard 30 days payment terms apply.</textarea>
                 checkout: nextDate,
                 status: 'ota_buffer',
                 workflowStatus: {},
-                customChecklist: []
+                customChecklist: [],
+                isDemo: true
             };
 
             staysList.push(bufferStay);
@@ -3192,6 +3375,7 @@ Standard 30 days payment terms apply.</textarea>
         }
 
         function setUIMode(mode) {
+            // Map modes: 'templates', 'accounting', 'wizard' fall into appropriate studio modes
             uiMode = mode;
             const designerPanel = document.getElementById('designer-panel');
             const wizardPanel = document.getElementById('wizard-panel');
@@ -3204,22 +3388,23 @@ Standard 30 days payment terms apply.</textarea>
             const previewWrapper = document.getElementById('preview-panel-wrapper');
 
             // Menu Drawer Buttons
-            const menuBtnIds = ['m-btn-calendar', 'm-btn-designer', 'm-btn-wizard', 'm-btn-guests', 'm-btn-whatsapp', 'm-btn-pricing'];
+            const menuBtnIds = ['m-btn-calendar', 'm-btn-templates', 'm-btn-designer', 'm-btn-accounting', 'm-btn-guests', 'm-btn-whatsapp', 'm-btn-pricing'];
             menuBtnIds.forEach(id => {
                 const btn = document.getElementById(id);
                 if (!btn) return;
                 if (id === `m-btn-${mode}`) {
-                    btn.className = 'w-full text-left px-3 py-2.5 rounded-xl bg-accent text-cream font-bold flex items-center gap-2 transition-all shadow-lg';
+                    btn.className = 'w-full text-left px-3 py-2 rounded-lg bg-accent text-cream font-bold flex items-center gap-2 transition-all shadow-lg';
                 } else {
-                    btn.className = 'w-full text-left px-3 py-2.5 rounded-xl text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-2 transition-all';
+                    btn.className = 'w-full text-left px-3 py-2 rounded-lg text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-2 transition-all';
                 }
             });
 
-            const mbBtnIds = ['mb-btn-calendar', 'mb-btn-designer', 'mb-btn-wizard', 'mb-btn-guests', 'mb-btn-whatsapp', 'mb-btn-pricing', 'mb-btn-setup'];
+            const mbBtnIds = ['mb-btn-calendar', 'mb-btn-designer', 'mb-btn-guests', 'mb-btn-whatsapp', 'mb-btn-pricing', 'mb-btn-setup'];
             mbBtnIds.forEach(id => {
                 const btn = document.getElementById(id);
                 if (!btn) return;
-                if (id === `mb-btn-${mode}`) {
+                const isMatching = (id === 'mb-btn-designer' && (mode === 'designer' || mode === 'templates' || mode === 'accounting' || mode === 'wizard')) || (id === `mb-btn-${mode}`);
+                if (isMatching) {
                     btn.className = 'flex flex-col items-center gap-1 text-accent font-bold min-h-[44px] justify-center px-1';
                 } else {
                     btn.className = 'flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1';
@@ -3233,16 +3418,17 @@ Standard 30 days payment terms apply.</textarea>
             if (whatsappPanel) whatsappPanel.classList.add('hidden');
             if (pricingPanel) pricingPanel.classList.add('hidden');
 
+            const globalTemplateSwitcher = document.getElementById('global-template-switcher');
+
             // Mobile Preview Action Bar
             const mobileBar = document.getElementById('mobile-preview-action-bar');
 
-            // Handle Fullscreen vs Split-screen layout
-            if (mode === 'designer' || mode === 'wizard') {
+            // Handle Split-screen (Document Studio modes) vs Fullscreen layout
+            if (mode === 'designer' || mode === 'templates' || mode === 'accounting' || mode === 'wizard') {
                 controlWrapper.classList.remove('lg:col-span-12');
                 controlWrapper.classList.add('lg:col-span-5');
 
                 if (window.innerWidth < 1024) {
-                    // On mobile/tablet, default to control panel view, preview hidden until toggled
                     previewWrapper.classList.add('hidden');
                     if (mobileBar) mobileBar.classList.remove('hidden');
                 } else {
@@ -3257,12 +3443,21 @@ Standard 30 days payment terms apply.</textarea>
                 if (mobileBar) mobileBar.classList.add('hidden');
             }
 
-            if (mode === 'designer' && designerPanel) {
-                designerPanel.classList.remove('hidden');
-            } else if (mode === 'wizard' && wizardPanel) {
-                wizardPanel.classList.remove('hidden');
-                syncAllDataToWizardInputs();
-                setWizardStep(1);
+            if (mode === 'templates') {
+                if (designerPanel) designerPanel.classList.remove('hidden');
+                if (globalTemplateSwitcher) globalTemplateSwitcher.classList.remove('hidden');
+                switchTab('tab-style');
+                updatePreview();
+            } else if (mode === 'designer') {
+                if (designerPanel) designerPanel.classList.remove('hidden');
+                if (globalTemplateSwitcher) globalTemplateSwitcher.classList.add('hidden');
+                switchTab('tab-profile');
+                updatePreview();
+            } else if (mode === 'accounting' || mode === 'wizard') {
+                if (designerPanel) designerPanel.classList.remove('hidden');
+                if (globalTemplateSwitcher) globalTemplateSwitcher.classList.add('hidden');
+                switchTab('tab-details');
+                updatePreview();
             } else if (mode === 'guests' && guestsPanel) {
                 guestsPanel.classList.remove('hidden');
             } else if (mode === 'calendar' && calendarPanel) {
@@ -3721,7 +3916,11 @@ Standard 30 days payment terms apply.</textarea>
                 };
             }
 
-            previewContainer.className = `print-container w-full max-w-[210mm] shadow-2xl rounded-xl transition-all duration-300 min-h-[297mm] p-10 flex flex-col justify-between ${themeStyles.bgClass || ''} ${themeStyles.textClass || ''} ${selectedFontClass}`;
+            const isAccounting = uiMode === 'accounting';
+            const studioPadding = isAccounting ? 'p-8' : 'p-12';
+            const studioBorder = isAccounting ? 'border-t-8 border-[#AA4628]' : '';
+
+            previewContainer.className = `print-container w-full max-w-[210mm] shadow-2xl rounded-xl transition-all duration-300 min-h-[297mm] ${studioPadding} ${studioBorder} flex flex-col justify-between ${themeStyles.bgClass || ''} ${themeStyles.textClass || ''} ${selectedFontClass}`;
             if (useCustom) {
                 previewContainer.setAttribute('style', `${themeStyles.bgStyle} ${themeStyles.textStyle}`);
             } else {
@@ -3997,6 +4196,11 @@ Standard 30 days payment terms apply.</textarea>
             document.body.insertAdjacentHTML('beforeend', authHtml);
         }
 
+        function resetDemoState() {
+            staysList = staysList.filter(s => !s.isDemo && !s.id.startsWith('stay-demo-') && !s.id.startsWith('stay-mock-') && !s.id.startsWith('stay-ota-hold-'));
+            saveStaysDatabase();
+        }
+
         function handleSignInSubmit() {
             const user = document.getElementById('signin-username').value.trim();
             const pass = document.getElementById('signin-password').value.trim();
@@ -4019,6 +4223,7 @@ Standard 30 days payment terms apply.</textarea>
                     saveAccountsDB(accounts);
                 }
                 sessionStorage.setItem('byjanno_active_user', 'jan');
+                resetDemoState();
                 const overlay = document.getElementById('auth-overlay');
                 if (overlay) overlay.remove();
                 checkAuthAndOnboarding();
@@ -4031,6 +4236,7 @@ Standard 30 days payment terms apply.</textarea>
         }
 
         function handleSignOut() {
+            resetDemoState();
             sessionStorage.removeItem('byjanno_active_user');
             showAuthOverlay('signin');
         }
@@ -4616,7 +4822,8 @@ END:VCALENDAR`;
                                 workflowStatus: { quoteSent: true, invoiceSent: true, pre: true },
                                 customChecklist: [
                                     { id: 'mc-1', text: 'Confirm Airport Shuttle', done: false }
-                                ]
+                                ],
+                                isDemo: true
                             });
                             addedCount++;
                         }
