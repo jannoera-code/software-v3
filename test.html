@@ -961,6 +961,17 @@ Standard 30 days payment terms apply.</textarea>
     </footer>
 
     <script>
+        // Security Utility: Escape HTML to prevent XSS attacks when rendering user-supplied strings into innerHTML
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         // Global State & Configuration
         let docLogoBase64 = '';
         let activeTheme = 'theme-cream';
@@ -2443,11 +2454,19 @@ Standard 30 days payment terms apply.</textarea>
                 return;
             }
 
+            // Security: Sanitize user inputs using escapeHtml before injecting into innerHTML to prevent DOM-based XSS
             guestsList.forEach(g => {
                 const historyCount = (g.sentHistory || []).length;
                 const card = document.createElement('div');
                 card.className = 'bg-darkbg/60 border border-cream/10 p-3 rounded-xl space-y-2 relative';
                 
+                const safeName = escapeHtml(g.name);
+                const safeEmail = escapeHtml(g.email);
+                const safeRoom = escapeHtml(g.room);
+                const safeCheckin = escapeHtml(g.checkin);
+                const safeCheckout = escapeHtml(g.checkout);
+                const safeId = escapeHtml(g.id);
+
                 let historyHtml = '';
                 if (historyCount > 0) {
                     historyHtml = `
@@ -2456,8 +2475,8 @@ Standard 30 days payment terms apply.</textarea>
                             <div class="space-y-1 mt-1">
                                 ${g.sentHistory.map(h => `
                                     <div class="flex justify-between items-center text-[8px] font-mono text-cream/50 bg-darkbg/40 p-1 rounded">
-                                        <span>${h.docType.toUpperCase()}: ${h.docNumber}</span>
-                                        <span>${h.date} | ${h.total}</span>
+                                        <span>${escapeHtml(h.docType).toUpperCase()}: ${escapeHtml(h.docNumber)}</span>
+                                        <span>${escapeHtml(h.date)} | ${escapeHtml(h.total)}</span>
                                     </div>
                                 `).join('')}
                             </div>
@@ -2468,18 +2487,18 @@ Standard 30 days payment terms apply.</textarea>
                 card.innerHTML = `
                     <div class="flex justify-between items-start">
                         <div>
-                            <span class="font-bold text-cream text-xs block">${g.name}</span>
-                            <span class="text-[9px] font-mono text-cream/50">${g.email}</span>
+                            <span class="font-bold text-cream text-xs block">${safeName}</span>
+                            <span class="text-[9px] font-mono text-cream/50">${safeEmail}</span>
                         </div>
                         <div class="flex gap-1.5">
-                            <button onclick="selectGuestFromDropdown('${g.id}')" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-0.5 rounded font-mono hover:bg-accent/40">Apply</button>
-                            <button onclick="editGuestProfile('${g.id}')" class="text-[9px] text-cream/60 hover:text-cream border border-cream/10 px-1.5 py-0.5 rounded font-mono">Edit</button>
-                            <button onclick="deleteGuestProfile('${g.id}')" class="text-[9px] text-red-400 hover:text-red-300 font-mono">Del</button>
+                            <button onclick="selectGuestFromDropdown('${safeId}')" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-0.5 rounded font-mono hover:bg-accent/40">Apply</button>
+                            <button onclick="editGuestProfile('${safeId}')" class="text-[9px] text-cream/60 hover:text-cream border border-cream/10 px-1.5 py-0.5 rounded font-mono">Edit</button>
+                            <button onclick="deleteGuestProfile('${safeId}')" class="text-[9px] text-red-400 hover:text-red-300 font-mono">Del</button>
                         </div>
                     </div>
                     <div class="text-[9px] text-cream/60 space-y-0.5 font-mono">
-                        ${g.room ? `<p>Room: ${g.room}</p>` : ''}
-                        ${g.checkin ? `<p>Dates: ${g.checkin} → ${g.checkout}</p>` : ''}
+                        ${safeRoom ? `<p>Room: ${safeRoom}</p>` : ''}
+                        ${safeCheckin ? `<p>Dates: ${safeCheckin} → ${safeCheckout}</p>` : ''}
                     </div>
                     ${historyHtml}
                 `;
