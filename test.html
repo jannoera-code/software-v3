@@ -1071,6 +1071,11 @@ Standard 30 days payment terms apply.</textarea>
                         </div>
                         <div class="flex items-center gap-2">
                             <button
+                              onclick="simulateInboundOTAPing()"
+                              class="bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
+                              ⚡ Simulate Inbound OTA Ping
+                            </button>
+                            <button
                               onclick="loadMockICalData()"
                               class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
                               🧪 Load Demo iCal Feed
@@ -1533,6 +1538,17 @@ Standard 30 days payment terms apply.</textarea>
                             customChecklist: [
                                 { id: 'sc-3', text: 'Prepare Wine Tasting Setup', done: false }
                             ]
+                        },
+                        {
+                            id: 'stay-103',
+                            guestId: '3',
+                            guestName: 'Elena Rostova',
+                            roomName: 'Room 3 (Garden View)',
+                            checkin: '2026-09-15',
+                            checkout: '2026-09-18',
+                            status: 'pending_approval',
+                            workflowStatus: {},
+                            customChecklist: []
                         }
                     ];
                     saveStaysDatabase();
@@ -1778,6 +1794,45 @@ Standard 30 days payment terms apply.</textarea>
             }
         }
 
+
+        function handleGridStayClick(stayId) {
+            const stay = staysList.find(s => s.id === stayId);
+            if (!stay) return;
+            const cardEl = document.getElementById(`stay-card-${stayId}`);
+            if (cardEl) {
+                cardEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                cardEl.classList.add('ring-2', 'ring-accent');
+                setTimeout(() => cardEl.classList.remove('ring-2', 'ring-accent'), 2000);
+            }
+        }
+
+        function approveBookingRequest(stayId) {
+            const stay = staysList.find(s => s.id === stayId);
+            if (!stay) return;
+
+            stay.status = 'confirmed';
+            saveStaysDatabase();
+            renderBookingCalendar();
+
+            // Guest phone lookup
+            const guest = guestsList.find(g => g.id === stay.guestId || g.name === stay.guestName);
+            const phone = guest ? guest.phone : '+27821234567';
+            const phoneClean = (phone || '').replace(/[^0-9]/g, '');
+
+            const room = stay.roomName || stay.room || 'Suite';
+            const yocoUrl = `https://pay.yoco.com/byjanno-retreats-${stay.id}`;
+            const message = `Hi ${stay.guestName}, your direct booking request for ${room} is approved! Please finalize your reservation using our secure Yoco payment link here: ${yocoUrl}. We look forward to hosting you in George!`;
+
+            const waUrl = `https://wa.me/${phoneClean}?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        function rejectBookingRequest(stayId) {
+            staysList = staysList.filter(s => s.id !== stayId);
+            saveStaysDatabase();
+            renderBookingCalendar();
+        }
+
         // ================= LANDSCAPE BOOKING CALENDAR & STAY CHECKLISTS RENDERER =================
         function renderBookingCalendar() {
             const visualGridContainer = document.getElementById('visual-landscape-calendar-grid');
@@ -1838,9 +1893,20 @@ Standard 30 days payment terms apply.</textarea>
 
                     if (activeStay) {
                         const isStart = activeStay.checkin === dateFormatted;
+                        let cellClass = "bg-emerald-600/40 border-l border-emerald-500/40 text-emerald-900 hover:bg-emerald-600/60";
+                        let labelText = isStart ? activeStay.guestName.split(' ')[0] : '•';
+
+                        if (activeStay.status === 'pending_approval') {
+                            cellClass = "bg-amber-500/80 border-l border-amber-600 text-[#11161d] hover:bg-amber-500 font-bold bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(0,0,0,0.05)_4px,rgba(0,0,0,0.05)_8px)]";
+                            if (isStart) labelText = `⚠️ ${activeStay.guestName.split(' ')[0]}`;
+                        } else if (activeStay.status === 'ota_buffer') {
+                            cellClass = "bg-slate-400/50 border-l border-slate-500 text-slate-900 hover:bg-slate-400/70 font-semibold bg-[repeating-linear-gradient(-45deg,transparent,transparent_5px,rgba(0,0,0,0.1)_5px,rgba(0,0,0,0.1)_10px)]";
+                            labelText = isStart ? "Sync Hold" : "•";
+                        }
+
                         dayCellsHtml += `
-                            <div class="bg-emerald-600/40 border-l border-emerald-500/40 py-1.5 px-0.5 relative text-[9px] font-sans text-emerald-900 truncate cursor-pointer hover:bg-emerald-600/60 transition-colors font-semibold" title="${activeStay.guestName} (${activeStay.checkin} to ${activeStay.checkout})">
-                                ${isStart ? `<span class="font-bold text-[#11161d]">${activeStay.guestName.split(' ')[0]}</span>` : '•'}
+                            <div onclick="handleGridStayClick('${activeStay.id}')" class="${cellClass} py-1.5 px-0.5 relative text-[9px] font-sans truncate cursor-pointer transition-colors font-semibold" title="${activeStay.guestName} (${activeStay.status || 'confirmed'})">
+                                <span class="font-bold text-[#11161d]">${labelText}</span>
                             </div>
                         `;
                     } else {
@@ -1883,8 +1949,62 @@ Standard 30 days payment terms apply.</textarea>
                 const percent = Math.round((completedSteps / totalSteps) * 100);
 
                 const card = document.createElement('div');
-                card.className = 'bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:border-accent/40 shadow-xl';
                 card.id = `stay-card-${stay.id}`;
+
+                if (stay.status === 'pending_approval') {
+                    card.className = 'bg-amber-500/10 border border-amber-500/50 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 shadow-xl';
+                    card.innerHTML = `
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start border-b border-amber-500/20 pb-2">
+                                <div>
+                                    <span class="font-bold text-[#11161d] text-xs flex items-center gap-1.5">
+                                        ⚠️ ${stay.guestName}
+                                        <span class="text-[9px] bg-amber-500/20 text-amber-800 px-1.5 py-0.5 rounded border border-amber-500/40 font-bold">PENDING APPROVAL</span>
+                                    </span>
+                                    <span class="text-[9px] font-sans text-accent font-semibold">${stay.roomName}</span>
+                                    <span class="text-[8px] font-sans text-[#11161d]/60 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
+                                </div>
+                            </div>
+                            <div class="bg-amber-500/15 border border-amber-500/30 p-3 rounded-lg space-y-2">
+                                <p class="text-[10px] font-sans text-[#11161d] font-bold">Approval Action Panel</p>
+                                <p class="text-[9px] font-sans text-[#11161d]/70">Direct web booking request from Elementor/WordPress Widget.</p>
+                                <div class="flex flex-col gap-2 pt-1">
+                                    <button onclick="approveBookingRequest('${stay.id}')" class="w-full py-2 px-3 rounded-lg bg-accent hover:bg-accent-hover text-white font-sans font-bold text-[10px] tracking-wider transition-colors shadow-sm uppercase">
+                                        ✓ Approve & Request Payment
+                                    </button>
+                                    <button onclick="rejectBookingRequest('${stay.id}')" class="w-full py-1.5 px-3 rounded-lg bg-red-600/20 hover:bg-red-600/30 text-red-700 font-sans font-bold text-[9px] border border-red-500/30 transition-colors uppercase">
+                                        ✕ Reject Request (Double Booked)
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    checklistsContainer.appendChild(card);
+                    return;
+                }
+
+                if (stay.status === 'ota_buffer') {
+                    card.className = 'bg-slate-400/20 border border-slate-400/40 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 shadow-xl';
+                    card.innerHTML = `
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-start border-b border-slate-400/20 pb-2">
+                                <div>
+                                    <span class="font-bold text-[#11161d] text-xs flex items-center gap-1.5">
+                                        🔒 ${stay.guestName}
+                                        <span class="text-[9px] bg-slate-400/30 text-slate-800 px-1.5 py-0.5 rounded border border-slate-400/50 font-bold">15-MIN SYNC HOLD</span>
+                                    </span>
+                                    <span class="text-[9px] font-sans text-slate-700 font-semibold">${stay.roomName}</span>
+                                    <span class="text-[8px] font-sans text-[#11161d]/60 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
+                                </div>
+                            </div>
+                            <p class="text-[10px] font-sans text-slate-700 italic">Temporary hold state while external iCal feed syncs.</p>
+                        </div>
+                    `;
+                    checklistsContainer.appendChild(card);
+                    return;
+                }
+
+                card.className = 'bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 hover:border-accent/40 shadow-xl';
                 card.innerHTML = `
                     <div class="space-y-3">
                         <div class="flex justify-between items-start border-b border-cream/5 pb-2">
@@ -1980,6 +2100,39 @@ Standard 30 days payment terms apply.</textarea>
                 `;
                 checklistsContainer.appendChild(card);
             });
+        }
+
+
+        function simulateInboundOTAPing() {
+            const today = new Date();
+            const todayStr = today.toISOString().split('T')[0];
+            const nextDate = new Date(today.getTime() + 86400000 * 2).toISOString().split('T')[0];
+
+            const bufferStay = {
+                id: 'stay-ota-hold-' + Date.now(),
+                guestId: 'ota-hold-guest',
+                guestName: 'Booking.com Sync Hold',
+                guestEmail: 'hold@ota.com',
+                roomName: 'Suite 1 (Deluxe Ocean)',
+                room: 'Suite 1 (Deluxe Ocean)',
+                checkin: todayStr,
+                checkout: nextDate,
+                status: 'ota_buffer',
+                workflowStatus: {},
+                customChecklist: []
+            };
+
+            staysList.push(bufferStay);
+            saveStaysDatabase();
+            renderBookingCalendar();
+
+            triggerCelebrationBurst(window.innerWidth / 2, window.innerHeight / 2, '🔒 15-Minute OTA Sync Hold Initiated for Suite 1!');
+
+            setTimeout(() => {
+                staysList = staysList.filter(s => s.id !== bufferStay.id);
+                saveStaysDatabase();
+                renderBookingCalendar();
+            }, 15 * 60 * 1000);
         }
 
         // ================= 2-WAY ICAL (.ICS) SYNCHRONIZATION SYSTEM =================
