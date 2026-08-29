@@ -9,7 +9,7 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -30,8 +30,8 @@
                     },
                     fontFamily: {
                         sans: ['Plus Jakarta Sans', 'sans-serif'],
-                        mono: ['Space Mono', 'monospace'],
-                        brand: ['Special Elite', 'cursive'],
+                        mono: ['Plus Jakarta Sans', 'sans-serif'],
+                        brand: ['Plus Jakarta Sans', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'],
                         inter: ['Inter', 'sans-serif'],
                         lora: ['Lora', 'serif'],
@@ -43,6 +43,27 @@
     </script>
 
     <style>
+        /* Strict text-color exception for all primary accent buttons */
+        button.bg-accent,
+        .bg-accent:not([class*="bg-accent/"]),
+        [style*="background-color: #AA4628"],
+        [style*="background-color:#AA4628"] {
+            color: #FFFDD0 !important;
+        }
+
+        /* Navigation rail collapse bug fix */
+        #left-nav-rail {
+            overflow: hidden !important;
+        }
+        #left-nav-rail:not(:hover) {
+            width: 4rem !important;
+            overflow: hidden !important;
+        }
+        #left-nav-rail:not(:hover) #invoice-quote-submenu,
+        #left-nav-rail:not(:hover) [id$="-submenu"] {
+            display: none !important;
+        }
+
         /* Interactive button shadows */
         .btn-depth {
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
@@ -154,7 +175,7 @@
         <div class="flex items-center gap-3 flex-wrap justify-center md:justify-start">
             <span id="header-company-name-container" class="font-sans font-bold text-xl sm:text-2xl text-[#11161d] cursor-pointer" onclick="setUIMode('calendar')">By Janno<span class="text-accent">.</span></span>
             <span class="h-4 w-px bg-[#11161d]/20"></span>
-            <span class="font-mono text-[10px] sm:text-xs uppercase tracking-widest text-[#11161d]/60">Hospitality Booking & Pricing Suite</span>
+            <span class="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-[#11161d]/60">Hospitality Booking & Pricing Suite</span>
         </div>
         <div class="flex items-center gap-2 sm:gap-4 flex-wrap justify-center md:justify-end">
             <button onclick="launchSetupTutorial()" class="text-xs font-sans text-accent hover:text-[#11161d] flex items-center gap-1.5 bg-accent/20 hover:bg-accent/40 px-3 py-1.5 rounded-lg border border-accent/40 font-bold transition-all min-h-[44px] sm:min-h-0">
@@ -173,7 +194,7 @@
     </header>
 
     <!-- MOBILE FIXED BOTTOM NAVIGATION BAR -->
-    <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-darkcard border-t border-cream/10 z-50 flex justify-around items-center py-2 px-3 no-print shadow-2xl font-mono text-[10px]">
+    <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-darkcard border-t border-cream/10 z-50 flex justify-around items-center py-2 px-3 no-print shadow-2xl font-sans text-[10px]">
         <button onclick="setUIMode('calendar')" id="mb-btn-calendar" class="flex flex-col items-center gap-1 text-accent font-bold min-h-[44px] justify-center px-1">
             <span class="text-base">📅</span>
             <span>Calendar</span>
@@ -309,8 +330,8 @@
             <!-- Global Quick Template Switcher (id added for visibility control) -->
             <div id="global-template-switcher" class="bg-darkbg/40 border border-cream/10 p-3 rounded-xl space-y-2 text-xs hidden">
                 <div class="flex justify-between items-center">
-                    <span class="font-mono text-[9px] uppercase tracking-widest text-accent font-bold">📋 Invoice & Quote Template</span>
-                    <button onclick="saveCurrentAsTemplate()" class="text-[9px] font-mono text-cream/70 hover:text-cream bg-accent/20 border border-accent/40 px-2 py-0.5 rounded hover:bg-accent/40 transition-colors">+ Save Template</button>
+                    <span class="font-sans text-[9px] uppercase tracking-widest text-accent font-bold">📋 Invoice & Quote Template</span>
+                    <button onclick="saveCurrentAsTemplate()" class="text-[9px] font-sans text-cream/70 hover:text-cream bg-accent/20 border border-accent/40 px-2 py-0.5 rounded hover:bg-accent/40 transition-colors">+ Save Template</button>
                 </div>
                 <div class="flex gap-2">
                     <select id="template-selector" class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-2.5 py-1.5 text-cream text-xs focus:outline-none focus:border-accent font-semibold" onchange="loadTemplate(this.value)">
@@ -323,7 +344,7 @@
             <!-- ================= DESIGNER MODE PANEL ================= -->
             <div id="designer-panel" class="space-y-6">
                 <!-- Step Navigation Tabs -->
-                <div class="flex border-b border-cream/10 pb-2 gap-1 font-mono text-[10px]">
+                <div class="flex border-b border-cream/10 pb-2 gap-1 font-sans text-[10px]">
                     <button onclick="switchTab('tab-profile')" id="btn-tab-profile" class="flex-1 py-2 text-center rounded-lg bg-accent text-cream font-bold tracking-wider transition-all">1. PROFILE</button>
                     <button onclick="switchTab('tab-details')" id="btn-tab-details" class="flex-1 py-2 text-center rounded-lg bg-darkbg/40 text-cream/60 hover:text-cream tracking-wider transition-all">2. CONTENT</button>
                     <button onclick="switchTab('tab-style')" id="btn-tab-style" class="flex-1 py-2 text-center rounded-lg bg-darkbg/40 text-cream/60 hover:text-cream tracking-wider transition-all">3. STYLE</button>
@@ -332,21 +353,21 @@
                 <!-- Tab 1: Profile Setup -->
                 <div id="tab-profile" class="space-y-4 tab-content">
                     <div>
-                        <h3 class="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-1">Company Profile</h3>
+                        <h3 class="text-xs font-sans uppercase tracking-widest text-accent font-bold mb-1">Company Profile</h3>
                         <p class="text-[10px] text-cream/50">Setup your permanent company metadata details.</p>
                     </div>
 
                     <div class="space-y-3 text-xs">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Company Logo</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Company Logo</label>
                                 <div class="relative border border-dashed border-cream/20 rounded-lg p-2 text-center bg-darkbg/40 hover:border-accent/50 transition-colors cursor-pointer group min-h-[44px] flex items-center justify-center">
                                     <input type="file" id="logo-upload" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer min-h-[44px]" onchange="handleLogoUpload(this)">
-                                    <span class="text-[9px] text-cream/40 group-hover:text-cream/70 font-mono">Upload Image</span>
+                                    <span class="text-[9px] text-cream/40 group-hover:text-cream/70 font-sans">Upload Image</span>
                                 </div>
                             </div>
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Logo Size</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Logo Size</label>
                                 <select id="logo-size" class="w-full bg-darkbg border border-cream/15 rounded-lg px-2 py-2 text-cream focus:outline-none focus:border-accent min-h-[44px]" onchange="updatePreview('preview-logo')">
                                     <option value="small">Small</option>
                                     <option value="medium" selected>Medium</option>
@@ -356,33 +377,33 @@
                         </div>
 
                         <div>
-                            <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Company Name</label>
+                            <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Company Name</label>
                             <input type="text" id="company-name" placeholder="By Janno Digital Studio" value="By Janno Digital Studio" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent min-h-[44px]" oninput="updatePreview('preview-company-header')">
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Email</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Email</label>
                                 <input type="email" id="company-email" placeholder="hello@byjanno.co.za" value="hello@byjanno.co.za" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent min-h-[44px]" oninput="updatePreview('preview-company-header')">
                             </div>
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Phone</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Phone</label>
                                 <input type="text" id="company-phone" placeholder="+27 82 123 4567" value="+27 82 123 4567" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent min-h-[44px]" oninput="updatePreview('preview-company-header')">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Address</label>
+                            <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Address</label>
                             <textarea id="company-address" rows="2" placeholder="George, Western Cape, South Africa" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent min-h-[44px]" oninput="updatePreview('preview-company-header')">George, Western Cape, ZA</textarea>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Tax / Registration No.</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Tax / Registration No.</label>
                                 <input type="text" id="company-tax" placeholder="4120293847" value="4120293847" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent min-h-[44px]" oninput="updatePreview('preview-company-header')">
                             </div>
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Website</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Website</label>
                                 <input type="text" id="company-web" placeholder="byjanno.co.za" value="byjanno.co.za" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent min-h-[44px]" oninput="updatePreview('preview-company-header')">
                             </div>
                         </div>
@@ -392,25 +413,25 @@
                 <!-- Tab 2: Document Content -->
                 <div id="tab-details" class="space-y-4 tab-content hidden">
                     <div>
-                        <h3 class="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-1">Document Settings & Content</h3>
+                        <h3 class="text-xs font-sans uppercase tracking-widest text-accent font-bold mb-1">Document Settings & Content</h3>
                         <p class="text-[10px] text-cream/50">Modify values for current quote or invoice.</p>
                     </div>
 
                     <div class="space-y-3 text-xs">
                         <div class="grid grid-cols-3 gap-2">
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[9px] uppercase font-bold">Doc Type</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[9px] uppercase font-bold">Doc Type</label>
                                 <select id="doc-type" class="w-full bg-darkbg border border-cream/15 rounded-lg px-2 py-2 text-cream focus:outline-none focus:border-accent" onchange="toggleDocType(); updatePreview('preview-meta')">
                                     <option value="invoice">Invoice</option>
                                     <option value="quote">Quotation</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[9px] uppercase font-bold">Doc No.</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[9px] uppercase font-bold">Doc No.</label>
                                 <input type="text" id="doc-number" value="INV-2026-001" class="w-full bg-darkbg border border-cream/15 rounded-lg px-2 py-2 text-cream focus:outline-none focus:border-accent" oninput="updatePreview('preview-meta')">
                             </div>
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[9px] uppercase font-bold">Currency</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[9px] uppercase font-bold">Currency</label>
                                 <select id="doc-currency" class="w-full bg-darkbg border border-cream/15 rounded-lg px-2 py-2 text-cream focus:outline-none focus:border-accent" onchange="updatePreview('preview-totals')">
                                     <option value="R">ZAR (R)</option>
                                     <option value="$">USD ($)</option>
@@ -422,24 +443,24 @@
 
                         <div class="grid grid-cols-2 gap-3">
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Date Issued</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Date Issued</label>
                                 <input type="date" id="doc-date-issued" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="updatePreview('preview-meta')">
                             </div>
                             <div>
-                                <label id="lbl-due-date" class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Payment Due Date</label>
+                                <label id="lbl-due-date" class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Payment Due Date</label>
                                 <input type="date" id="doc-date-due" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="updatePreview('preview-meta')">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Quick Select Guest Profile</label>
+                            <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Quick Select Guest Profile</label>
                             <select id="guest-selector" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent font-semibold" onchange="selectGuestFromDropdown(this.value)">
                                 <option value="">-- Or Pick Saved Guest Profile --</option>
                             </select>
                         </div>
 
                         <div class="border-t border-cream/10 pt-3">
-                            <label class="block text-accent font-mono text-[10px] uppercase font-bold mb-2">Recipient / Client Info</label>
+                            <label class="block text-accent font-sans text-[10px] uppercase font-bold mb-2">Recipient / Client Info</label>
                             <div class="space-y-2">
                                 <input type="text" id="client-name" placeholder="Client / Company Name" value="Acme Corporation" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent" oninput="updatePreview('preview-client-info')">
                                 <input type="text" id="client-email" placeholder="client@example.com" value="accounts@acme.com" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent" oninput="updatePreview('preview-client-info')">
@@ -449,8 +470,8 @@
 
                         <div class="border-t border-cream/10 pt-3">
                             <div class="flex justify-between items-center mb-2">
-                                <label class="block text-accent font-mono text-[10px] uppercase font-bold">Line Items</label>
-                                <button onclick="addLineItem()" class="text-xs bg-accent/20 border border-accent/40 text-cream px-2.5 py-1 rounded-md hover:bg-accent/40 transition-colors font-mono">+ Add Item</button>
+                                <label class="block text-accent font-sans text-[10px] uppercase font-bold">Line Items</label>
+                                <button onclick="addLineItem()" class="text-xs bg-accent/20 border border-accent/40 text-cream px-2.5 py-1 rounded-md hover:bg-accent/40 transition-colors font-sans">+ Add Item</button>
                             </div>
                             
                             <div id="items-container" class="space-y-2 max-h-48 overflow-y-auto custom-scroll pr-1">
@@ -460,17 +481,17 @@
 
                         <div class="grid grid-cols-2 gap-3 border-t border-cream/10 pt-3">
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">VAT / Tax Rate (%)</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">VAT / Tax Rate (%)</label>
                                 <input type="number" id="tax-rate" value="15" min="0" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="updatePreview('preview-totals')">
                             </div>
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Discount (%)</label>
+                                <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Discount (%)</label>
                                 <input type="number" id="discount-rate" value="0" min="0" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="updatePreview('preview-totals')">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-cream/60 mb-1 font-mono text-[10px] uppercase font-bold">Payment Details & Terms</label>
+                            <label class="block text-cream/60 mb-1 font-sans text-[10px] uppercase font-bold">Payment Details & Terms</label>
                             <textarea id="doc-notes" rows="2" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream placeholder-cream/20 focus:outline-none focus:border-accent" oninput="updatePreview('preview-totals')">Bank: FNB | Acc: 62000000000 | Branch: 250655
 Standard 30 days payment terms apply.</textarea>
                         </div>
@@ -480,19 +501,19 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Tab 3: Templates & Styles -->
                 <div id="tab-style" class="space-y-6 tab-content hidden">
                     <div>
-                        <h3 class="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-1">1. Color Palette</h3>
+                        <h3 class="text-xs font-sans uppercase tracking-widest text-accent font-bold mb-1">1. Color Palette</h3>
                         <p class="text-[10px] text-cream/50 mb-3">Select theme presets or create custom color palettes.</p>
 
                         <!-- Theme Presets & Custom Hex Colors Options -->
                         <div class="space-y-3">
                             <div class="flex justify-between items-center">
-                                <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold">Use Custom Hex Palette</label>
+                                <label class="block text-cream/70 font-sans text-[9px] uppercase font-bold">Use Custom Hex Palette</label>
                                 <input type="checkbox" id="use-custom-colors" class="accent-accent" onchange="toggleCustomColors()">
                             </div>
 
                             <!-- Saved Custom Palettes Dropdown -->
                             <div class="flex gap-2 items-center">
-                                <select id="palette-selector" class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-2 py-1.5 text-cream font-mono text-[10px] focus:outline-none focus:border-accent" onchange="loadCustomPalette(this.value)">
+                                <select id="palette-selector" class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-2 py-1.5 text-cream font-sans text-[10px] focus:outline-none focus:border-accent" onchange="loadCustomPalette(this.value)">
                                     <option value="">-- Load Saved / Preset Color Palette --</option>
                                 </select>
                                 <button onclick="deleteSelectedPalette()" title="Delete Custom Palette" aria-label="Delete Custom Palette" class="text-[10px] text-red-400 hover:text-red-300 border border-cream/10 px-2 py-1 rounded bg-darkbg">🗑</button>
@@ -500,43 +521,43 @@ Standard 30 days payment terms apply.</textarea>
 
                             <div id="custom-color-pickers" class="grid grid-cols-2 gap-3 text-[10px] opacity-40 pointer-events-none transition-opacity">
                                 <div>
-                                    <label class="block text-cream/50 mb-0.5 font-mono">Background Hex</label>
+                                    <label class="block text-cream/50 mb-0.5 font-sans">Background Hex</label>
                                     <div class="flex gap-1.5 items-center">
                                         <input type="color" id="custom-color-bg" value="#ffffff" class="w-7 h-7 border-0 bg-transparent rounded cursor-pointer" oninput="syncColorPicker('bg', this.value)">
-                                        <input type="text" id="custom-color-bg-hex" value="#ffffff" placeholder="#FFFFFF" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-mono text-[10px]" oninput="syncHexInput('bg', this.value)">
+                                        <input type="text" id="custom-color-bg-hex" value="#ffffff" placeholder="#FFFFFF" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-sans text-[10px]" oninput="syncHexInput('bg', this.value)">
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-cream/50 mb-0.5 font-mono">Text (Primary) Hex</label>
+                                    <label class="block text-cream/50 mb-0.5 font-sans">Text (Primary) Hex</label>
                                     <div class="flex gap-1.5 items-center">
                                         <input type="color" id="custom-color-text" value="#171717" class="w-7 h-7 border-0 bg-transparent rounded cursor-pointer" oninput="syncColorPicker('text', this.value)">
-                                        <input type="text" id="custom-color-text-hex" value="#171717" placeholder="#171717" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-mono text-[10px]" oninput="syncHexInput('text', this.value)">
+                                        <input type="text" id="custom-color-text-hex" value="#171717" placeholder="#171717" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-sans text-[10px]" oninput="syncHexInput('text', this.value)">
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-cream/50 mb-0.5 font-mono">Accent / Brand Hex</label>
+                                    <label class="block text-cream/50 mb-0.5 font-sans">Accent / Brand Hex</label>
                                     <div class="flex gap-1.5 items-center">
                                         <input type="color" id="custom-color-accent" value="#aa4628" class="w-7 h-7 border-0 bg-transparent rounded cursor-pointer" oninput="syncColorPicker('accent', this.value)">
-                                        <input type="text" id="custom-color-accent-hex" value="#aa4628" placeholder="#AA4628" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-mono text-[10px]" oninput="syncHexInput('accent', this.value)">
+                                        <input type="text" id="custom-color-accent-hex" value="#aa4628" placeholder="#AA4628" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-sans text-[10px]" oninput="syncHexInput('accent', this.value)">
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-cream/50 mb-0.5 font-mono">Borders / Sec. Hex</label>
+                                    <label class="block text-cream/50 mb-0.5 font-sans">Borders / Sec. Hex</label>
                                     <div class="flex gap-1.5 items-center">
                                         <input type="color" id="custom-color-sec" value="#e2e8f0" class="w-7 h-7 border-0 bg-transparent rounded cursor-pointer" oninput="syncColorPicker('sec', this.value)">
-                                        <input type="text" id="custom-color-sec-hex" value="#e2e8f0" placeholder="#E2E8F0" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-mono text-[10px]" oninput="syncHexInput('sec', this.value)">
+                                        <input type="text" id="custom-color-sec-hex" value="#e2e8f0" placeholder="#E2E8F0" class="w-full bg-darkbg border border-cream/10 rounded px-2 py-1 text-cream uppercase font-sans text-[10px]" oninput="syncHexInput('sec', this.value)">
                                     </div>
                                 </div>
                             </div>
 
-                            <button onclick="saveCurrentPalette()" class="w-full bg-accent/20 border border-accent/40 hover:bg-accent/40 text-cream font-mono text-[10px] py-2 rounded-lg transition-colors font-bold uppercase">
+                            <button onclick="saveCurrentPalette()" class="w-full bg-accent/20 border border-accent/40 hover:bg-accent/40 text-cream font-sans text-[10px] py-2 rounded-lg transition-colors font-bold uppercase">
                                 🎨 Save Custom Hex Palette
                             </button>
                         </div>
                     </div>
 
                     <div class="border-t border-cream/10 pt-4">
-                        <h3 class="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-1">2. Typography Style</h3>
+                        <h3 class="text-xs font-sans uppercase tracking-widest text-accent font-bold mb-1">2. Typography Style</h3>
                         <p class="text-[10px] text-cream/50 mb-3">Adjust primary typeface patterns.</p>
                         <select id="style-font" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream text-xs focus:outline-none focus:border-accent" onchange="updateStyleOptions()">
                             <option value="font-sans">Plus Jakarta Sans (Sans-Serif)</option>
@@ -544,14 +565,14 @@ Standard 30 days payment terms apply.</textarea>
                             <option value="font-outfit">Outfit (Modern elegant sans-serif)</option>
                             <option value="font-serif">Playfair Display (Editorial Serif)</option>
                             <option value="font-lora">Lora (Traditional balanced serif)</option>
-                            <option value="font-mono">Space Mono (Tech / Raw Monospace)</option>
+
                         </select>
                     </div>
 
                     <div class="border-t border-cream/10 pt-4">
-                        <h3 class="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-1">3. Layout Format</h3>
+                        <h3 class="text-xs font-sans uppercase tracking-widest text-accent font-bold mb-1">3. Layout Format</h3>
                         <p class="text-[10px] text-cream/50 mb-3">Rearrange heading structure and block designs.</p>
-                        <div class="grid grid-cols-3 gap-2 text-[10px] font-mono">
+                        <div class="grid grid-cols-3 gap-2 text-[10px] font-sans">
                             <button onclick="setLayoutFormat('layout-standard')" id="btn-layout-standard" class="border border-accent bg-darkbg/40 py-2 rounded-lg text-center font-bold transition-all">Standard</button>
                             <button onclick="setLayoutFormat('layout-centered')" id="btn-layout-centered" class="border border-cream/10 bg-darkbg/40 py-2 rounded-lg text-center text-cream/60 hover:text-cream transition-all font-semibold">Centered</button>
                             <button onclick="setLayoutFormat('layout-inverted')" id="btn-layout-inverted" class="border border-cream/10 bg-darkbg/40 py-2 rounded-lg text-center text-cream/60 hover:text-cream transition-all font-semibold">Inverted</button>
@@ -559,7 +580,7 @@ Standard 30 days payment terms apply.</textarea>
                     </div>
 
                     <div class="border-t border-cream/10 pt-4">
-                        <h3 class="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-1">4. Table Styling</h3>
+                        <h3 class="text-xs font-sans uppercase tracking-widest text-accent font-bold mb-1">4. Table Styling</h3>
                         <p class="text-[10px] text-cream/50 mb-3">Select border patterns and item grid lines.</p>
                         <select id="style-table" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream text-xs focus:outline-none focus:border-accent" onchange="updateStyleOptions()">
                             <option value="table-borderless">Borderless Minimal</option>
@@ -570,10 +591,10 @@ Standard 30 days payment terms apply.</textarea>
                     </div>
 
                     <div class="grid grid-cols-2 gap-3 border-t border-cream/10 pt-4">
-                        <button onclick="window.print()" class="btn-depth bg-[#1e293b] border border-cream/10 text-cream text-[10px] font-mono font-bold tracking-wider uppercase py-3 rounded-lg flex items-center justify-center gap-1.5">
+                        <button onclick="window.print()" class="btn-depth bg-[#1e293b] border border-cream/10 text-cream text-[10px] font-sans font-bold tracking-wider uppercase py-3 rounded-lg flex items-center justify-center gap-1.5">
                             Print / PDF
                         </button>
-                        <button onclick="sendDocumentEmail()" id="btn-send-email" class="btn-depth bg-accent hover:bg-accent-hover text-cream text-[10px] font-mono font-bold tracking-wider uppercase py-3 rounded-lg flex items-center justify-center gap-1.5">
+                        <button onclick="sendDocumentEmail()" id="btn-send-email" class="btn-depth bg-accent hover:bg-accent-hover text-cream text-[10px] font-sans font-bold tracking-wider uppercase py-3 rounded-lg flex items-center justify-center gap-1.5">
                             ✉ Send to Guest
                         </button>
                     </div>
@@ -584,14 +605,14 @@ Standard 30 days payment terms apply.</textarea>
             <div id="wizard-panel" class="space-y-6 hidden">
                 <div class="flex justify-between items-center">
                     <div>
-                        <span class="text-[9px] font-mono text-accent uppercase tracking-widest font-bold">WIZARD MODE ENGAGED</span>
+                        <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">WIZARD MODE ENGAGED</span>
                         <h3 class="text-sm font-bold text-cream mt-0.5">Guided Invoice & Quote Creator</h3>
                     </div>
-                    <button onclick="setUIMode('designer')" class="text-[10px] font-mono text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Exit Wizard</button>
+                    <button onclick="setUIMode('designer')" class="text-[10px] font-sans text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Exit Wizard</button>
                 </div>
 
                 <div class="space-y-1.5">
-                    <div class="flex justify-between text-[10px] font-mono text-cream/50">
+                    <div class="flex justify-between text-[10px] font-sans text-cream/50">
                         <span id="wizard-step-label">Step 1 of 5</span>
                         <span id="wizard-percentage">20% Complete</span>
                     </div>
@@ -602,7 +623,7 @@ Standard 30 days payment terms apply.</textarea>
 
                 <div class="bg-darkbg/40 border border-cream/10 p-5 rounded-2xl space-y-4">
                     <div id="w-step-1" class="w-step space-y-3">
-                        <label class="block text-cream font-mono text-xs uppercase font-bold">1. Document Type & Template</label>
+                        <label class="block text-cream font-sans text-xs uppercase font-bold">1. Document Type & Template</label>
                         <p class="text-[11px] text-cream/60 leading-relaxed">What type of document would you like to create?</p>
                         <div class="grid grid-cols-2 gap-3 text-xs pt-1">
                             <button onclick="selectWizardDocType('invoice')" id="w-btn-doc-invoice" class="border border-accent bg-accent/20 py-3 rounded-xl font-bold tracking-wider text-center transition-all">INVOICE</button>
@@ -611,45 +632,45 @@ Standard 30 days payment terms apply.</textarea>
                     </div>
 
                     <div id="w-step-2" class="w-step space-y-3 hidden">
-                        <label class="block text-cream font-mono text-xs uppercase font-bold">2. Guest / Client Details</label>
+                        <label class="block text-cream font-sans text-xs uppercase font-bold">2. Guest / Client Details</label>
                         <p class="text-[11px] text-cream/60">Who should we bill or address this document to?</p>
                         <div class="space-y-3 text-xs">
                             <div>
-                                <label class="block text-cream/50 mb-1 font-mono text-[9px] uppercase">Select Saved Guest Profile</label>
+                                <label class="block text-cream/50 mb-1 font-sans text-[9px] uppercase">Select Saved Guest Profile</label>
                                 <select id="w-guest-selector" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent font-semibold" onchange="selectGuestFromDropdown(this.value)">
                                     <option value="">-- Or Pick Saved Guest Profile --</option>
                                 </select>
                             </div>
                             <div>
-                                <label class="block text-cream/50 mb-1 font-mono text-[9px] uppercase">Client / Guest Name</label>
+                                <label class="block text-cream/50 mb-1 font-sans text-[9px] uppercase">Client / Guest Name</label>
                                 <input type="text" id="w-client-name" placeholder="Acme Company / Guest Name" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="syncWizardInput('client-name', this.value)">
                             </div>
                             <div>
-                                <label class="block text-cream/50 mb-1 font-mono text-[9px] uppercase">Client Email Address</label>
+                                <label class="block text-cream/50 mb-1 font-sans text-[9px] uppercase">Client Email Address</label>
                                 <input type="email" id="w-client-email" placeholder="billing@acme.com" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="syncWizardInput('client-email', this.value)">
                             </div>
                             <div>
-                                <label class="block text-cream/50 mb-1 font-mono text-[9px] uppercase">Physical Address</label>
+                                <label class="block text-cream/50 mb-1 font-sans text-[9px] uppercase">Physical Address</label>
                                 <textarea id="w-client-address" rows="2" placeholder="101 Business Road, Cape Town" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="syncWizardInput('client-address', this.value)"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div id="w-step-3" class="w-step space-y-3 hidden">
-                        <label class="block text-cream font-mono text-xs uppercase font-bold">3. Reference & Timelines</label>
+                        <label class="block text-cream font-sans text-xs uppercase font-bold">3. Reference & Timelines</label>
                         <p class="text-[11px] text-cream/60">Define custom reference numbers and deadlines.</p>
                         <div class="space-y-3 text-xs">
                             <div>
-                                <label class="block text-cream/50 mb-1 font-mono text-[9px] uppercase">Document Number</label>
+                                <label class="block text-cream/50 mb-1 font-sans text-[9px] uppercase">Document Number</label>
                                 <input type="text" id="w-doc-number" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="syncWizardInput('doc-number', this.value)">
                             </div>
                             <div class="grid grid-cols-2 gap-3">
                                 <div>
-                                    <label class="block text-cream/50 mb-1 font-mono text-[9px] uppercase">Issue Date</label>
+                                    <label class="block text-cream/50 mb-1 font-sans text-[9px] uppercase">Issue Date</label>
                                     <input type="date" id="w-doc-date-issued" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="syncWizardInput('doc-date-issued', this.value)">
                                 </div>
                                 <div>
-                                    <label id="w-lbl-due-date" class="block text-cream/50 mb-1 font-mono text-[9px] uppercase">Payment Due Date</label>
+                                    <label id="w-lbl-due-date" class="block text-cream/50 mb-1 font-sans text-[9px] uppercase">Payment Due Date</label>
                                     <input type="date" id="w-doc-date-due" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent" oninput="syncWizardInput('doc-date-due', this.value)">
                                 </div>
                             </div>
@@ -658,8 +679,8 @@ Standard 30 days payment terms apply.</textarea>
 
                     <div id="w-step-4" class="w-step space-y-3 hidden">
                         <div class="flex justify-between items-center">
-                            <label class="block text-cream font-mono text-xs uppercase font-bold">4. Product & Service Items</label>
-                            <button onclick="addLineItem()" class="text-[10px] bg-accent/25 border border-accent/40 text-cream px-2 py-0.5 rounded font-mono">+ Add Item</button>
+                            <label class="block text-cream font-sans text-xs uppercase font-bold">4. Product & Service Items</label>
+                            <button onclick="addLineItem()" class="text-[10px] bg-accent/25 border border-accent/40 text-cream px-2 py-0.5 rounded font-sans">+ Add Item</button>
                         </div>
                         <p class="text-[11px] text-cream/60">Specify the products, quantity, and unit prices sold.</p>
                         
@@ -669,7 +690,7 @@ Standard 30 days payment terms apply.</textarea>
                     </div>
 
                     <div id="w-step-5" class="w-step space-y-3 hidden">
-                        <label class="block text-cream font-mono text-xs uppercase font-bold">5. Notes & Completion</label>
+                        <label class="block text-cream font-sans text-xs uppercase font-bold">5. Notes & Completion</label>
                         <p class="text-[11px] text-cream/60">Input any banking details, standard policies, or T&Cs.</p>
                         <div class="space-y-3 text-xs">
                             <div>
@@ -678,10 +699,10 @@ Standard 30 days payment terms apply.</textarea>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-3 border-t border-cream/10 pt-3">
-                            <button onclick="window.print()" class="btn-depth bg-[#1e293b] border border-cream/10 text-cream text-[10px] font-mono font-bold tracking-wider py-3 rounded-xl flex items-center justify-center gap-1.5">
+                            <button onclick="window.print()" class="btn-depth bg-[#1e293b] border border-cream/10 text-cream text-[10px] font-sans font-bold tracking-wider py-3 rounded-xl flex items-center justify-center gap-1.5">
                                 Print PDF
                             </button>
-                            <button onclick="sendDocumentEmail()" id="btn-w-send" class="btn-depth bg-accent hover:bg-accent-hover text-cream text-[10px] font-mono font-bold tracking-wider py-3 rounded-xl flex items-center justify-center gap-1.5">
+                            <button onclick="sendDocumentEmail()" id="btn-w-send" class="btn-depth bg-accent hover:bg-accent-hover text-cream text-[10px] font-sans font-bold tracking-wider py-3 rounded-xl flex items-center justify-center gap-1.5">
                                 ✉ Email Guest
                             </button>
                         </div>
@@ -689,8 +710,8 @@ Standard 30 days payment terms apply.</textarea>
                 </div>
 
                 <div class="flex justify-between items-center gap-3">
-                    <button onclick="changeWizardStep(-1)" id="btn-w-prev" class="w-1/3 py-2.5 rounded-lg bg-darkbg/40 text-cream/70 hover:text-cream text-xs font-bold font-mono tracking-wider border border-cream/10 disabled:opacity-30 disabled:pointer-events-none">BACK</button>
-                    <button onclick="changeWizardStep(1)" id="btn-w-next" class="flex-1 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-cream text-xs font-bold font-mono tracking-wider transition-colors btn-depth">NEXT STEP</button>
+                    <button onclick="changeWizardStep(-1)" id="btn-w-prev" class="w-1/3 py-2.5 rounded-lg bg-darkbg/40 text-cream/70 hover:text-cream text-xs font-bold font-sans tracking-wider border border-cream/10 disabled:opacity-30 disabled:pointer-events-none">BACK</button>
+                    <button onclick="changeWizardStep(1)" id="btn-w-next" class="flex-1 py-2.5 rounded-lg bg-accent hover:bg-accent-hover text-cream text-xs font-bold font-sans tracking-wider transition-colors btn-depth">NEXT STEP</button>
                 </div>
             </div>
 
@@ -698,16 +719,16 @@ Standard 30 days payment terms apply.</textarea>
             <div id="guests-panel" class="space-y-5 hidden text-xs">
                 <div class="flex justify-between items-center">
                     <div>
-                        <span class="text-[9px] font-mono text-accent uppercase tracking-widest font-bold">CRM Database</span>
+                        <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">CRM Database</span>
                         <h3 class="text-sm font-bold text-cream mt-0.5">Guest & Client Profiles</h3>
                     </div>
-                    <button onclick="setUIMode('designer')" class="text-[10px] font-mono text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Back</button>
+                    <button onclick="setUIMode('designer')" class="text-[10px] font-sans text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Back</button>
                 </div>
 
                 <div class="bg-darkbg/40 border border-cream/10 p-4 rounded-xl space-y-3">
                     <div class="flex justify-between items-center border-b border-cream/5 pb-1">
-                        <span id="g-form-title" class="font-mono text-[9px] text-accent uppercase font-bold block">Create Guest Card</span>
-                        <button id="g-btn-cancel-edit" onclick="cancelGuestEdit()" class="text-[9px] text-cream/40 hover:text-cream font-mono hidden">Cancel Edit</button>
+                        <span id="g-form-title" class="font-sans text-[9px] text-accent uppercase font-bold block">Create Guest Card</span>
+                        <button id="g-btn-cancel-edit" onclick="cancelGuestEdit()" class="text-[9px] text-cream/40 hover:text-cream font-sans hidden">Cancel Edit</button>
                     </div>
                     <input type="hidden" id="g-edit-id" value="">
                     
@@ -720,7 +741,7 @@ Standard 30 days payment terms apply.</textarea>
                             <input type="text" id="g-input-phone" placeholder="Phone Number (e.g. +27825551212)" class="bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
                             <input type="text" id="g-input-room" placeholder="Room / Suite (e.g. Suite 4)" class="bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
                         </div>
-                        <div class="grid grid-cols-2 gap-2 font-mono text-[10px]">
+                        <div class="grid grid-cols-2 gap-2 font-sans text-[10px]">
                             <div>
                                 <label class="block text-cream/40 mb-0.5 text-[8px]">CHECK-IN</label>
                                 <input type="date" id="g-input-checkin" class="bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream w-full">
@@ -731,12 +752,12 @@ Standard 30 days payment terms apply.</textarea>
                             </div>
                         </div>
                         <input type="text" id="g-input-address" placeholder="Physical Address details" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream placeholder-cream/20 focus:outline-none focus:border-accent">
-                        <button id="g-btn-submit" onclick="saveGuestProfileFromForm()" class="w-full bg-accent/25 border border-accent/40 text-cream font-mono font-bold tracking-wider py-2 rounded hover:bg-accent/40 transition-all uppercase text-[10px]">+ Save Profile</button>
+                        <button id="g-btn-submit" onclick="saveGuestProfileFromForm()" class="w-full bg-accent/25 border border-accent/40 text-cream font-sans font-bold tracking-wider py-2 rounded hover:bg-accent/40 transition-all uppercase text-[10px]">+ Save Profile</button>
                     </div>
                 </div>
 
                 <div class="space-y-2">
-                    <span class="font-mono text-[9px] text-cream/40 uppercase tracking-widest block">Saved Directory Profiles</span>
+                    <span class="font-sans text-[9px] text-cream/40 uppercase tracking-widest block">Saved Directory Profiles</span>
                     <div id="guest-directory-list" class="space-y-2 max-h-[35vh] overflow-y-auto custom-scroll pr-1">
                         <!-- Loaded from localStorage -->
                     </div>
@@ -747,12 +768,12 @@ Standard 30 days payment terms apply.</textarea>
             <div id="pricing-panel" class="space-y-6 hidden text-xs">
                 <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                     <div>
-                        <span class="text-[9px] font-mono text-emerald-400 uppercase tracking-widest font-bold">REVENUE & CHANNEL DISTRIBUTION HUB</span>
+                        <span class="text-[9px] font-sans text-emerald-400 uppercase tracking-widest font-bold">REVENUE & CHANNEL DISTRIBUTION HUB</span>
                         <h3 class="text-sm font-bold text-cream mt-0.5">🌐 Direct Booking & Channel Rate Engine</h3>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span id="rate-engine-saved-indicator" class="text-[10px] font-mono text-emerald-400 hidden">✓ Saved to LocalStorage</span>
-                        <button onclick="setUIMode('calendar')" class="text-[10px] font-mono text-cream/40 hover:text-cream border border-cream/10 px-2.5 py-1 rounded hover:bg-darkbg transition-colors">Back to Calendar</button>
+                        <span id="rate-engine-saved-indicator" class="text-[10px] font-sans text-emerald-400 hidden">✓ Saved to LocalStorage</span>
+                        <button onclick="setUIMode('calendar')" class="text-[10px] font-sans text-cream/40 hover:text-cream border border-cream/10 px-2.5 py-1 rounded hover:bg-darkbg transition-colors">Back to Calendar</button>
                     </div>
                 </div>
 
@@ -763,8 +784,8 @@ Standard 30 days payment terms apply.</textarea>
                         <!-- 1. Room Base Rates & Min Stay Rules -->
                         <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                                <span class="font-mono text-[10px] text-accent uppercase font-bold">1. Room Base Nightly Rates & Min Stay</span>
-                                <span class="text-[9px] font-mono text-cream/40">Direct Portal Pricing</span>
+                                <span class="font-sans text-[10px] text-accent uppercase font-bold">1. Room Base Nightly Rates & Min Stay</span>
+                                <span class="text-[9px] font-sans text-cream/40">Direct Portal Pricing</span>
                             </div>
 
                             <div class="space-y-3" id="rate-engine-rooms-container">
@@ -775,30 +796,30 @@ Standard 30 days payment terms apply.</textarea>
                         <!-- 2. Seasonal & Weekend Surcharges -->
                         <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                                <span class="font-mono text-[10px] text-accent uppercase font-bold">2. Seasonal & Weekend Surcharges</span>
-                                <span class="text-[9px] font-mono text-cream/40">% Markups</span>
+                                <span class="font-sans text-[10px] text-accent uppercase font-bold">2. Seasonal & Weekend Surcharges</span>
+                                <span class="text-[9px] font-sans text-cream/40">% Markups</span>
                             </div>
 
                             <div class="grid grid-cols-2 gap-3 text-xs">
                                 <div>
-                                    <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold mb-1">Peak Season Markup (%)</label>
+                                    <label class="block text-cream/70 font-sans text-[9px] uppercase font-bold mb-1">Peak Season Markup (%)</label>
                                     <div class="flex items-center gap-1">
                                         <input type="number" id="peak-season-markup" value="25" min="0" max="200" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-1.5 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
-                                        <span class="font-mono text-cream/50">%</span>
+                                        <span class="font-sans text-cream/50">%</span>
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold mb-1">Weekend Surcharge (%)</label>
+                                    <label class="block text-cream/70 font-sans text-[9px] uppercase font-bold mb-1">Weekend Surcharge (%)</label>
                                     <div class="flex items-center gap-1">
                                         <input type="number" id="weekend-markup" value="15" min="0" max="200" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-1.5 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
-                                        <span class="font-mono text-cream/50">%</span>
+                                        <span class="font-sans text-cream/50">%</span>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="border-t border-cream/10 pt-3 space-y-2">
-                                <span class="font-mono text-[9px] text-cream/60 uppercase font-bold block">Preview Season Rate Multiplier:</span>
-                                <div class="grid grid-cols-3 gap-2 text-[10px] font-mono">
+                                <span class="font-sans text-[9px] text-cream/60 uppercase font-bold block">Preview Season Rate Multiplier:</span>
+                                <div class="grid grid-cols-3 gap-2 text-[10px] font-sans">
                                     <button onclick="setSeasonPreviewMode('standard')" id="btn-season-standard" class="py-1.5 px-2 rounded-lg border border-accent bg-accent/20 text-cream font-bold text-center">Standard</button>
                                     <button onclick="setSeasonPreviewMode('weekend')" id="btn-season-weekend" class="py-1.5 px-2 rounded-lg border border-cream/10 bg-darkbg text-cream/60 text-center hover:text-cream">Weekend</button>
                                     <button onclick="setSeasonPreviewMode('peak')" id="btn-season-peak" class="py-1.5 px-2 rounded-lg border border-cream/10 bg-darkbg text-cream/60 text-center hover:text-cream">Peak Season</button>
@@ -814,45 +835,45 @@ Standard 30 days payment terms apply.</textarea>
                         <!-- OTA Fee & Tax Settings -->
                         <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                                <span class="font-mono text-[10px] text-accent uppercase font-bold">3. OTA Platform Fees & Taxes</span>
-                                <span class="text-[9px] font-mono text-cream/40">Markup Calculator</span>
+                                <span class="font-sans text-[10px] text-accent uppercase font-bold">3. OTA Platform Fees & Taxes</span>
+                                <span class="text-[9px] font-sans text-cream/40">Markup Calculator</span>
                             </div>
 
                             <div class="grid grid-cols-2 gap-3 text-xs">
                                 <div>
-                                    <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold mb-1">VAT / Tax Rate (%)</label>
+                                    <label class="block text-cream/70 font-sans text-[9px] uppercase font-bold mb-1">VAT / Tax Rate (%)</label>
                                     <input type="number" id="ota-vat-rate" value="15" min="0" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent" oninput="calculateOTARates()">
                                 </div>
                                 <div>
-                                    <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold mb-1">Card / Bank Fee (%)</label>
+                                    <label class="block text-cream/70 font-sans text-[9px] uppercase font-bold mb-1">Card / Bank Fee (%)</label>
                                     <input type="number" id="ota-card-fee" value="2.5" min="0" step="0.1" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent" oninput="calculateOTARates()">
                                 </div>
                             </div>
 
                             <div class="border-t border-cream/10 pt-3">
-                                <span class="font-mono text-[9px] text-cream/50 uppercase font-bold block mb-2">OTA Commission Percentages:</span>
+                                <span class="font-sans text-[9px] text-cream/50 uppercase font-bold block mb-2">OTA Commission Percentages:</span>
                                 <div class="grid grid-cols-2 gap-2 text-[11px]">
                                     <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
                                         <span class="font-semibold text-cream">Booking.com</span>
-                                        <div class="flex items-center gap-1 font-mono">
+                                        <div class="flex items-center gap-1 font-sans">
                                             <input type="number" id="fee-booking" value="15" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
                                         <span class="font-semibold text-cream">Airbnb Host</span>
-                                        <div class="flex items-center gap-1 font-mono">
+                                        <div class="flex items-center gap-1 font-sans">
                                             <input type="number" id="fee-airbnb" value="15" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
                                         <span class="font-semibold text-cream">Expedia</span>
-                                        <div class="flex items-center gap-1 font-mono">
+                                        <div class="flex items-center gap-1 font-sans">
                                             <input type="number" id="fee-expedia" value="18" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
                                         <span class="font-semibold text-cream">Direct Portal</span>
-                                        <div class="flex items-center gap-1 font-mono">
+                                        <div class="flex items-center gap-1 font-sans">
                                             <input type="number" id="fee-direct" value="0" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
                                         </div>
                                     </div>
@@ -864,10 +885,10 @@ Standard 30 days payment terms apply.</textarea>
                         <div class="bg-darkbg/40 border border-emerald-500/30 p-5 rounded-2xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                                 <div>
-                                    <span class="font-mono text-[9px] text-emerald-400 uppercase font-bold">4. CHANNEL RATE COMPARISON MATRIX</span>
+                                    <span class="font-sans text-[9px] text-emerald-400 uppercase font-bold">4. CHANNEL RATE COMPARISON MATRIX</span>
                                     <h4 class="text-xs font-bold text-cream">Target Extranet Listing Prices</h4>
                                 </div>
-                                <select id="rate-matrix-room-select" class="bg-darkbg border border-cream/15 text-cream text-[10px] font-mono rounded px-2 py-1 focus:outline-none focus:border-accent" onchange="calculateOTARates()">
+                                <select id="rate-matrix-room-select" class="bg-darkbg border border-cream/15 text-cream text-[10px] font-sans rounded px-2 py-1 focus:outline-none focus:border-accent" onchange="calculateOTARates()">
                                     <!-- Rendered dynamically -->
                                 </select>
                             </div>
@@ -885,16 +906,16 @@ Standard 30 days payment terms apply.</textarea>
             <div id="whatsapp-panel" class="space-y-6 hidden text-xs">
                 <div class="flex justify-between items-center">
                     <div>
-                        <span class="text-[9px] font-mono text-emerald-400 uppercase tracking-widest font-bold">COMMUNICATIONS SUITE</span>
+                        <span class="text-[9px] font-sans text-emerald-400 uppercase tracking-widest font-bold">COMMUNICATIONS SUITE</span>
                         <h3 class="text-sm font-bold text-cream mt-0.5">💬 Guest WhatsApp Messaging Templates</h3>
                     </div>
-                    <button onclick="setUIMode('designer')" class="text-[10px] font-mono text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Back</button>
+                    <button onclick="setUIMode('designer')" class="text-[10px] font-sans text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Back</button>
                 </div>
 
                 <div class="bg-darkbg/40 border border-cream/10 p-5 rounded-2xl space-y-4">
                     <div class="flex items-center justify-between border-b border-cream/10 pb-3">
                         <p class="text-[11px] text-cream/70">Configure automated message templates for every stage of your guest stay lifecycle.</p>
-                        <div class="flex gap-1 font-mono text-[9px]">
+                        <div class="flex gap-1 font-sans text-[9px]">
                             <span class="bg-accent/20 border border-accent/40 text-cream px-2 py-0.5 rounded">{GUEST_NAME}</span>
                             <span class="bg-accent/20 border border-accent/40 text-cream px-2 py-0.5 rounded">{ROOM}</span>
                             <span class="bg-accent/20 border border-accent/40 text-cream px-2 py-0.5 rounded">{CHECKIN}</span>
@@ -906,36 +927,36 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <!-- Pre-Travel Template -->
                         <div class="bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-2">
-                            <span class="font-mono text-[10px] text-emerald-400 font-bold block uppercase">1. Pre-Travel Welcome Message</span>
+                            <span class="font-sans text-[10px] text-emerald-400 font-bold block uppercase">1. Pre-Travel Welcome Message</span>
                             <p class="text-[9px] text-cream/40">Sent prior to arrival with directions and check-in instructions.</p>
-                            <textarea id="wa-tpl-pre" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-mono text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
+                            <textarea id="wa-tpl-pre" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-sans text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
                         </div>
 
                         <!-- During-Travel Template -->
                         <div class="bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-2">
-                            <span class="font-mono text-[10px] text-emerald-400 font-bold block uppercase">2. During-Stay Concierge Message</span>
+                            <span class="font-sans text-[10px] text-emerald-400 font-bold block uppercase">2. During-Stay Concierge Message</span>
                             <p class="text-[9px] text-cream/40">Sent during stay for breakfast times and concierge service assistance.</p>
-                            <textarea id="wa-tpl-during" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-mono text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
+                            <textarea id="wa-tpl-during" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-sans text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
                         </div>
 
                         <!-- Post-Travel Template -->
                         <div class="bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-2">
-                            <span class="font-mono text-[10px] text-emerald-400 font-bold block uppercase">3. Post-Stay Follow-Up & Review</span>
+                            <span class="font-sans text-[10px] text-emerald-400 font-bold block uppercase">3. Post-Stay Follow-Up & Review</span>
                             <p class="text-[9px] text-cream/40">Sent after checkout for safe travels home and requesting reviews.</p>
-                            <textarea id="wa-tpl-post" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-mono text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
+                            <textarea id="wa-tpl-post" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-sans text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
                         </div>
                     </div>
 
                     <!-- Template Tester -->
                     <div class="border-t border-cream/10 pt-4 space-y-2">
-                        <span class="font-mono text-[9px] text-accent uppercase font-bold block">Live Template Message Tester</span>
+                        <span class="font-sans text-[9px] text-accent uppercase font-bold block">Live Template Message Tester</span>
                         <div class="flex gap-2">
-                            <select id="wa-test-guest-selector" class="bg-darkbg border border-cream/15 rounded px-3 py-1.5 text-cream text-xs flex-1 font-mono focus:outline-none focus:border-accent">
+                            <select id="wa-test-guest-selector" class="bg-darkbg border border-cream/15 rounded px-3 py-1.5 text-cream text-xs flex-1 font-sans focus:outline-none focus:border-accent">
                                 <option value="">-- Select Guest Profile to Test --</option>
                             </select>
-                            <button onclick="testWhatsAppMessage('pre')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-mono text-[10px]">Test Pre-Travel</button>
-                            <button onclick="testWhatsAppMessage('during')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-mono text-[10px]">Test During-Stay</button>
-                            <button onclick="testWhatsAppMessage('post')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-mono text-[10px]">Test Post-Stay</button>
+                            <button onclick="testWhatsAppMessage('pre')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-sans text-[10px]">Test Pre-Travel</button>
+                            <button onclick="testWhatsAppMessage('during')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-sans text-[10px]">Test During-Stay</button>
+                            <button onclick="testWhatsAppMessage('post')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-sans text-[10px]">Test Post-Stay</button>
                         </div>
                     </div>
                 </div>
@@ -945,32 +966,32 @@ Standard 30 days payment terms apply.</textarea>
             <div id="calendar-panel" class="space-y-6 hidden text-xs">
                 <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                     <div>
-                        <span class="text-[9px] font-mono text-accent uppercase tracking-widest font-bold">HOSPITALITY CRM</span>
+                        <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">HOSPITALITY CRM</span>
                         <h3 class="text-sm font-bold text-cream mt-0.5">📅 Landscape Booking Calendar & Stay Checklists</h3>
                     </div>
-                    <button onclick="openNewStayModal()" class="btn-depth bg-accent hover:bg-accent-hover text-cream px-3 py-1.5 rounded-lg font-mono text-[10px] font-bold">+ Create New Stay Booking</button>
+                    <button onclick="openNewStayModal()" class="btn-depth bg-accent hover:bg-accent-hover text-cream px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold">+ Create New Stay Booking</button>
                 </div>
 
                 <!-- Create/Edit Stay Form Inline -->
                 <div id="stay-form-container" class="bg-darkbg/70 border border-accent/40 p-4 rounded-xl space-y-3 hidden">
                     <div class="flex justify-between items-center">
-                        <span class="font-mono text-[10px] text-accent uppercase font-bold" id="stay-form-title">Create New Stay Booking</span>
-                        <button onclick="closeStayModal()" class="text-[9px] font-mono text-cream/40 hover:text-cream">Cancel</button>
+                        <span class="font-sans text-[10px] text-accent uppercase font-bold" id="stay-form-title">Create New Stay Booking</span>
+                        <button onclick="closeStayModal()" class="text-[9px] font-sans text-cream/40 hover:text-cream">Cancel</button>
                     </div>
                     <input type="hidden" id="stay-edit-id" value="">
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-3 text-xs">
                         <div>
-                            <label class="block text-cream/60 mb-1 font-mono text-[9px] uppercase">Select Guest</label>
+                            <label class="block text-cream/60 mb-1 font-sans text-[9px] uppercase">Select Guest</label>
                             <select id="stay-guest-selector" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent font-semibold" onchange="autoFillStayGuest(this.value)">
                                 <option value="">-- Or Enter Guest Name Below --</option>
                             </select>
                         </div>
                         <div>
-                            <label class="block text-cream/60 mb-1 font-mono text-[9px] uppercase">Guest Name</label>
+                            <label class="block text-cream/60 mb-1 font-sans text-[9px] uppercase">Guest Name</label>
                             <input type="text" id="stay-guest-name" placeholder="Guest Full Name" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent">
                         </div>
                         <div>
-                            <label class="block text-cream/60 mb-1 font-mono text-[9px] uppercase">Room / Suite</label>
+                            <label class="block text-cream/60 mb-1 font-sans text-[9px] uppercase">Room / Suite</label>
                             <select id="stay-room-name" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent font-semibold">
                                 <option value="Suite 1 (Deluxe Ocean)">Suite 1 (Deluxe Ocean)</option>
                                 <option value="Suite 2 (Honeymoon)">Suite 2 (Honeymoon)</option>
@@ -981,16 +1002,16 @@ Standard 30 days payment terms apply.</textarea>
                         </div>
                         <div class="grid grid-cols-2 gap-2">
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[8px] uppercase">Check-In</label>
-                                <input type="date" id="stay-checkin-date" class="w-full bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream font-mono text-[10px]">
+                                <label class="block text-cream/60 mb-1 font-sans text-[8px] uppercase">Check-In</label>
+                                <input type="date" id="stay-checkin-date" class="w-full bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream font-sans text-[10px]">
                             </div>
                             <div>
-                                <label class="block text-cream/60 mb-1 font-mono text-[8px] uppercase">Check-Out</label>
-                                <input type="date" id="stay-checkout-date" class="w-full bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream font-mono text-[10px]">
+                                <label class="block text-cream/60 mb-1 font-sans text-[8px] uppercase">Check-Out</label>
+                                <input type="date" id="stay-checkout-date" class="w-full bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream font-sans text-[10px]">
                             </div>
                         </div>
                     </div>
-                    <button onclick="saveStayBookingFromForm()" class="bg-accent text-cream px-4 py-1.5 rounded-lg font-mono text-[10px] font-bold uppercase tracking-wider transition-all">Save Stay Booking</button>
+                    <button onclick="saveStayBookingFromForm()" class="bg-accent text-cream px-4 py-1.5 rounded-lg font-sans text-[10px] font-bold uppercase tracking-wider transition-all">Save Stay Booking</button>
                 </div>
 
                 <!-- Visual Landscape Grid Calendar Overview (Month-by-Month) -->
@@ -1027,7 +1048,7 @@ Standard 30 days payment terms apply.</textarea>
 
                     <!-- Daily Agenda View Container -->
                     <div id="daily-agenda-view-container" class="hidden space-y-4">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-darkbg/70 p-3 rounded-xl border border-cream/10 font-mono">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 bg-darkbg/70 p-3 rounded-xl border border-cream/10 font-sans">
                             <div class="flex items-center gap-2">
                                 <label class="text-[10px] uppercase font-bold text-accent">Select Agenda Date:</label>
                                 <input type="date" id="agenda-date-picker" class="bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream text-xs focus:outline-none focus:border-accent min-h-[44px] sm:min-h-0" onchange="updateAgendaDate(this.value)">
@@ -1045,16 +1066,16 @@ Standard 30 days payment terms apply.</textarea>
                 <div class="bg-darkbg/40 border border-cream/10 p-4 rounded-xl space-y-4">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2 flex-wrap gap-2">
                         <div>
-                            <span class="text-[9px] font-mono text-accent uppercase tracking-widest font-bold block">2-WAY ICAL (.ICS) SYNCHRONIZATION</span>
+                            <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold block">2-WAY ICAL (.ICS) SYNCHRONIZATION</span>
                             <h4 class="text-xs font-bold text-cream">Connect OTA Calendar Feeds (Airbnb, Booking.com, VRBO)</h4>
                         </div>
                         <div class="flex items-center gap-2">
                             <button
                               onclick="loadMockICalData()"
-                              class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded-lg font-mono text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
+                              class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
                               🧪 Load Demo iCal Feed
                             </button>
-                            <button onclick="renderICalSection()" class="text-[9px] font-mono text-cream/70 hover:text-cream bg-darkcard px-2.5 py-1.5 rounded-lg border border-cream/10 hover:border-cream/20 transition-all cursor-pointer">🔄 Refresh Connections</button>
+                            <button onclick="renderICalSection()" class="text-[9px] font-sans text-cream/70 hover:text-cream bg-darkcard px-2.5 py-1.5 rounded-lg border border-cream/10 hover:border-cream/20 transition-all cursor-pointer">🔄 Refresh Connections</button>
                         </div>
                     </div>
 
@@ -1065,7 +1086,7 @@ Standard 30 days payment terms apply.</textarea>
 
                 <!-- Stay-Associated Workflow Checklists Grid -->
                 <div class="space-y-3">
-                    <span class="font-mono text-[10px] text-cream/60 uppercase tracking-widest block font-bold">Stay-Based Active Checklists & Workflows</span>
+                    <span class="font-sans text-[10px] text-cream/60 uppercase tracking-widest block font-bold">Stay-Based Active Checklists & Workflows</span>
                     <div id="stay-checklists-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                         <!-- Loaded dynamically per stay -->
                     </div>
@@ -1088,13 +1109,13 @@ Standard 30 days payment terms apply.</textarea>
 
     <!-- Floating Action Bar for Mobile Live Document Preview Toggle -->
     <div id="mobile-preview-action-bar" class="lg:hidden fixed bottom-16 left-4 right-4 z-40 flex justify-center no-print transition-all duration-300 hidden">
-        <button onclick="toggleMobilePreview()" id="btn-toggle-mobile-preview" class="btn-depth bg-accent hover:bg-accent-hover text-cream text-xs font-mono font-bold py-2.5 px-5 rounded-full shadow-2xl border border-cream/20 flex items-center gap-2 min-h-[44px]">
+        <button onclick="toggleMobilePreview()" id="btn-toggle-mobile-preview" class="btn-depth bg-accent hover:bg-accent-hover text-cream text-xs font-sans font-bold py-2.5 px-5 rounded-full shadow-2xl border border-cream/20 flex items-center gap-2 min-h-[44px]">
             <span>👁️ Toggle Live Document Preview</span>
         </button>
     </div>
 
     <!-- Footer for App Interface -->
-    <footer class="w-full max-w-7xl mx-auto px-6 py-5 border-t border-cream/10 flex justify-between items-center text-[10px] font-mono text-cream/30 no-print relative z-10">
+    <footer class="w-full max-w-7xl mx-auto px-6 py-5 border-t border-cream/10 flex justify-between items-center text-[10px] font-sans text-cream/30 no-print relative z-10">
         <p>&copy; 2026 By Janno. Suite Engine online.</p>
         <p>Interactive Sandbox Engine v1.6.0</p>
     </footer>
@@ -1242,19 +1263,19 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Check-Ins Card Section -->
                 <div class="bg-darkbg/80 border border-emerald-500/30 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-mono text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
+                        <span class="font-sans text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1">
                             <span>🛬</span> Check-Ins (${checkIns.length})
                         </span>
                     </div>
                     <div class="space-y-2">
-                        ${checkIns.length === 0 ? '<p class="text-[10px] text-cream/40 font-mono italic">No check-ins scheduled for this date.</p>' : checkIns.map(stay => `
+                        ${checkIns.length === 0 ? '<p class="text-[10px] text-cream/40 font-sans italic">No check-ins scheduled for this date.</p>' : checkIns.map(stay => `
                             <div class="bg-darkcard p-3 rounded-lg border border-cream/10 text-xs space-y-1">
                                 <div class="flex justify-between font-bold text-cream">
                                     <span>${stay.guestName}</span>
-                                    <span class="text-emerald-400 font-mono text-[10px]">IN</span>
+                                    <span class="text-emerald-400 font-sans text-[10px]">IN</span>
                                 </div>
-                                <div class="text-[10px] font-mono text-accent">${stay.roomName || 'Suite'}</div>
-                                <div class="text-[9px] font-mono text-cream/50">Stay: ${stay.checkin} → ${stay.checkout}</div>
+                                <div class="text-[10px] font-sans text-accent">${stay.roomName || 'Suite'}</div>
+                                <div class="text-[9px] font-sans text-cream/50">Stay: ${stay.checkin} → ${stay.checkout}</div>
                             </div>
                         `).join('')}
                     </div>
@@ -1263,19 +1284,19 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Check-Outs Card Section -->
                 <div class="bg-darkbg/80 border border-amber-500/30 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-mono text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
+                        <span class="font-sans text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1">
                             <span>🛫</span> Check-Outs (${checkOuts.length})
                         </span>
                     </div>
                     <div class="space-y-2">
-                        ${checkOuts.length === 0 ? '<p class="text-[10px] text-cream/40 font-mono italic">No check-outs scheduled for this date.</p>' : checkOuts.map(stay => `
+                        ${checkOuts.length === 0 ? '<p class="text-[10px] text-cream/40 font-sans italic">No check-outs scheduled for this date.</p>' : checkOuts.map(stay => `
                             <div class="bg-darkcard p-3 rounded-lg border border-cream/10 text-xs space-y-1">
                                 <div class="flex justify-between font-bold text-cream">
                                     <span>${stay.guestName}</span>
-                                    <span class="text-amber-400 font-mono text-[10px]">OUT</span>
+                                    <span class="text-amber-400 font-sans text-[10px]">OUT</span>
                                 </div>
-                                <div class="text-[10px] font-mono text-accent">${stay.roomName || 'Suite'}</div>
-                                <div class="text-[9px] font-mono text-cream/50">Stay: ${stay.checkin} → ${stay.checkout}</div>
+                                <div class="text-[10px] font-sans text-accent">${stay.roomName || 'Suite'}</div>
+                                <div class="text-[9px] font-sans text-cream/50">Stay: ${stay.checkin} → ${stay.checkout}</div>
                             </div>
                         `).join('')}
                     </div>
@@ -1284,18 +1305,18 @@ Standard 30 days payment terms apply.</textarea>
                 <!-- Pending Tasks Card Section -->
                 <div class="bg-darkbg/80 border border-accent/30 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-mono text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1">
+                        <span class="font-sans text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1">
                             <span>📌</span> Pending Tasks (${pendingTasks.length})
                         </span>
                     </div>
                     <div class="space-y-2">
-                        ${pendingTasks.length === 0 ? '<p class="text-[10px] text-cream/40 font-mono italic">All tasks completed for active stays on this date!</p>' : pendingTasks.map(item => `
+                        ${pendingTasks.length === 0 ? '<p class="text-[10px] text-cream/40 font-sans italic">All tasks completed for active stays on this date!</p>' : pendingTasks.map(item => `
                             <div class="bg-darkcard p-2.5 rounded-lg border border-cream/10 text-xs flex justify-between items-center">
                                 <div>
                                     <div class="font-bold text-cream text-[11px]">${item.task}</div>
-                                    <div class="text-[9px] font-mono text-cream/50">${item.stay.guestName} (${item.stay.roomName})</div>
+                                    <div class="text-[9px] font-sans text-cream/50">${item.stay.guestName} (${item.stay.roomName})</div>
                                 </div>
-                                <button onclick="executeOneClickStayAutomation('${item.stay.id}', event)" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-1 rounded font-mono hover:bg-accent/40 transition-colors">
+                                <button onclick="executeOneClickStayAutomation('${item.stay.id}', event)" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-1 rounded font-sans hover:bg-accent/40 transition-colors">
                                     ⚡ Complete
                                 </button>
                             </div>
@@ -1703,7 +1724,7 @@ Standard 30 days payment terms apply.</textarea>
 
             const toast = document.createElement('div');
             toast.id = 'celebration-toast';
-            toast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 z-[210] bg-gradient-to-r from-emerald-600 via-accent to-emerald-600 text-white font-mono font-extrabold px-6 py-3.5 rounded-2xl shadow-2xl border border-cream/30 text-xs md:text-sm tracking-wide flex items-center gap-3 animate-bounce';
+            toast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 z-[210] bg-gradient-to-r from-emerald-600 via-accent to-emerald-600 text-white font-sans font-extrabold px-6 py-3.5 rounded-2xl shadow-2xl border border-cream/30 text-xs md:text-sm tracking-wide flex items-center gap-3 animate-bounce';
             toast.innerHTML = `<span>🎉</span> <span>${messageText || '1-Click Automation Executed!'}</span>`;
             document.body.appendChild(toast);
 
@@ -1842,7 +1863,7 @@ Standard 30 days payment terms apply.</textarea>
 
             // Render Stay-Based Checklists Cards
             if (staysList.length === 0) {
-                checklistsContainer.innerHTML = '<p class="text-[10px] text-cream/30 text-center col-span-3 py-6 font-mono">No active stays in calendar. Click "+ Create New Stay Booking" to add one.</p>';
+                checklistsContainer.innerHTML = '<p class="text-[10px] text-cream/30 text-center col-span-3 py-6 font-sans">No active stays in calendar. Click "+ Create New Stay Booking" to add one.</p>';
                 return;
             }
 
@@ -1872,17 +1893,17 @@ Standard 30 days payment terms apply.</textarea>
                                     ${stay.guestName}
                                     ${percent === 100 ? '<span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/40">✓ ALL SET</span>' : ''}
                                 </span>
-                                <span class="text-[9px] font-mono text-accent font-semibold">${stay.roomName}</span>
-                                <span class="text-[8px] font-mono text-cream/50 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
+                                <span class="text-[9px] font-sans text-accent font-semibold">${stay.roomName}</span>
+                                <span class="text-[8px] font-sans text-cream/50 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
                             </div>
-                            <div class="text-right font-mono">
+                            <div class="text-right font-sans">
                                 <span class="text-[11px] font-bold text-emerald-400 block">${percent}% Done</span>
                                 <button onclick="deleteStayBooking('${stay.id}')" class="text-[8px] text-red-400 hover:text-red-300">Delete Stay</button>
                             </div>
                         </div>
 
                         <!-- High Impact 1-Click Automate Button -->
-                        <button onclick="executeOneClickStayAutomation('${stay.id}', event)" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-accent via-amber-600 to-emerald-600 hover:from-accent-hover hover:to-emerald-500 text-white font-mono font-extrabold text-[10px] tracking-wider shadow-lg transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] btn-depth flex items-center justify-center gap-1.5 uppercase border border-cream/20">
+                        <button onclick="executeOneClickStayAutomation('${stay.id}', event)" class="w-full py-2.5 px-3 rounded-xl bg-accent hover:bg-accent-hover text-white font-sans font-bold text-[10px] tracking-wider transition-colors btn-depth flex items-center justify-center gap-1.5 uppercase border border-cream/20">
                             <span>⚡ 1-CLICK AUTOMATE WORKFLOW</span>
                         </button>
 
@@ -1892,7 +1913,7 @@ Standard 30 days payment terms apply.</textarea>
                         </div>
 
                         <!-- Stay Specific Tasks & Checklist -->
-                        <div class="space-y-1.5 text-[10px] font-mono">
+                        <div class="space-y-1.5 text-[10px] font-sans">
                             <!-- 1. Quote -->
                             <div class="flex justify-between items-center bg-darkbg/50 p-1.5 rounded border border-cream/5">
                                 <div class="flex items-center gap-1.5">
@@ -1952,7 +1973,7 @@ Standard 30 days payment terms apply.</textarea>
                             <!-- Add Custom Task Input -->
                             <div class="flex gap-1.5 pt-1">
                                 <input type="text" id="stay-checklist-input-${stay.id}" placeholder="+ Add stay task..." class="flex-1 bg-darkbg border border-cream/10 rounded px-2 py-1 text-[9px] text-cream focus:outline-none focus:border-accent">
-                                <button onclick="addStayCustomChecklistItem('${stay.id}')" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-1 rounded hover:bg-accent/40 font-mono">+ Add</button>
+                                <button onclick="addStayCustomChecklistItem('${stay.id}')" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-1 rounded hover:bg-accent/40 font-sans">+ Add</button>
                             </div>
                         </div>
                     </div>
@@ -2013,7 +2034,7 @@ Standard 30 days payment terms apply.</textarea>
                                     ⚡ Sync
                                 </button>
                             </div>
-                            <div id="sync-msg-${idx}" class="hidden text-[10px] text-emerald-400 font-mono mt-1"></div>
+                            <div id="sync-msg-${idx}" class="hidden text-[10px] text-emerald-400 font-sans mt-1"></div>
                         </td>
                         <td class="py-3 px-3 text-right">
                             <div class="flex items-center justify-end gap-2 relative">
@@ -2712,12 +2733,12 @@ Standard 30 days payment terms apply.</textarea>
                 item.className = 'grid grid-cols-1 md:grid-cols-12 gap-2 items-center bg-darkbg p-2.5 rounded-xl border border-cream/5 text-xs';
                 item.innerHTML = `
                     <div class="md:col-span-5 font-bold text-cream truncate" title="${rm}">${rm}</div>
-                    <div class="md:col-span-4 flex items-center gap-1 font-mono">
+                    <div class="md:col-span-4 flex items-center gap-1 font-sans">
                         <span class="text-accent text-[10px] font-bold">${currencySymbol}</span>
                         <input type="number" id="rate-base-${idx}" value="${defaultConfig.baseRate}" min="1" step="50" class="w-full bg-darkbg/80 border border-cream/15 rounded px-2 py-1 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
                         <span class="text-[9px] text-cream/40">/nt</span>
                     </div>
-                    <div class="md:col-span-3 flex items-center gap-1 font-mono">
+                    <div class="md:col-span-3 flex items-center gap-1 font-sans">
                         <span class="text-[9px] text-cream/50">Min:</span>
                         <input type="number" id="rate-minstay-${idx}" value="${defaultConfig.minStay}" min="1" max="30" class="w-12 bg-darkbg/80 border border-cream/15 rounded text-center px-1 py-1 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
                         <span class="text-[9px] text-cream/40">nts</span>
@@ -2867,12 +2888,12 @@ Standard 30 days payment terms apply.</textarea>
                 card.innerHTML = `
                     <div class="flex justify-between items-center border-b border-cream/5 pb-2">
                         <span class="font-bold text-cream text-xs flex items-center gap-1.5">${ch.icon} ${ch.name}</span>
-                        <span class="text-[9px] font-mono ${ch.isDirect ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300' : 'bg-accent/20 border border-accent/30 text-cream'} px-1.5 py-0.5 rounded">
+                        <span class="text-[9px] font-sans ${ch.isDirect ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300' : 'bg-accent/20 border border-accent/30 text-cream'} px-1.5 py-0.5 rounded">
                             ${ch.isDirect ? '🔥 BEST PRICE DIRECT' : (commissionRate * 100).toFixed(0) + '% Fee'}
                         </span>
                     </div>
 
-                    <div class="pt-1 space-y-1 font-mono">
+                    <div class="pt-1 space-y-1 font-sans">
                         <div class="flex justify-between items-baseline">
                             <span class="text-[9px] text-cream/50 uppercase">${ch.isDirect ? 'Direct Guest Price:' : 'Extranet List Price:'}</span>
                             <span class="text-sm font-bold ${ch.isDirect ? 'text-emerald-400 text-base' : 'text-cream'}">${currencySymbol} ${totalGrossListingPrice.toFixed(2)}</span>
@@ -2930,7 +2951,7 @@ Standard 30 days payment terms apply.</textarea>
             container.innerHTML = '';
 
             if (guestsList.length === 0) {
-                container.innerHTML = '<p class="text-[10px] text-cream/30 text-center py-4 font-mono">No guest profiles created yet.</p>';
+                container.innerHTML = '<p class="text-[10px] text-cream/30 text-center py-4 font-sans">No guest profiles created yet.</p>';
                 return;
             }
 
@@ -2951,10 +2972,10 @@ Standard 30 days payment terms apply.</textarea>
                 if (historyCount > 0) {
                     historyHtml = `
                         <div class="border-t border-cream/5 pt-1.5 mt-1">
-                            <span class="text-[8px] font-mono text-accent uppercase font-bold">Document History (${historyCount})</span>
+                            <span class="text-[8px] font-sans text-accent uppercase font-bold">Document History (${historyCount})</span>
                             <div class="space-y-1 mt-1">
                                 ${g.sentHistory.map(h => `
-                                    <div class="flex justify-between items-center text-[8px] font-mono text-cream/50 bg-darkbg/40 p-1 rounded">
+                                    <div class="flex justify-between items-center text-[8px] font-sans text-cream/50 bg-darkbg/40 p-1 rounded">
                                         <span>${escapeHtml(h.docType).toUpperCase()}: ${escapeHtml(h.docNumber)}</span>
                                         <span>${escapeHtml(h.date)} | ${escapeHtml(h.total)}</span>
                                     </div>
@@ -2968,15 +2989,15 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="flex justify-between items-start">
                         <div>
                             <span class="font-bold text-cream text-xs block">${safeName}</span>
-                            <span class="text-[9px] font-mono text-cream/50">${safeEmail}</span>
+                            <span class="text-[9px] font-sans text-cream/50">${safeEmail}</span>
                         </div>
                         <div class="flex gap-1.5">
-                            <button onclick="selectGuestFromDropdown('${safeId}')" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-0.5 rounded font-mono hover:bg-accent/40">Apply</button>
-                            <button onclick="editGuestProfile('${safeId}')" class="text-[9px] text-cream/60 hover:text-cream border border-cream/10 px-1.5 py-0.5 rounded font-mono">Edit</button>
-                            <button onclick="deleteGuestProfile('${safeId}')" class="text-[9px] text-red-400 hover:text-red-300 font-mono">Del</button>
+                            <button onclick="selectGuestFromDropdown('${safeId}')" class="text-[9px] bg-accent/20 border border-accent/40 text-cream px-2 py-0.5 rounded font-sans hover:bg-accent/40">Apply</button>
+                            <button onclick="editGuestProfile('${safeId}')" class="text-[9px] text-cream/60 hover:text-cream border border-cream/10 px-1.5 py-0.5 rounded font-sans">Edit</button>
+                            <button onclick="deleteGuestProfile('${safeId}')" class="text-[9px] text-red-400 hover:text-red-300 font-sans">Del</button>
                         </div>
                     </div>
-                    <div class="text-[9px] text-cream/60 space-y-0.5 font-mono">
+                    <div class="text-[9px] text-cream/60 space-y-0.5 font-sans">
                         ${safeRoom ? `<p>Room: ${safeRoom}</p>` : ''}
                         ${safeCheckin ? `<p>Dates: ${safeCheckin} → ${safeCheckout}</p>` : ''}
                     </div>
@@ -3200,17 +3221,17 @@ Standard 30 days payment terms apply.</textarea>
                 itemDiv.className = 'flex flex-col gap-2 bg-darkbg/60 border border-cream/10 p-3 rounded-xl text-xs';
                 itemDiv.innerHTML = `
                     <div class="flex gap-2">
-                        <span class="font-mono text-accent font-bold">#${idx + 1}</span>
+                        <span class="font-sans text-accent font-bold">#${idx + 1}</span>
                         <input type="text" value="${item.description}" placeholder="Description" class="flex-1 bg-darkbg border border-cream/5 rounded px-2 py-1 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'description', this.value); highlightField('preview-items-table')">
-                        <button onclick="removeLineItem(${idx}); renderWizardItemsList();" class="text-red-400 font-mono font-bold px-1">&times;</button>
+                        <button onclick="removeLineItem(${idx}); renderWizardItemsList();" class="text-red-400 font-sans font-bold px-1">&times;</button>
                     </div>
                     <div class="grid grid-cols-2 gap-2 pl-5">
                         <div class="flex items-center gap-1.5">
-                            <span class="text-[9px] text-cream/40 font-mono uppercase">Qty:</span>
+                            <span class="text-[9px] text-cream/40 font-sans uppercase">Qty:</span>
                             <input type="number" value="${item.quantity}" placeholder="Qty" min="1" class="w-14 bg-darkbg border border-cream/5 rounded px-1.5 py-0.5 text-center text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'quantity', this.value); highlightField('preview-items-table')">
                         </div>
                         <div class="flex items-center gap-1.5">
-                            <span class="text-[9px] text-cream/40 font-mono uppercase">Price:</span>
+                            <span class="text-[9px] text-cream/40 font-sans uppercase">Price:</span>
                             <input type="number" value="${item.unitPrice}" placeholder="Price" min="0" class="w-20 bg-darkbg border border-cream/5 rounded px-2 py-0.5 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'unitPrice', this.value); highlightField('preview-items-table')">
                         </div>
                     </div>
@@ -3263,7 +3284,7 @@ Standard 30 days payment terms apply.</textarea>
                     <input type="text" value="${item.description}" placeholder="Item Description" class="flex-1 min-w-0 bg-darkbg border border-cream/5 rounded px-2 py-1 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'description', this.value)">
                     <input type="number" value="${item.quantity}" placeholder="Qty" min="1" class="w-12 bg-darkbg border border-cream/5 rounded px-1.5 py-1 text-center text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'quantity', this.value)">
                     <input type="number" value="${item.unitPrice}" placeholder="Price" min="0" class="w-20 bg-darkbg border border-cream/5 rounded px-2 py-1 text-cream focus:outline-none focus:border-accent" oninput="updateLineItem(${idx}, 'unitPrice', this.value)">
-                    <button onclick="removeLineItem(${idx})" class="text-red-400 hover:text-red-300 font-mono font-bold px-1">&times;</button>
+                    <button onclick="removeLineItem(${idx})" class="text-red-400 hover:text-red-300 font-sans font-bold px-1">&times;</button>
                 `;
                 container.appendChild(itemDiv);
             });
@@ -3323,7 +3344,7 @@ Standard 30 days payment terms apply.</textarea>
             const btnInverted = document.getElementById('btn-layout-inverted');
 
             const btnNormalClass = 'border border-cream/10 bg-darkbg/40 py-2 rounded-lg text-center text-cream/60 hover:text-cream transition-all font-semibold';
-            const btnActiveClass = 'border border-accent bg-darkbg/40 py-2 rounded-lg text-center font-bold font-mono transition-all';
+            const btnActiveClass = 'border border-accent bg-darkbg/40 py-2 rounded-lg text-center font-bold font-sans transition-all';
 
             btnStandard.className = btnNormalClass;
             btnCentered.className = btnNormalClass;
@@ -3398,7 +3419,7 @@ Standard 30 days payment terms apply.</textarea>
                     <html>
                     <head>
                         <meta charset="UTF-8">
-                        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&family=Special+Elite&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+                        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
                         <script src="https://cdn.tailwindcss.com"><\/script>
                         <style>
                             @page { size: A4; margin: 12mm; }
@@ -3597,7 +3618,7 @@ Standard 30 days payment terms apply.</textarea>
                             <p>${compAddress} | Email: ${compEmail} ${compPhone ? `| Phone: ${compPhone}` : ''}</p>
                             <p>${compTax ? `Tax/VAT: ${compTax}` : ''} ${compWeb ? `| ${compWeb}` : ''}</p>
                         </div>
-                        <div class="mt-6 flex justify-around w-full max-w-xl font-mono text-xs border-t border-dashed ${themeStyles.borderClass || ''} pt-4" style="${themeStyles.borderStyle || ''}">
+                        <div class="mt-6 flex justify-around w-full max-w-xl font-sans text-xs border-t border-dashed ${themeStyles.borderClass || ''} pt-4" style="${themeStyles.borderStyle || ''}">
                             <div><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">Doc: </span><span class="font-bold">${docType === 'invoice' ? 'Invoice' : 'Quotation'} (${docNum})</span></div>
                             <div><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">Date: </span><span>${docDate}</span></div>
                             <div><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">${docType === 'invoice' ? 'Due: ' : 'Valid: '}</span><span class="font-bold">${docDueDate}</span></div>
@@ -3611,7 +3632,7 @@ Standard 30 days payment terms apply.</textarea>
                             <span class="inline-block px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider border ${themeStyles.badgeClass || ''}" style="${themeStyles.badgeStyle || ''}">
                                 ${docType === 'invoice' ? 'Tax Invoice' : 'Quotation'}
                             </span>
-                            <div class="mt-4 font-mono text-xs">
+                            <div class="mt-4 font-sans text-xs">
                                 <p><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">${docType === 'invoice' ? 'Invoice No: ' : 'Quote No: '}</span><span class="font-bold">${docNum}</span></p>
                                 <p><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">Date Issued: </span><span>${docDate}</span></p>
                                 <p><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">${docType === 'invoice' ? 'Due Date: ' : 'Validity Date: '}</span><span class="font-bold">${docDueDate}</span></p>
@@ -3648,7 +3669,7 @@ Standard 30 days payment terms apply.</textarea>
                             <span class="inline-block px-3 py-1 rounded-full text-[10px] uppercase font-bold tracking-wider border ${themeStyles.badgeClass || ''}" style="${themeStyles.badgeStyle || ''}">
                                 ${docType === 'invoice' ? 'Tax Invoice' : 'Quotation'}
                             </span>
-                            <div class="mt-4 font-mono text-xs">
+                            <div class="mt-4 font-sans text-xs">
                                 <p><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">${docType === 'invoice' ? 'Invoice No: ' : 'Quote No: '}</span><span class="font-bold">${docNum}</span></p>
                                 <p><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">Date Issued: </span><span>${docDate}</span></p>
                                 <p><span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">${docType === 'invoice' ? 'Due Date: ' : 'Validity Date: '}</span><span class="font-bold">${docDueDate}</span></p>
@@ -3664,7 +3685,7 @@ Standard 30 days payment terms apply.</textarea>
 
                     <div id="preview-client-info" class="grid grid-cols-2 gap-8 mb-8 text-xs">
                         <div>
-                            <span class="font-mono text-[9px] uppercase tracking-widest ${themeStyles.textSecondaryClass || ''} block mb-1" style="${themeStyles.textSecondaryStyle || ''}">Bill To / Guest</span>
+                            <span class="font-sans text-[9px] uppercase tracking-widest ${themeStyles.textSecondaryClass || ''} block mb-1" style="${themeStyles.textSecondaryStyle || ''}">Bill To / Guest</span>
                             <p class="font-bold text-sm">${clientName}</p>
                             <p class="${themeStyles.textSecondaryClass || ''} mt-1 whitespace-pre-line" style="${themeStyles.textSecondaryStyle || ''}">${clientAddress}</p>
                             <p class="${themeStyles.textSecondaryClass || ''} mt-0.5" style="${themeStyles.textSecondaryStyle || ''}">${clientEmail}</p>
@@ -3674,7 +3695,7 @@ Standard 30 days payment terms apply.</textarea>
                     <div id="preview-items-table" class="mb-8">
                         <table class="w-full">
                             <thead>
-                                <tr class="${themeStyles.tableHeadBgClass || ''} text-left font-mono text-[9px] uppercase tracking-widest ${themeStyles.textSecondaryClass || ''} border-b ${themeStyles.borderClass || ''} px-2" style="${themeStyles.tableHeadBgStyle || ''} ${themeStyles.borderStyle || ''}">
+                                <tr class="${themeStyles.tableHeadBgClass || ''} text-left font-sans text-[9px] uppercase tracking-widest ${themeStyles.textSecondaryClass || ''} border-b ${themeStyles.borderClass || ''} px-2" style="${themeStyles.tableHeadBgStyle || ''} ${themeStyles.borderStyle || ''}">
                                     <th class="py-2.5 px-3">Description</th>
                                     <th class="py-2.5 px-3 text-center">Qty</th>
                                     <th class="py-2.5 px-3 text-right">Unit Price</th>
@@ -3689,10 +3710,10 @@ Standard 30 days payment terms apply.</textarea>
 
                     <div id="preview-totals" class="flex justify-between items-start text-xs gap-8">
                         <div class="flex-1">
-                            <span class="font-mono text-[9px] uppercase tracking-widest ${themeStyles.textSecondaryClass || ''} block mb-1" style="${themeStyles.textSecondaryStyle || ''}">Terms & Payment Details</span>
+                            <span class="font-sans text-[9px] uppercase tracking-widest ${themeStyles.textSecondaryClass || ''} block mb-1" style="${themeStyles.textSecondaryStyle || ''}">Terms & Payment Details</span>
                             <p class="${themeStyles.textSecondaryClass || ''} whitespace-pre-line leading-relaxed text-[11px]" style="${themeStyles.textSecondaryStyle || ''}">${notes}</p>
                         </div>
-                        <div class="w-64 font-mono space-y-1.5 border-t ${themeStyles.borderClass || ''} pt-3" style="${themeStyles.borderStyle || ''}">
+                        <div class="w-64 font-sans space-y-1.5 border-t ${themeStyles.borderClass || ''} pt-3" style="${themeStyles.borderStyle || ''}">
                             <div class="flex justify-between">
                                 <span class="${themeStyles.textSecondaryClass || ''}" style="${themeStyles.textSecondaryStyle || ''}">Subtotal</span>
                                 <span>${docCurrency} ${subtotal.toFixed(2)}</span>
@@ -3714,7 +3735,7 @@ Standard 30 days payment terms apply.</textarea>
                     </div>
                 </div>
 
-                <div class="border-t ${themeStyles.borderClass || ''} pt-4 mt-8 flex justify-between items-center text-[9px] font-mono ${themeStyles.textSecondaryClass || ''} no-print" style="${themeStyles.borderStyle || ''} ${themeStyles.textSecondaryStyle || ''}">
+                <div class="border-t ${themeStyles.borderClass || ''} pt-4 mt-8 flex justify-between items-center text-[9px] font-sans ${themeStyles.textSecondaryClass || ''} no-print" style="${themeStyles.borderStyle || ''} ${themeStyles.textSecondaryStyle || ''}">
                     <p>Generated via By Janno Engine. Thank you for your business.</p>
                     <p>${compWeb || 'byjanno.co.za'}</p>
                 </div>
@@ -3797,25 +3818,25 @@ Standard 30 days payment terms apply.</textarea>
             if (existing) existing.remove();
 
             const authHtml = `
-                <div id="auth-overlay" class="fixed inset-0 z-[100] bg-[#0E161B] flex items-center justify-center p-4">
-                    <div class="max-w-md w-full bg-[#16222A] border border-cream/15 p-8 rounded-2xl shadow-2xl space-y-6">
+                <div id="auth-overlay" class="fixed inset-0 z-[100] bg-[#FFFDD0] flex items-center justify-center p-4">
+                    <div class="max-w-md w-full bg-white border border-[#11161d]/15 p-8 rounded-2xl shadow-2xl space-y-6">
                         <div class="text-center space-y-2">
-                            <h2 class="font-sans font-bold text-3xl text-cream">By Janno<span class="text-accent">.</span></h2>
-                            <p class="font-mono text-[10px] text-cream/40 uppercase tracking-widest">Customer Portal Sign In</p>
+                            <h2 class="font-sans font-bold text-3xl text-[#11161d]">By Janno<span class="text-accent">.</span></h2>
+                            <p class="font-sans text-[10px] text-[#11161d]/60 uppercase tracking-widest font-semibold">Customer Portal Sign In</p>
                         </div>
 
                         <!-- Sign In Form Only -->
                         <div id="auth-form-signin" class="space-y-4">
                             <div>
-                                <label class="block text-cream/60 font-mono text-[9px] uppercase font-bold mb-1">Username</label>
-                                <input type="text" id="signin-username" placeholder="jan" class="w-full bg-[#0E161B] border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent text-xs font-mono">
+                                <label class="block text-[#11161d] font-sans text-[10px] uppercase font-bold mb-1">Username</label>
+                                <input type="text" id="signin-username" placeholder="jan" class="w-full bg-[#FFFDD0]/30 border border-[#11161d]/20 rounded-lg px-3 py-2 text-[#11161d] focus:outline-none focus:border-accent text-xs font-sans font-semibold">
                             </div>
                             <div>
-                                <label class="block text-cream/60 font-mono text-[9px] uppercase font-bold mb-1">Password</label>
-                                <input type="password" id="signin-password" placeholder="••••••••" class="w-full bg-[#0E161B] border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent text-xs font-mono">
+                                <label class="block text-[#11161d] font-sans text-[10px] uppercase font-bold mb-1">Password</label>
+                                <input type="password" id="signin-password" placeholder="••••••••" class="w-full bg-[#FFFDD0]/30 border border-[#11161d]/20 rounded-lg px-3 py-2 text-[#11161d] focus:outline-none focus:border-accent text-xs font-sans font-semibold">
                             </div>
-                            <div id="signin-error" class="hidden text-xs text-red-400 font-mono text-center">Invalid login credentials.</div>
-                            <button onclick="handleSignInSubmit()" class="w-full bg-accent hover:bg-accent-hover text-cream font-mono font-bold py-3 rounded-lg transition-all uppercase tracking-wider text-xs btn-depth">Sign In to Dashboard</button>
+                            <div id="signin-error" class="hidden text-xs text-red-600 font-sans font-semibold text-center">Invalid login credentials.</div>
+                            <button onclick="handleSignInSubmit()" class="w-full bg-accent hover:bg-accent-hover text-white font-sans font-bold py-3 rounded-lg transition-all uppercase tracking-wider text-xs btn-depth shadow-md">Sign In to Dashboard</button>
                         </div>
                     </div>
                 </div>
@@ -3886,8 +3907,8 @@ Standard 30 days payment terms apply.</textarea>
             },
             {
                 step: 2,
-                title: "Invoices & Quotations",
-                text: "Click here to generate custom invoices or use the Quick Wizard for rapid booking quotes and billing.",
+                title: "Invoices & Quotations Controls",
+                text: "Here you can quickly configure document profile settings, customize line items, and adjust template typography or style.",
                 getTargetId: () => getTourTargetId('designer'),
                 setupView: () => {
                     setUIMode('designer');
@@ -3960,7 +3981,7 @@ Standard 30 days payment terms apply.</textarea>
 
                     <!-- Floating Tooltip Card -->
                     <div id="spotlight-tooltip-card" class="fixed z-[9999] bg-darkcard border border-cream/20 p-5 rounded-2xl shadow-2xl w-80 text-cream space-y-3 font-sans transition-all duration-300 pointer-events-auto">
-                        <div class="flex justify-between items-center text-xs font-mono">
+                        <div class="flex justify-between items-center text-xs font-sans">
                             <span id="spotlight-step-indicator" class="text-accent font-bold uppercase tracking-wider">Step 1 of 6</span>
                             <button onclick="exitSetupTutorial()" title="Close Tour" class="text-cream/50 hover:text-cream text-sm transition-colors cursor-pointer">✖</button>
                         </div>
@@ -3969,10 +3990,10 @@ Standard 30 days payment terms apply.</textarea>
                             <p id="spotlight-step-text" class="text-xs text-cream/70 leading-relaxed">Description text</p>
                         </div>
                         <div class="flex justify-between items-center pt-3 border-t border-cream/10 text-xs">
-                            <button onclick="exitSetupTutorial()" class="text-cream/50 hover:text-cream font-mono transition-colors cursor-pointer">Skip Tour</button>
+                            <button onclick="exitSetupTutorial()" class="text-cream/50 hover:text-cream font-sans transition-colors cursor-pointer">Skip Tour</button>
                             <div class="flex gap-2">
-                                <button onclick="changeTourStep(-1)" id="spotlight-btn-prev" class="px-3 py-1.5 rounded-xl bg-darkbg border border-cream/15 text-cream/80 hover:text-cream disabled:opacity-30 disabled:pointer-events-none font-bold font-mono transition-colors cursor-pointer">Back</button>
-                                <button onclick="changeTourStep(1)" id="spotlight-btn-next" class="px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-mono tracking-wider transition-all cursor-pointer">Next ▶</button>
+                                <button onclick="changeTourStep(-1)" id="spotlight-btn-prev" class="px-3 py-1.5 rounded-xl bg-darkbg border border-cream/15 text-cream/80 hover:text-cream disabled:opacity-30 disabled:pointer-events-none font-bold font-sans transition-colors cursor-pointer">Back</button>
+                                <button onclick="changeTourStep(1)" id="spotlight-btn-next" class="px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer">Next ▶</button>
                             </div>
                         </div>
                     </div>
@@ -4007,10 +4028,10 @@ Standard 30 days payment terms apply.</textarea>
                 if (nextBtn) {
                     if (config.step === tourStepsTotal) {
                         nextBtn.textContent = 'Finish 🚀';
-                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold font-mono tracking-wider transition-all cursor-pointer';
+                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold font-sans tracking-wider transition-all cursor-pointer';
                     } else {
                         nextBtn.textContent = 'Next ▶';
-                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-mono tracking-wider transition-all cursor-pointer';
+                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer';
                     }
                 }
 
@@ -4183,22 +4204,22 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="max-w-md w-full bg-[#16222A] border border-cream/15 p-8 rounded-2xl shadow-2xl space-y-6">
                         <div class="text-center space-y-2 border-b border-cream/10 pb-4">
                             <h2 class="font-sans font-bold text-2xl text-cream">System Onboarding Setup</h2>
-                            <p class="font-mono text-[10px] text-cream/40 uppercase tracking-widest">Complete setup to customize CRM UI</p>
+                            <p class="font-sans text-[10px] text-cream/40 uppercase tracking-widest">Complete setup to customize CRM UI</p>
                         </div>
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-cream/60 font-mono text-[9px] uppercase font-bold mb-1">Company Name</label>
+                                <label class="block text-cream/60 font-sans text-[9px] uppercase font-bold mb-1">Company Name</label>
                                 <input type="text" id="ob-company-name" placeholder="Acme Luxury Retreats" class="w-full bg-[#0E161B] border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent">
                             </div>
                             <div>
-                                <label class="block text-cream/60 font-mono text-[9px] uppercase font-bold mb-1">Upload Company Logo</label>
+                                <label class="block text-cream/60 font-sans text-[9px] uppercase font-bold mb-1">Upload Company Logo</label>
                                 <div class="relative border border-dashed border-cream/20 rounded-lg p-4 text-center bg-[#0E161B]/40 hover:border-accent/50 transition-colors cursor-pointer group">
                                     <input type="file" id="ob-logo-upload" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="handleOnboardingLogo(this)">
-                                    <span id="ob-logo-label" class="text-[10px] text-cream/40 group-hover:text-cream/70 font-mono">Click or drag logo file here</span>
+                                    <span id="ob-logo-label" class="text-[10px] text-cream/40 group-hover:text-cream/70 font-sans">Click or drag logo file here</span>
                                 </div>
                             </div>
-                            <div id="ob-error" class="hidden text-xs text-red-400 font-mono text-center">Company Name is required to proceed.</div>
-                            <button onclick="handleOnboardingSubmit()" class="w-full bg-accent hover:bg-accent-hover text-cream font-mono font-bold py-3 rounded-lg transition-all uppercase tracking-wider text-xs">Finish Setup</button>
+                            <div id="ob-error" class="hidden text-xs text-red-400 font-sans text-center">Company Name is required to proceed.</div>
+                            <button onclick="handleOnboardingSubmit()" class="w-full bg-accent hover:bg-accent-hover text-cream font-sans font-bold py-3 rounded-lg transition-all uppercase tracking-wider text-xs">Finish Setup</button>
                         </div>
                     </div>
                 </div>
@@ -4258,7 +4279,7 @@ Standard 30 days payment terms apply.</textarea>
                         pmBtn.title = "Apply dynamic palette generated from logo colors";
                     }
                 } else {
-                    headerLogoEl.innerHTML = `<a href="index.html" class="text-xs font-mono tracking-widest uppercase hover:text-accent transition-colors">Back to Studio</a>`;
+                    headerLogoEl.innerHTML = `<a href="index.html" class="text-xs font-sans tracking-widest uppercase hover:text-accent transition-colors">Back to Studio</a>`;
                 }
             }
 
