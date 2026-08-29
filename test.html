@@ -141,7 +141,7 @@
     </style>
 </head>
 
-<body class="bg-darkbg text-cream font-sans min-h-screen antialiased flex flex-col justify-between selection:bg-accent selection:text-cream relative overflow-x-hidden pl-16">
+<body class="bg-darkbg text-cream font-sans min-h-screen antialiased flex flex-col justify-between selection:bg-accent selection:text-cream relative overflow-x-hidden pl-0 md:pl-16 pb-20 md:pb-0">
 
     <!-- Ambient background glows -->
     <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden no-print">
@@ -177,8 +177,36 @@
         </div>
     </header>
 
-    <!-- LEFT COLLAPSIBLE NAVIGATION RAIL -->
-    <aside id="left-nav-rail" class="fixed top-0 left-0 h-screen bg-darkcard border-r border-cream/10 z-40 w-16 hover:w-64 transition-all duration-300 group flex flex-col justify-between no-print overflow-hidden shadow-2xl">
+    <!-- MOBILE FIXED BOTTOM NAVIGATION BAR -->
+    <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-darkcard border-t border-cream/10 z-50 flex justify-around items-center py-2 px-3 no-print shadow-2xl font-mono text-[10px]">
+        <button onclick="setUIMode('calendar')" id="mb-btn-calendar" class="flex flex-col items-center gap-1 text-accent font-bold min-h-[44px] justify-center px-1">
+            <span class="text-base">📅</span>
+            <span>Calendar</span>
+        </button>
+        <button onclick="setUIMode('designer')" id="mb-btn-designer" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
+            <span class="text-base">📄</span>
+            <span>Invoices</span>
+        </button>
+        <button onclick="setUIMode('guests')" id="mb-btn-guests" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
+            <span class="text-base">👥</span>
+            <span>Guests</span>
+        </button>
+        <button onclick="setUIMode('whatsapp')" id="mb-btn-whatsapp" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
+            <span class="text-base">💬</span>
+            <span>WhatsApp</span>
+        </button>
+        <button onclick="setUIMode('pricing')" id="mb-btn-pricing" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
+            <span class="text-base">🌐</span>
+            <span>Rates</span>
+        </button>
+        <button onclick="launchSetupTutorial()" id="mb-btn-setup" class="flex flex-col items-center gap-1 text-accent hover:text-cream min-h-[44px] justify-center px-1">
+            <span class="text-base">⚙️</span>
+            <span>Setup</span>
+        </button>
+    </nav>
+
+    <!-- LEFT COLLAPSIBLE NAVIGATION RAIL (Desktop) -->
+    <aside id="left-nav-rail" class="hidden md:flex fixed top-0 left-0 h-screen bg-darkcard border-r border-cream/10 z-40 w-16 hover:w-64 transition-all duration-300 group flex-col justify-between no-print overflow-hidden shadow-2xl">
         <!-- Top Branding & Nav List -->
         <div class="space-y-6 pt-4">
             <!-- Brand Logo / Title -->
@@ -248,7 +276,16 @@
                     <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold">WhatsApp Suite</span>
                 </button>
 
-                <!-- 5. Setup & Settings -->
+                <!-- 5. Direct Booking Rates -->
+                <button onclick="setUIMode('pricing')" id="m-btn-pricing" title="Direct Booking Rates" class="w-full text-left px-3 py-3 rounded-xl text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-3 transition-all">
+                    <svg class="w-5 h-5 flex-shrink-0 stroke-current text-cream/70 group-hover:text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <line x1="12" y1="1" x2="12" y2="23"></line>
+                        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold">Direct Booking Rates</span>
+                </button>
+
+                <!-- 6. Setup & Settings -->
                 <button onclick="launchSetupTutorial()" id="m-btn-setup" title="Setup & Settings" class="w-full text-left px-3 py-3 rounded-xl text-accent hover:text-cream hover:bg-accent/20 flex items-center gap-3 transition-all">
                     <svg class="w-5 h-5 flex-shrink-0 stroke-accent group-hover:stroke-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <circle cx="12" cy="12" r="3"></circle>
@@ -711,32 +748,82 @@ Standard 30 days payment terms apply.</textarea>
                 </div>
             </div>
 
-            <!-- ================= GUIDED OTA PRICING & RATES CALCULATOR PANEL ================= -->
+            <!-- ================= DIRECT BOOKING & CHANNEL RATE ENGINE PANEL ================= -->
             <div id="pricing-panel" class="space-y-6 hidden text-xs">
                 <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                     <div>
-                        <span class="text-[9px] font-mono text-emerald-400 uppercase tracking-widest font-bold">REVENUE MANAGEMENT ENGINE</span>
-                        <h3 class="text-sm font-bold text-cream mt-0.5">💰 OTA Channel Pricing & Rates Calculator</h3>
+                        <span class="text-[9px] font-mono text-emerald-400 uppercase tracking-widest font-bold">REVENUE & CHANNEL DISTRIBUTION HUB</span>
+                        <h3 class="text-sm font-bold text-cream mt-0.5">🌐 Direct Booking & Channel Rate Engine</h3>
                     </div>
-                    <button onclick="setUIMode('calendar')" class="text-[10px] font-mono text-cream/40 hover:text-cream border border-cream/10 px-2 py-1 rounded hover:bg-darkbg transition-colors">Back to Calendar</button>
+                    <div class="flex items-center gap-2">
+                        <span id="rate-engine-saved-indicator" class="text-[10px] font-mono text-emerald-400 hidden">✓ Saved to LocalStorage</span>
+                        <button onclick="setUIMode('calendar')" class="text-[10px] font-mono text-cream/40 hover:text-cream border border-cream/10 px-2.5 py-1 rounded hover:bg-darkbg transition-colors">Back to Calendar</button>
+                    </div>
                 </div>
 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <!-- Left: Guided Input Wizard Questions -->
-                    <div class="lg:col-span-5 bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
-                        <span class="font-mono text-[10px] text-accent uppercase font-bold block border-b border-cream/10 pb-2">1. Guided Revenue Questions</span>
+                    <!-- Left: Room Nightly Rates, Surcharges & Rules -->
+                    <div class="lg:col-span-6 space-y-4">
                         
-                        <div class="space-y-3">
-                            <div>
-                                <label class="block text-cream/70 font-mono text-[10px] uppercase font-bold mb-1">Target Net Payout Per Night (What you want to receive)</label>
-                                <div class="flex items-center gap-2">
-                                    <span class="font-mono text-accent font-bold text-sm" id="pricing-currency-symbol">R</span>
-                                    <input type="number" id="ota-target-net" value="2500" min="1" step="50" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream font-bold text-sm focus:outline-none focus:border-accent" oninput="calculateOTARates()">
-                                </div>
-                                <p class="text-[9px] text-cream/40 mt-1">This is the exact net cash amount that must reach your bank account after all OTA fees.</p>
+                        <!-- 1. Room Base Rates & Min Stay Rules -->
+                        <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
+                            <div class="flex justify-between items-center border-b border-cream/10 pb-2">
+                                <span class="font-mono text-[10px] text-accent uppercase font-bold">1. Room Base Nightly Rates & Min Stay</span>
+                                <span class="text-[9px] font-mono text-cream/40">Direct Portal Pricing</span>
                             </div>
 
-                            <div class="grid grid-cols-2 gap-3">
+                            <div class="space-y-3" id="rate-engine-rooms-container">
+                                <!-- Rendered dynamically per room -->
+                            </div>
+                        </div>
+
+                        <!-- 2. Seasonal & Weekend Surcharges -->
+                        <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
+                            <div class="flex justify-between items-center border-b border-cream/10 pb-2">
+                                <span class="font-mono text-[10px] text-accent uppercase font-bold">2. Seasonal & Weekend Surcharges</span>
+                                <span class="text-[9px] font-mono text-cream/40">% Markups</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold mb-1">Peak Season Markup (%)</label>
+                                    <div class="flex items-center gap-1">
+                                        <input type="number" id="peak-season-markup" value="25" min="0" max="200" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-1.5 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
+                                        <span class="font-mono text-cream/50">%</span>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold mb-1">Weekend Surcharge (%)</label>
+                                    <div class="flex items-center gap-1">
+                                        <input type="number" id="weekend-markup" value="15" min="0" max="200" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-1.5 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
+                                        <span class="font-mono text-cream/50">%</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="border-t border-cream/10 pt-3 space-y-2">
+                                <span class="font-mono text-[9px] text-cream/60 uppercase font-bold block">Preview Season Rate Multiplier:</span>
+                                <div class="grid grid-cols-3 gap-2 text-[10px] font-mono">
+                                    <button onclick="setSeasonPreviewMode('standard')" id="btn-season-standard" class="py-1.5 px-2 rounded-lg border border-accent bg-accent/20 text-cream font-bold text-center">Standard</button>
+                                    <button onclick="setSeasonPreviewMode('weekend')" id="btn-season-weekend" class="py-1.5 px-2 rounded-lg border border-cream/10 bg-darkbg text-cream/60 text-center hover:text-cream">Weekend</button>
+                                    <button onclick="setSeasonPreviewMode('peak')" id="btn-season-peak" class="py-1.5 px-2 rounded-lg border border-cream/10 bg-darkbg text-cream/60 text-center hover:text-cream">Peak Season</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Right: OTA Channel Commission & Markup Matrix -->
+                    <div class="lg:col-span-6 space-y-4">
+
+                        <!-- OTA Fee & Tax Settings -->
+                        <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
+                            <div class="flex justify-between items-center border-b border-cream/10 pb-2">
+                                <span class="font-mono text-[10px] text-accent uppercase font-bold">3. OTA Platform Fees & Taxes</span>
+                                <span class="text-[9px] font-mono text-cream/40">Markup Calculator</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 text-xs">
                                 <div>
                                     <label class="block text-cream/70 font-mono text-[9px] uppercase font-bold mb-1">VAT / Tax Rate (%)</label>
                                     <input type="number" id="ota-vat-rate" value="15" min="0" class="w-full bg-darkbg border border-cream/15 rounded px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent" oninput="calculateOTARates()">
@@ -748,8 +835,8 @@ Standard 30 days payment terms apply.</textarea>
                             </div>
 
                             <div class="border-t border-cream/10 pt-3">
-                                <span class="font-mono text-[9px] text-cream/50 uppercase font-bold block mb-2">2. Adjust OTA Commission Percentages</span>
-                                <div class="space-y-2 text-[11px]">
+                                <span class="font-mono text-[9px] text-cream/50 uppercase font-bold block mb-2">OTA Commission Percentages:</span>
+                                <div class="grid grid-cols-2 gap-2 text-[11px]">
                                     <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
                                         <span class="font-semibold text-cream">Booking.com</span>
                                         <div class="flex items-center gap-1 font-mono">
@@ -757,37 +844,37 @@ Standard 30 days payment terms apply.</textarea>
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
-                                        <span class="font-semibold text-cream">NightsBridge / Direct</span>
-                                        <div class="flex items-center gap-1 font-mono">
-                                            <input type="number" id="fee-nightsbridge" value="10" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
-                                        </div>
-                                    </div>
-                                    <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
-                                        <span class="font-semibold text-cream">Airbnb (Host Only)</span>
+                                        <span class="font-semibold text-cream">Airbnb Host</span>
                                         <div class="flex items-center gap-1 font-mono">
                                             <input type="number" id="fee-airbnb" value="15" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
                                         </div>
                                     </div>
                                     <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
-                                        <span class="font-semibold text-cream">Expedia / Hotels.com</span>
+                                        <span class="font-semibold text-cream">Expedia</span>
                                         <div class="flex items-center gap-1 font-mono">
                                             <input type="number" id="fee-expedia" value="18" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between items-center bg-darkbg p-2 rounded border border-cream/5">
+                                        <span class="font-semibold text-cream">Direct Portal</span>
+                                        <div class="flex items-center gap-1 font-mono">
+                                            <input type="number" id="fee-direct" value="0" min="0" class="w-12 bg-darkbg/80 border border-cream/10 rounded text-center px-1 py-0.5 text-cream" oninput="calculateOTARates()">%
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Right: Recommended Gross Listing Prices Matrix -->
-                    <div class="lg:col-span-7 space-y-4">
+                        <!-- Target Room Selector & Channel Comparison Matrix -->
                         <div class="bg-darkbg/40 border border-emerald-500/30 p-5 rounded-2xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                                 <div>
-                                    <span class="font-mono text-[9px] text-emerald-400 uppercase font-bold">CALCULATED RATES MATRIX</span>
-                                    <h4 class="text-xs font-bold text-cream">Recommended Channel Extranet Listing Prices</h4>
+                                    <span class="font-mono text-[9px] text-emerald-400 uppercase font-bold">4. CHANNEL RATE COMPARISON MATRIX</span>
+                                    <h4 class="text-xs font-bold text-cream">Target Extranet Listing Prices</h4>
                                 </div>
-                                <span class="text-[10px] font-mono text-cream/40">Guarantees target net payout</span>
+                                <select id="rate-matrix-room-select" class="bg-darkbg border border-cream/15 text-cream text-[10px] font-mono rounded px-2 py-1 focus:outline-none focus:border-accent" onchange="calculateOTARates()">
+                                    <!-- Rendered dynamically -->
+                                </select>
                             </div>
 
                             <div id="ota-calculated-cards" class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -795,13 +882,6 @@ Standard 30 days payment terms apply.</textarea>
                             </div>
                         </div>
 
-                        <!-- Summary Table & Export Guide -->
-                        <div class="bg-darkbg/40 border border-cream/10 p-4 rounded-xl space-y-2 font-mono text-[10px]">
-                            <span class="text-accent uppercase font-bold block">💡 Channel Manager Adjustment Guide</span>
-                            <p class="text-cream/60 leading-relaxed">
-                                Enter these calculated gross listing prices into your channel manager (e.g. NightsBridge or RoomRaccoon) or directly into Booking.com Extranet. When a guest books, the OTA deducts their commission, leaving you with exactly your desired target net payout per night.
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -1070,6 +1150,7 @@ Standard 30 days payment terms apply.</textarea>
             loadCustomPalettesDatabase();
             loadTemplatesDatabase();
             loadWhatsAppTemplates();
+            initRateEngineUI();
 
             syncAllDataToWizardInputs();
             renderLineItemEditors();
@@ -1516,17 +1597,19 @@ Standard 30 days payment terms apply.</textarea>
                 const d = new Date(year, month, day);
                 const weekdayLetter = d.toLocaleDateString('en-US', { weekday: 'narrow' });
                 headerDaysHtml += `
-                    <div class="text-center font-mono text-[8px] border-l border-cream/5 py-1 flex-1 min-w-[28px] ${d.getDay() === 0 || d.getDay() === 6 ? 'bg-cream/5 text-accent font-bold' : 'text-cream/40'}">
+                    <div class="text-center font-mono text-[8px] border-l border-cream/5 py-1 ${d.getDay() === 0 || d.getDay() === 6 ? 'bg-cream/5 text-accent font-bold' : 'text-cream/40'}">
                         <div>${weekdayLetter}</div>
                         <div>${day}</div>
                     </div>
                 `;
             }
 
+            const gridTemplate = `grid-template-columns: 180px repeat(${daysInMonth}, minmax(40px, 1fr));`;
+
             let gridRowsHtml = `
-                <div class="flex border-b border-cream/10 bg-darkbg/80">
-                    <div class="w-44 p-2 font-mono text-[9px] uppercase font-bold text-accent">Room / Suite</div>
-                    <div class="flex-1 flex">${headerDaysHtml}</div>
+                <div class="grid border-b border-cream/10 bg-darkbg/80" style="${gridTemplate}">
+                    <div class="p-2 font-mono text-[9px] uppercase font-bold text-accent sticky left-0 bg-darkcard z-10 border-r border-cream/10">Room / Suite</div>
+                    ${headerDaysHtml}
                 </div>
             `;
 
@@ -1547,19 +1630,19 @@ Standard 30 days payment terms apply.</textarea>
                     if (activeStay) {
                         const isStart = activeStay.checkin === dateFormatted;
                         dayCellsHtml += `
-                            <div class="flex-1 min-w-[28px] bg-emerald-600/40 border-l border-emerald-500/40 py-1.5 px-0.5 relative text-[8px] font-mono text-emerald-200 truncate cursor-pointer hover:bg-emerald-600/60 transition-colors" title="${activeStay.guestName} (${activeStay.checkin} to ${activeStay.checkout})">
+                            <div class="bg-emerald-600/40 border-l border-emerald-500/40 py-1.5 px-0.5 relative text-[8px] font-mono text-emerald-200 truncate cursor-pointer hover:bg-emerald-600/60 transition-colors" title="${activeStay.guestName} (${activeStay.checkin} to ${activeStay.checkout})">
                                 ${isStart ? `<span class="font-bold text-cream">${activeStay.guestName.split(' ')[0]}</span>` : '•'}
                             </div>
                         `;
                     } else {
-                        dayCellsHtml += `<div class="flex-1 min-w-[28px] border-l border-cream/5 py-1.5 hover:bg-cream/5 transition-colors"></div>`;
+                        dayCellsHtml += `<div class="border-l border-cream/5 py-1.5 hover:bg-cream/5 transition-colors"></div>`;
                     }
                 }
 
                 gridRowsHtml += `
-                    <div class="flex border-b border-cream/5 hover:bg-darkbg/60 transition-colors">
-                        <div class="w-44 p-2 font-mono text-[9px] text-cream/80 font-bold truncate flex-shrink-0">${room}</div>
-                        <div class="flex-1 flex overflow-hidden">${dayCellsHtml}</div>
+                    <div class="grid border-b border-cream/5 hover:bg-darkbg/60 transition-colors" style="${gridTemplate}">
+                        <div class="p-2 font-mono text-[9px] text-cream/80 font-bold truncate sticky left-0 bg-darkcard z-10 border-r border-cream/10">${room}</div>
+                        ${dayCellsHtml}
                     </div>
                 `;
             });
@@ -2411,21 +2494,168 @@ Standard 30 days payment terms apply.</textarea>
             dispatchWhatsAppToGuest(guest.id || 'sample', stageKey);
         }
 
-        // ================= OTA PRICING & RATES CALCULATOR ENGINE =================
+        // ================= DIRECT BOOKING & CHANNEL RATE ENGINE =================
+        let currentSeasonMode = 'standard';
+        let defaultRoomsRateConfig = [
+            { room: 'Suite 1 (Deluxe Ocean)', baseRate: 2800, minStay: 2 },
+            { room: 'Suite 2 (Honeymoon)', baseRate: 3200, minStay: 2 },
+            { room: 'Room 3 (Garden View)', baseRate: 1900, minStay: 1 },
+            { room: 'Room 4 (Penthouse)', baseRate: 4500, minStay: 3 },
+            { room: 'Villa Beachfront', baseRate: 6000, minStay: 3 }
+        ];
+
+        function initRateEngineUI() {
+            const container = document.getElementById('rate-engine-rooms-container');
+            const roomSelect = document.getElementById('rate-matrix-room-select');
+            if (!container) return;
+
+            const currencySymbol = document.getElementById('doc-currency')?.value || 'R';
+            const userRooms = getUserRooms();
+
+            let roomListToUse = userRooms.length > 0 ? userRooms : defaultRoomsRateConfig.map(r => r.room);
+
+            container.innerHTML = '';
+            if (roomSelect) roomSelect.innerHTML = '';
+
+            roomListToUse.forEach((rm, idx) => {
+                const defaultConfig = defaultRoomsRateConfig.find(r => r.room === rm) || { baseRate: 2500, minStay: 1 };
+
+                const item = document.createElement('div');
+                item.className = 'grid grid-cols-1 md:grid-cols-12 gap-2 items-center bg-darkbg p-2.5 rounded-xl border border-cream/5 text-xs';
+                item.innerHTML = `
+                    <div class="md:col-span-5 font-bold text-cream truncate" title="${rm}">${rm}</div>
+                    <div class="md:col-span-4 flex items-center gap-1 font-mono">
+                        <span class="text-accent text-[10px] font-bold">${currencySymbol}</span>
+                        <input type="number" id="rate-base-${idx}" value="${defaultConfig.baseRate}" min="1" step="50" class="w-full bg-darkbg/80 border border-cream/15 rounded px-2 py-1 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
+                        <span class="text-[9px] text-cream/40">/nt</span>
+                    </div>
+                    <div class="md:col-span-3 flex items-center gap-1 font-mono">
+                        <span class="text-[9px] text-cream/50">Min:</span>
+                        <input type="number" id="rate-minstay-${idx}" value="${defaultConfig.minStay}" min="1" max="30" class="w-12 bg-darkbg/80 border border-cream/15 rounded text-center px-1 py-1 text-cream font-bold text-xs focus:outline-none focus:border-accent" oninput="calculateOTARates()">
+                        <span class="text-[9px] text-cream/40">nts</span>
+                    </div>
+                `;
+                container.appendChild(item);
+
+                if (roomSelect) {
+                    const opt = document.createElement('option');
+                    opt.value = idx;
+                    opt.textContent = rm;
+                    roomSelect.appendChild(opt);
+                }
+            });
+
+            loadRateEngineSettings();
+        }
+
+        function setSeasonPreviewMode(mode) {
+            currentSeasonMode = mode;
+            const btnStandard = document.getElementById('btn-season-standard');
+            const btnWeekend = document.getElementById('btn-season-weekend');
+            const btnPeak = document.getElementById('btn-season-peak');
+
+            if (btnStandard) btnStandard.className = mode === 'standard' ? 'py-1.5 px-2 rounded-lg border border-accent bg-accent/20 text-cream font-bold text-center' : 'py-1.5 px-2 rounded-lg border border-cream/10 bg-darkbg text-cream/60 text-center hover:text-cream';
+            if (btnWeekend) btnWeekend.className = mode === 'weekend' ? 'py-1.5 px-2 rounded-lg border border-accent bg-accent/20 text-cream font-bold text-center' : 'py-1.5 px-2 rounded-lg border border-cream/10 bg-darkbg text-cream/60 text-center hover:text-cream';
+            if (btnPeak) btnPeak.className = mode === 'peak' ? 'py-1.5 px-2 rounded-lg border border-accent bg-accent/20 text-cream font-bold text-center' : 'py-1.5 px-2 rounded-lg border border-cream/10 bg-darkbg text-cream/60 text-center hover:text-cream';
+
+            calculateOTARates();
+        }
+
+        function saveRateEngineSettings() {
+            const userRooms = getUserRooms();
+            const roomListToUse = userRooms.length > 0 ? userRooms : defaultRoomsRateConfig.map(r => r.room);
+
+            const roomConfigs = roomListToUse.map((rm, idx) => {
+                const rateInput = document.getElementById(`rate-base-${idx}`);
+                const minStayInput = document.getElementById(`rate-minstay-${idx}`);
+                return {
+                    room: rm,
+                    baseRate: parseFloat(rateInput?.value) || 2500,
+                    minStay: parseInt(minStayInput?.value) || 1
+                };
+            });
+
+            const config = {
+                rooms: roomConfigs,
+                peakSeasonMarkup: parseFloat(document.getElementById('peak-season-markup')?.value) || 25,
+                weekendMarkup: parseFloat(document.getElementById('weekend-markup')?.value) || 15,
+                vatRate: parseFloat(document.getElementById('ota-vat-rate')?.value) || 15,
+                cardFee: parseFloat(document.getElementById('ota-card-fee')?.value) || 2.5,
+                bookingFee: parseFloat(document.getElementById('fee-booking')?.value) || 15,
+                airbnbFee: parseFloat(document.getElementById('fee-airbnb')?.value) || 15,
+                expediaFee: parseFloat(document.getElementById('fee-expedia')?.value) || 18,
+                directFee: parseFloat(document.getElementById('fee-direct')?.value) || 0,
+                seasonMode: currentSeasonMode
+            };
+
+            localStorage.setItem('byjanno_rate_engine', JSON.stringify(config));
+
+            const indicator = document.getElementById('rate-engine-saved-indicator');
+            if (indicator) {
+                indicator.classList.remove('hidden');
+                setTimeout(() => indicator.classList.add('hidden'), 2000);
+            }
+        }
+
+        function loadRateEngineSettings() {
+            const savedStr = localStorage.getItem('byjanno_rate_engine');
+            if (!savedStr) return;
+            try {
+                const config = JSON.parse(savedStr);
+
+                if (config.peakSeasonMarkup !== undefined && document.getElementById('peak-season-markup')) document.getElementById('peak-season-markup').value = config.peakSeasonMarkup;
+                if (config.weekendMarkup !== undefined && document.getElementById('weekend-markup')) document.getElementById('weekend-markup').value = config.weekendMarkup;
+                if (config.vatRate !== undefined && document.getElementById('ota-vat-rate')) document.getElementById('ota-vat-rate').value = config.vatRate;
+                if (config.cardFee !== undefined && document.getElementById('ota-card-fee')) document.getElementById('ota-card-fee').value = config.cardFee;
+                if (config.bookingFee !== undefined && document.getElementById('fee-booking')) document.getElementById('fee-booking').value = config.bookingFee;
+                if (config.airbnbFee !== undefined && document.getElementById('fee-airbnb')) document.getElementById('fee-airbnb').value = config.airbnbFee;
+                if (config.expediaFee !== undefined && document.getElementById('fee-expedia')) document.getElementById('fee-expedia').value = config.expediaFee;
+                if (config.directFee !== undefined && document.getElementById('fee-direct')) document.getElementById('fee-direct').value = config.directFee;
+
+                if (config.rooms && Array.isArray(config.rooms)) {
+                    config.rooms.forEach((rc, idx) => {
+                        const rInput = document.getElementById(`rate-base-${idx}`);
+                        const mInput = document.getElementById(`rate-minstay-${idx}`);
+                        if (rInput) rInput.value = rc.baseRate;
+                        if (mInput) mInput.value = rc.minStay;
+                    });
+                }
+
+                if (config.seasonMode) {
+                    setSeasonPreviewMode(config.seasonMode);
+                }
+            } catch (e) {
+                console.error('Failed to parse byjanno_rate_engine:', e);
+            }
+        }
+
         function calculateOTARates() {
             const currencySymbol = document.getElementById('doc-currency')?.value || 'R';
-            const symEl = document.getElementById('pricing-currency-symbol');
-            if (symEl) symEl.textContent = currencySymbol;
+            const roomIdx = parseInt(document.getElementById('rate-matrix-room-select')?.value) || 0;
 
-            const targetNet = parseFloat(document.getElementById('ota-target-net').value) || 0;
-            const vatRate = (parseFloat(document.getElementById('ota-vat-rate').value) || 0) / 100;
-            const cardFeeRate = (parseFloat(document.getElementById('ota-card-fee').value) || 0) / 100;
+            const baseRateInput = document.getElementById(`rate-base-${roomIdx}`);
+            const minStayInput = document.getElementById(`rate-minstay-${roomIdx}`);
+
+            const baseNightlyRate = parseFloat(baseRateInput?.value) || 2500;
+            const minStay = parseInt(minStayInput?.value) || 1;
+
+            const peakMarkup = (parseFloat(document.getElementById('peak-season-markup')?.value) || 0) / 100;
+            const weekendMarkup = (parseFloat(document.getElementById('weekend-markup')?.value) || 0) / 100;
+
+            let multiplier = 1;
+            if (currentSeasonMode === 'weekend') multiplier = 1 + weekendMarkup;
+            if (currentSeasonMode === 'peak') multiplier = 1 + peakMarkup;
+
+            const targetNet = baseNightlyRate * multiplier;
+
+            const vatRate = (parseFloat(document.getElementById('ota-vat-rate')?.value) || 0) / 100;
+            const cardFeeRate = (parseFloat(document.getElementById('ota-card-fee')?.value) || 0) / 100;
 
             const channels = [
-                { id: 'booking', name: 'Booking.com', feeElId: 'fee-booking', icon: '🏨' },
-                { id: 'nightsbridge', name: 'NightsBridge / Direct', feeElId: 'fee-nightsbridge', icon: '🌉' },
-                { id: 'airbnb', name: 'Airbnb (Host Only)', feeElId: 'fee-airbnb', icon: '🏠' },
-                { id: 'expedia', name: 'Expedia / Hotels.com', feeElId: 'fee-expedia', icon: '✈️' }
+                { id: 'direct', name: 'Direct Portal', feeElId: 'fee-direct', icon: '🌐', isDirect: true },
+                { id: 'booking', name: 'Booking.com', feeElId: 'fee-booking', icon: '🏨', isDirect: false },
+                { id: 'airbnb', name: 'Airbnb Host', feeElId: 'fee-airbnb', icon: '🏠', isDirect: false },
+                { id: 'expedia', name: 'Expedia / Hotels.com', feeElId: 'fee-expedia', icon: '✈️', isDirect: false }
             ];
 
             const cardsContainer = document.getElementById('ota-calculated-cards');
@@ -2442,30 +2672,37 @@ Standard 30 days payment terms apply.</textarea>
                 const totalDeductedFees = totalGrossListingPrice - targetNet;
 
                 const card = document.createElement('div');
-                card.className = 'bg-darkbg/80 border border-cream/10 p-4 rounded-xl space-y-2';
+                card.className = ch.isDirect
+                    ? 'bg-emerald-950/40 border border-emerald-500/50 p-4 rounded-xl space-y-2 col-span-1 md:col-span-2 shadow-lg'
+                    : 'bg-darkbg/80 border border-cream/10 p-4 rounded-xl space-y-2';
+
                 card.innerHTML = `
                     <div class="flex justify-between items-center border-b border-cream/5 pb-2">
                         <span class="font-bold text-cream text-xs flex items-center gap-1.5">${ch.icon} ${ch.name}</span>
-                        <span class="text-[9px] font-mono bg-accent/20 border border-accent/30 text-cream px-1.5 py-0.5 rounded">${(commissionRate * 100).toFixed(0)}% Fee</span>
+                        <span class="text-[9px] font-mono ${ch.isDirect ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300' : 'bg-accent/20 border border-accent/30 text-cream'} px-1.5 py-0.5 rounded">
+                            ${ch.isDirect ? '🔥 BEST PRICE DIRECT' : (commissionRate * 100).toFixed(0) + '% Fee'}
+                        </span>
                     </div>
 
                     <div class="pt-1 space-y-1 font-mono">
                         <div class="flex justify-between items-baseline">
-                            <span class="text-[9px] text-cream/50 uppercase">Set Listing Price:</span>
-                            <span class="text-sm font-bold text-emerald-400">${currencySymbol} ${totalGrossListingPrice.toFixed(2)}</span>
+                            <span class="text-[9px] text-cream/50 uppercase">${ch.isDirect ? 'Direct Guest Price:' : 'Extranet List Price:'}</span>
+                            <span class="text-sm font-bold ${ch.isDirect ? 'text-emerald-400 text-base' : 'text-cream'}">${currencySymbol} ${totalGrossListingPrice.toFixed(2)}</span>
                         </div>
                         <div class="flex justify-between text-[8px] text-cream/40 pt-1 border-t border-cream/5">
-                            <span>OTA & Card Deductions:</span>
+                            <span>Platform & Payment Deductions:</span>
                             <span>-${currencySymbol} ${totalDeductedFees.toFixed(2)}</span>
                         </div>
                         <div class="flex justify-between text-[9px] text-cream font-semibold pt-0.5">
-                            <span>Your Guaranteed Net Payout:</span>
-                            <span>${currencySymbol} ${targetNet.toFixed(2)}</span>
+                            <span>Min Stay Rule / Net Payout:</span>
+                            <span class="text-emerald-300">${minStay} night min | ${currencySymbol} ${targetNet.toFixed(2)}/nt</span>
                         </div>
                     </div>
                 `;
                 cardsContainer.appendChild(card);
             });
+
+            saveRateEngineSettings();
         }
 
         function selectGuestFromDropdown(guestId) {
@@ -2616,6 +2853,17 @@ Standard 30 days payment terms apply.</textarea>
                 }
             });
 
+            const mbBtnIds = ['mb-btn-calendar', 'mb-btn-designer', 'mb-btn-wizard', 'mb-btn-guests', 'mb-btn-whatsapp', 'mb-btn-pricing'];
+            mbBtnIds.forEach(id => {
+                const btn = document.getElementById(id);
+                if (!btn) return;
+                if (id === `mb-btn-${mode}`) {
+                    btn.className = 'flex flex-col items-center gap-1 text-accent font-bold min-h-[44px] justify-center px-1';
+                } else {
+                    btn.className = 'flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1';
+                }
+            });
+
             if (designerPanel) designerPanel.classList.add('hidden');
             if (wizardPanel) wizardPanel.classList.add('hidden');
             if (guestsPanel) guestsPanel.classList.add('hidden');
@@ -2649,6 +2897,7 @@ Standard 30 days payment terms apply.</textarea>
                 whatsappPanel.classList.remove('hidden');
             } else if (mode === 'pricing' && pricingPanel) {
                 pricingPanel.classList.remove('hidden');
+                initRateEngineUI();
                 calculateOTARates();
             }
         }
@@ -3411,269 +3660,234 @@ Standard 30 days payment terms apply.</textarea>
             showAuthOverlay('signin');
         }
 
-        // ================= GUIDED SYSTEM SETUP & TUTORIAL WIZARD =================
-        let setupStepCurrent = 1;
-        const setupStepTotal = 4;
-        let setupTempLogo = '';
-        let setupRoomsList = ['Suite 1 (Deluxe Ocean)', 'Suite 2 (Honeymoon)', 'Room 3 (Garden View)', 'Room 4 (Penthouse)', 'Villa Beachfront'];
+        // ================= INTERACTIVE SPOTLIGHT ONBOARDING TOUR ENGINE =================
+        let tourStepCurrent = 1;
+        const tourStepsTotal = 6;
+
+        const tourStepsConfig = [
+            {
+                step: 1,
+                title: "Company Profile / Settings",
+                text: "Enter your Property Name and upload your logo to customize your brand identity across invoices, quotes, and guest notices.",
+                targetId: "tab-profile",
+                setupView: () => {
+                    setUIMode('designer');
+                    switchTab('tab-profile');
+                }
+            },
+            {
+                step: 2,
+                title: "Invoices & Quotations",
+                text: "Click here to generate custom invoices or use the Quick Wizard for rapid booking quotes and billing.",
+                targetId: "m-btn-designer",
+                setupView: () => {}
+            },
+            {
+                step: 3,
+                title: "Guest CRM Directory",
+                text: "Manage guest profiles, stay records, email contacts, and individual stay notes in your property CRM.",
+                targetId: "m-btn-guests",
+                setupView: () => {}
+            },
+            {
+                step: 4,
+                title: "WhatsApp Suite",
+                text: "Automate pre-arrival instructions, stay check-in messages, and post-checkout review links via WhatsApp.",
+                targetId: "m-btn-whatsapp",
+                setupView: () => {}
+            },
+            {
+                step: 5,
+                title: "Booking Calendar",
+                text: "Create manual stay bookings and configure 2-way iCal synchronization with external channels like Airbnb and Booking.com.",
+                targetId: "m-btn-calendar",
+                setupView: () => {}
+            },
+            {
+                step: 6,
+                title: "Direct Booking Rates",
+                text: "Set base nightly rates, weekend & seasonal surcharges, minimum stay rules, and calculate target channel listing prices.",
+                targetId: "m-btn-pricing",
+                setupView: () => {}
+            }
+        ];
 
         function launchSetupTutorial() {
-            const existing = document.getElementById('setup-tutorial-overlay');
+            tourStepCurrent = 1;
+            renderSpotlightTourOverlay();
+            showTourStep(1);
+            window.addEventListener('resize', repositionSpotlightOverlay);
+            window.addEventListener('scroll', repositionSpotlightOverlay, true);
+        }
+
+        function renderSpotlightTourOverlay() {
+            const existing = document.getElementById('spotlight-tour-overlay');
             if (existing) existing.remove();
 
-            // Load user's existing settings if available
-            const activeUser = getCurrentUser();
-            const accounts = getAccountsDB();
-            const account = accounts.find(a => a.username.toLowerCase() === (activeUser || '').toLowerCase());
+            const overlayHtml = `
+                <div id="spotlight-tour-overlay" class="fixed inset-0 z-[9990] pointer-events-none">
+                    <!-- SVG Backdrop with Spotlight Cutout -->
+                    <svg id="spotlight-svg" class="fixed inset-0 w-full h-full pointer-events-none z-[9991]">
+                        <defs>
+                            <mask id="spotlight-mask">
+                                <rect x="0" y="0" width="100%" height="100%" fill="white" />
+                                <rect id="spotlight-cutout" x="0" y="0" width="0" height="0" rx="12" ry="12" fill="black" />
+                            </mask>
+                        </defs>
+                        <rect x="0" y="0" width="100%" height="100%" fill="rgba(0,0,0,0.72)" mask="url(#spotlight-mask)" class="pointer-events-auto" />
+                        <!-- Highlight Glow Box -->
+                        <rect id="spotlight-glow-box" x="0" y="0" width="0" height="0" rx="12" ry="12" fill="none" stroke="#AA4628" stroke-width="3" class="animate-pulse pointer-events-none" />
+                    </svg>
 
-            const existingCompName = account && account.companyName ? account.companyName : (document.getElementById('company-name')?.value || '');
-            setupTempLogo = account && account.logoBase64 ? account.logoBase64 : docLogoBase64;
-            if (account && account.rooms && account.rooms.length > 0) {
-                setupRoomsList = [...account.rooms];
-            }
-
-            const setupHtml = `
-                <div id="setup-tutorial-overlay" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto font-sans">
-                    <div class="max-w-2xl w-full bg-darkcard border border-cream/20 p-6 md:p-8 rounded-3xl shadow-2xl space-y-6 relative my-8">
-                        
-                        <!-- Top Header & Exit Button -->
-                        <div class="flex justify-between items-center border-b border-cream/10 pb-4">
-                            <div>
-                                <span class="text-xs font-sans text-accent font-bold uppercase tracking-widest block">SYSTEM SETUP & ONBOARDING</span>
-                                <h2 class="font-sans font-bold text-2xl text-cream">Configure Your Property Workspace</h2>
-                            </div>
-                            <button onclick="exitSetupTutorial()" title="Exit Setup" class="text-xs font-sans font-semibold text-cream/60 hover:text-cream border border-cream/10 px-3 py-1.5 rounded-xl bg-darkbg hover:bg-darkbg/80 transition-colors cursor-pointer">
-                                Skip/Exit Setup ✖
-                            </button>
+                    <!-- Floating Tooltip Card -->
+                    <div id="spotlight-tooltip-card" class="fixed z-[9999] bg-darkcard border border-cream/20 p-5 rounded-2xl shadow-2xl w-80 text-cream space-y-3 font-sans transition-all duration-300 pointer-events-auto">
+                        <div class="flex justify-between items-center text-xs font-mono">
+                            <span id="spotlight-step-indicator" class="text-accent font-bold uppercase tracking-wider">Step 1 of 6</span>
+                            <button onclick="exitSetupTutorial()" title="Close Tour" class="text-cream/50 hover:text-cream text-sm transition-colors cursor-pointer">✖</button>
                         </div>
-
-                        <!-- Progress Bar -->
-                        <div class="space-y-1.5">
-                            <div class="flex justify-between text-xs font-sans text-cream/70 font-semibold">
-                                <span id="setup-step-indicator">Step 1 of 4</span>
-                                <span id="setup-step-percent">25% Complete</span>
-                            </div>
-                            <div class="w-full bg-darkbg h-2 rounded-full overflow-hidden border border-cream/10">
-                                <div id="setup-progress-bar" class="bg-accent h-full w-[25%] transition-all duration-300"></div>
+                        <div class="space-y-1">
+                            <h3 id="spotlight-step-title" class="font-sans font-bold text-base text-cream">Title</h3>
+                            <p id="spotlight-step-text" class="text-xs text-cream/70 leading-relaxed">Description text</p>
+                        </div>
+                        <div class="flex justify-between items-center pt-3 border-t border-cream/10 text-xs">
+                            <button onclick="exitSetupTutorial()" class="text-cream/50 hover:text-cream font-mono transition-colors cursor-pointer">Skip Tour</button>
+                            <div class="flex gap-2">
+                                <button onclick="changeTourStep(-1)" id="spotlight-btn-prev" class="px-3 py-1.5 rounded-xl bg-darkbg border border-cream/15 text-cream/80 hover:text-cream disabled:opacity-30 disabled:pointer-events-none font-bold font-mono transition-colors cursor-pointer">Back</button>
+                                <button onclick="changeTourStep(1)" id="spotlight-btn-next" class="px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-mono tracking-wider transition-all cursor-pointer">Next ▶</button>
                             </div>
                         </div>
-
-                        <!-- Step Cards Container -->
-                        <div class="bg-darkbg/50 border border-cream/10 p-6 rounded-2xl space-y-4">
-                            
-                            <!-- STEP 1: Property Name & Logo Setup -->
-                            <div id="setup-card-1" class="setup-card-step space-y-4">
-                                <div class="space-y-1">
-                                    <h3 class="text-sm font-bold font-sans text-accent uppercase">Step 1: Property Name & Logo Setup</h3>
-                                    <p class="text-xs text-cream/70 leading-relaxed">Customize your boutique property identity across invoices, receipts, and guest notices.</p>
-                                </div>
-                                <div class="space-y-3 text-xs">
-                                    <div>
-                                        <label class="block text-cream/70 font-sans text-xs uppercase font-semibold mb-1">Property / Boutique Hotel Name</label>
-                                        <input type="text" id="setup-company-name" value="${existingCompName}" placeholder="e.g. Ocean Breeze Luxury Suites" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent font-semibold">
-                                    </div>
-                                    <div>
-                                        <label class="block text-cream/70 font-sans text-xs uppercase font-semibold mb-1">Property Logo</label>
-                                        <div class="relative border border-dashed border-cream/20 rounded-lg p-4 text-center bg-darkbg/40 hover:border-accent/50 transition-colors cursor-pointer group">
-                                            <input type="file" id="setup-logo-file" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" onchange="handleSetupLogoUpload(this)">
-                                            <span id="setup-logo-label" class="text-xs text-cream/60 font-sans">${setupTempLogo ? '✓ Logo Loaded (Click to replace)' : 'Click or drop logo image here'}</span>
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <div>
-                                            <label class="block text-cream/70 font-sans text-xs uppercase font-semibold mb-1">Contact Email</label>
-                                            <input type="email" id="setup-company-email" value="${document.getElementById('company-email')?.value || 'info@hotel.com'}" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent">
-                                        </div>
-                                        <div>
-                                            <label class="block text-cream/70 font-sans text-xs uppercase font-semibold mb-1">Contact Phone</label>
-                                            <input type="text" id="setup-company-phone" value="${document.getElementById('company-phone')?.value || '+27 82 000 0000'}" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- STEP 2: Room & Suite Configuration -->
-                            <div id="setup-card-2" class="setup-card-step space-y-4 hidden">
-                                <div class="space-y-1">
-                                    <h3 class="text-sm font-bold font-sans text-accent uppercase">Step 2: Room & Suite Configuration</h3>
-                                    <p class="text-xs text-cream/70 leading-relaxed">Define your rooms, suites, or guesthouse units for your Booking Calendar.</p>
-                                </div>
-                                <div class="space-y-3 text-xs">
-                                    <div class="flex gap-2">
-                                        <input type="text" id="setup-new-room-input" placeholder="e.g. Penthouse Suite 5" class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent">
-                                        <button onclick="addSetupRoom()" class="bg-accent hover:bg-accent-hover text-cream px-4 py-2 rounded-lg font-sans text-xs font-bold transition-all cursor-pointer">+ Add Room</button>
-                                    </div>
-                                    <div class="space-y-1.5 max-h-48 overflow-y-auto custom-scroll pr-1" id="setup-rooms-list-container">
-                                        <!-- Rendered dynamically -->
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- STEP 3: Direct Invoicing & Tax Details -->
-                            <div id="setup-card-3" class="setup-card-step space-y-4 hidden">
-                                <div class="space-y-1">
-                                    <h3 class="text-sm font-bold font-sans text-accent uppercase">Step 3: Direct Invoicing & Tax Details</h3>
-                                    <p class="text-xs text-cream/70 leading-relaxed">Configure default currency, VAT/Tax percentage, and banking instructions for billing.</p>
-                                </div>
-                                <div class="space-y-3 text-xs">
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <div>
-                                            <label class="block text-cream/70 font-sans text-xs uppercase font-semibold mb-1">Currency Symbol</label>
-                                            <select id="setup-doc-currency" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent">
-                                                <option value="R">ZAR (R)</option>
-                                                <option value="$">USD ($)</option>
-                                                <option value="€">EUR (€)</option>
-                                                <option value="£">GBP (£)</option>
-                                            </select>
-                                        </div>
-                                        <div>
-                                            <label class="block text-cream/70 font-sans text-xs uppercase font-semibold mb-1">VAT / Tax Rate (%)</label>
-                                            <input type="number" id="setup-tax-rate" value="15" min="0" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent">
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label class="block text-cream/70 font-sans text-xs uppercase font-semibold mb-1">Banking & Payment Terms</label>
-                                        <textarea id="setup-doc-notes" rows="3" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream focus:outline-none focus:border-accent">Bank: FNB | Acc: 62000000000 | Branch: 250655
-Standard 30 days payment terms apply.</textarea>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- STEP 4: Connecting Calendar Feeds -->
-                            <div id="setup-card-4" class="setup-card-step space-y-4 hidden">
-                                <div class="space-y-1">
-                                    <h3 class="text-sm font-bold font-sans text-accent uppercase">Step 4: Connecting Calendar Feeds</h3>
-                                    <p class="text-xs text-cream/70 leading-relaxed">Connect external Airbnb, Booking.com, or VRBO iCal feeds. Access and manage your 2-Way Synchronization anytime via the 📅 Booking Calendar icon on the Left Navigation Rail.</p>
-                                </div>
-                                <div class="bg-darkbg p-4 rounded-xl border border-cream/10 space-y-3 text-xs">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl bg-accent/20 border border-accent/40 flex items-center justify-center text-accent font-bold text-lg">
-                                            📅
-                                        </div>
-                                        <div>
-                                            <span class="font-sans font-bold text-cream block">Left Nav Rail Calendar Sync</span>
-                                            <span class="text-cream/60 text-[11px]">Sync live iCal URLs directly per room inside the Home Calendar panel.</span>
-                                        </div>
-                                    </div>
-                                    <div class="pt-2 border-t border-cream/10 flex justify-end">
-                                        <button onclick="completeSetupTutorial()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl font-sans font-bold text-xs transition-all cursor-pointer">
-                                            Finish & Launch Workspace 🚀
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- Step Action Footer Navigation -->
-                        <div class="flex justify-between items-center pt-2">
-                            <button onclick="changeSetupStep(-1)" id="btn-setup-prev" class="px-5 py-2.5 rounded-xl bg-darkbg border border-cream/15 text-cream/70 hover:text-cream text-xs font-bold font-sans tracking-wider disabled:opacity-30 disabled:pointer-events-none cursor-pointer">
-                                Back
-                            </button>
-                            <button onclick="changeSetupStep(1)" id="btn-setup-next" class="px-6 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-cream text-xs font-bold font-sans tracking-wider transition-all cursor-pointer">
-                                Next Step
-                            </button>
-                        </div>
-
                     </div>
                 </div>
             `;
-            document.body.insertAdjacentHTML('beforeend', setupHtml);
-            renderSetupRoomsList();
-            setSetupStep(1);
+            document.body.insertAdjacentHTML('beforeend', overlayHtml);
         }
 
-function setSetupStep(step) {
-            setupStepCurrent = step;
-            document.querySelectorAll('.setup-card-step').forEach(el => el.classList.add('hidden'));
-            const currentCard = document.getElementById(`setup-card-${step}`);
-            if (currentCard) currentCard.classList.remove('hidden');
+        function showTourStep(stepNum) {
+            tourStepCurrent = stepNum;
+            const config = tourStepsConfig.find(s => s.step === stepNum);
+            if (!config) return;
 
-            const percent = Math.round((step / setupStepTotal) * 100);
-            document.getElementById('setup-progress-bar').style.width = `${percent}%`;
-            document.getElementById('setup-step-indicator').textContent = `Step ${step} of ${setupStepTotal}`;
-            document.getElementById('setup-step-percent').textContent = `${percent}% Complete`;
-
-            document.getElementById('btn-setup-prev').disabled = step === 1;
-            const btnNext = document.getElementById('btn-setup-next');
-            if (step === setupStepTotal) {
-                btnNext.textContent = 'FINISH SETUP & LAUNCH 🚀';
-                btnNext.className = 'px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold font-mono tracking-wider btn-depth';
-            } else {
-                btnNext.textContent = 'NEXT STEP ▶';
-                btnNext.className = 'px-6 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-cream text-xs font-bold font-mono tracking-wider btn-depth';
+            if (typeof config.setupView === 'function') {
+                config.setupView();
             }
+
+            setTimeout(() => {
+                const targetEl = document.getElementById(config.targetId);
+                const stepInd = document.getElementById('spotlight-step-indicator');
+                const titleEl = document.getElementById('spotlight-step-title');
+                const textEl = document.getElementById('spotlight-step-text');
+                const prevBtn = document.getElementById('spotlight-btn-prev');
+                const nextBtn = document.getElementById('spotlight-btn-next');
+
+                if (stepInd) stepInd.textContent = `Step ${config.step} of ${tourStepsTotal}`;
+                if (titleEl) titleEl.textContent = config.title;
+                if (textEl) textEl.textContent = config.text;
+
+                if (prevBtn) prevBtn.disabled = config.step === 1;
+                if (nextBtn) {
+                    if (config.step === tourStepsTotal) {
+                        nextBtn.textContent = 'Finish 🚀';
+                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold font-mono tracking-wider transition-all cursor-pointer';
+                    } else {
+                        nextBtn.textContent = 'Next ▶';
+                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-mono tracking-wider transition-all cursor-pointer';
+                    }
+                }
+
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+                    repositionSpotlightOverlay();
+                }
+            }, 120);
         }
 
-        function changeSetupStep(dir) {
-            const target = setupStepCurrent + dir;
-            if (target >= 1 && target <= setupStepTotal) {
-                setSetupStep(target);
-            } else if (target > setupStepTotal) {
+        function repositionSpotlightOverlay() {
+            const config = tourStepsConfig.find(s => s.step === tourStepCurrent);
+            if (!config) return;
+
+            const targetEl = document.getElementById(config.targetId);
+            const cutout = document.getElementById('spotlight-cutout');
+            const glowBox = document.getElementById('spotlight-glow-box');
+            const tooltipCard = document.getElementById('spotlight-tooltip-card');
+
+            if (!targetEl || !cutout || !glowBox || !tooltipCard) return;
+
+            const rect = targetEl.getBoundingClientRect();
+            const padding = 8;
+
+            const x = Math.max(0, rect.left - padding);
+            const y = Math.max(0, rect.top - padding);
+            const w = rect.width + (padding * 2);
+            const h = rect.height + (padding * 2);
+
+            cutout.setAttribute('x', x);
+            cutout.setAttribute('y', y);
+            cutout.setAttribute('width', w);
+            cutout.setAttribute('height', h);
+
+            glowBox.setAttribute('x', x);
+            glowBox.setAttribute('y', y);
+            glowBox.setAttribute('width', w);
+            glowBox.setAttribute('height', h);
+
+            // Calculate Tooltip position
+            const cardWidth = 320;
+            const cardHeight = tooltipCard.offsetHeight || 180;
+            let cardTop = y;
+            let cardLeft = x + w + 16;
+
+            if (cardLeft + cardWidth > window.innerWidth - 16) {
+                cardLeft = x - cardWidth - 16;
+            }
+
+            if (cardLeft < 16) {
+                cardLeft = Math.max(16, rect.left + (rect.width / 2) - (cardWidth / 2));
+                cardTop = y + h + 16;
+            }
+
+            if (cardTop + cardHeight > window.innerHeight - 16) {
+                cardTop = Math.max(16, window.innerHeight - cardHeight - 16);
+            }
+
+            tooltipCard.style.top = `${cardTop}px`;
+            tooltipCard.style.left = `${cardLeft}px`;
+        }
+
+        function changeTourStep(dir) {
+            const target = tourStepCurrent + dir;
+            if (target >= 1 && target <= tourStepsTotal) {
+                showTourStep(target);
+            } else if (target > tourStepsTotal) {
                 completeSetupTutorial();
             }
         }
 
-        function handleSetupLogoUpload(input) {
-            const file = input.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                setupTempLogo = e.target.result;
-                const label = document.getElementById('setup-logo-label');
-                if (label) label.textContent = `✓ Selected Logo: ${file.name}`;
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function renderSetupRoomsList() {
-            const container = document.getElementById('setup-rooms-list-container');
-            if (!container) return;
-            container.innerHTML = '';
-            setupRoomsList.forEach((rm, idx) => {
-                const item = document.createElement('div');
-                item.className = 'flex justify-between items-center bg-darkbg p-2 rounded-lg border border-cream/10 text-xs font-mono';
-                item.innerHTML = `
-                    <span class="text-cream">${rm}</span>
-                    <button onclick="removeSetupRoom(${idx})" class="text-red-400 hover:text-red-300 font-bold">&times;</button>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function addSetupRoom() {
-            const input = document.getElementById('setup-new-room-input');
-            const val = input ? input.value.trim() : '';
-            if (!val) return;
-            setupRoomsList.push(val);
-            input.value = '';
-            renderSetupRoomsList();
-        }
-
-        function removeSetupRoom(idx) {
-            setupRoomsList.splice(idx, 1);
-            renderSetupRoomsList();
-        }
-
-        function triggerSetupOneClickAutomation() {
-            const feedback = document.getElementById('setup-automation-feedback');
-            const btn = document.getElementById('btn-setup-oneclick');
-            if (feedback) feedback.classList.remove('hidden');
-            if (btn) {
-                btn.textContent = '⚡ AUTOMATED ALL WORKFLOWS!';
-                btn.className = 'w-full py-3.5 px-4 rounded-2xl bg-emerald-600 text-white font-mono font-extrabold text-xs tracking-wider shadow-2xl';
-            }
-        }
-
         function exitSetupTutorial() {
-            if (confirm('Leave setup tutorial? You can return and configure your workspace anytime.')) {
-                const overlay = document.getElementById('setup-tutorial-overlay');
-                if (overlay) overlay.remove();
-                setUIMode('calendar');
-            }
+            removeSpotlightOverlay();
         }
 
         function completeSetupTutorial() {
+            const activeUser = getCurrentUser();
+            if (activeUser) {
+                const accounts = getAccountsDB();
+                const account = accounts.find(a => a.username.toLowerCase() === activeUser.toLowerCase());
+                if (account) {
+                    account.setupCompleted = true;
+                    saveAccountsDB(accounts);
+                }
+            }
+            localStorage.setItem('byjanno_tour_completed', 'true');
+            removeSpotlightOverlay();
+        }
+
+        function removeSpotlightOverlay() {
+            const overlay = document.getElementById('spotlight-tour-overlay');
+            if (overlay) overlay.remove();
+            window.removeEventListener('resize', repositionSpotlightOverlay);
+            window.removeEventListener('scroll', repositionSpotlightOverlay, true);
+        }
+
+        function _unusedOldCompleteSetupTutorial() {
             // Apply all inputs to company state
             const compName = document.getElementById('setup-company-name')?.value.trim() || 'By Janno Studio';
             const compEmail = document.getElementById('setup-company-email')?.value.trim() || '';
