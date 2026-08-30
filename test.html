@@ -3825,26 +3825,27 @@ Standard 30 days payment terms apply.</textarea>
         function updatePreview(highlightTargetId = null) {
             const previewContainer = document.getElementById('document-preview-container');
 
-            const compName = document.getElementById('company-name').value || 'My Company Name';
-            const compEmail = document.getElementById('company-email').value;
-            const compPhone = document.getElementById('company-phone').value;
-            const compAddress = document.getElementById('company-address').value;
-            const compTax = document.getElementById('company-tax').value;
-            const compWeb = document.getElementById('company-web').value;
+            // Security: Sanitize all user-supplied inputs using escapeHtml to prevent DOM-based XSS when rendering preview HTML
+            const compName = escapeHtml(document.getElementById('company-name').value || 'My Company Name');
+            const compEmail = escapeHtml(document.getElementById('company-email').value);
+            const compPhone = escapeHtml(document.getElementById('company-phone').value);
+            const compAddress = escapeHtml(document.getElementById('company-address').value);
+            const compTax = escapeHtml(document.getElementById('company-tax').value);
+            const compWeb = escapeHtml(document.getElementById('company-web').value);
 
-            const docType = document.getElementById('doc-type').value;
-            const docNum = document.getElementById('doc-number').value || '0001';
-            const docCurrency = document.getElementById('doc-currency').value;
-            const docDate = document.getElementById('doc-date-issued').value;
-            const docDueDate = document.getElementById('doc-date-due').value;
+            const docType = escapeHtml(document.getElementById('doc-type').value);
+            const docNum = escapeHtml(document.getElementById('doc-number').value || '0001');
+            const docCurrency = escapeHtml(document.getElementById('doc-currency').value);
+            const docDate = escapeHtml(document.getElementById('doc-date-issued').value);
+            const docDueDate = escapeHtml(document.getElementById('doc-date-due').value);
 
-            const clientName = document.getElementById('client-name').value || 'Client Name';
-            const clientEmail = document.getElementById('client-email').value;
-            const clientAddress = document.getElementById('client-address').value;
+            const clientName = escapeHtml(document.getElementById('client-name').value || 'Client Name');
+            const clientEmail = escapeHtml(document.getElementById('client-email').value);
+            const clientAddress = escapeHtml(document.getElementById('client-address').value);
 
             const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
             const discountRate = parseFloat(document.getElementById('discount-rate').value) || 0;
-            const notes = document.getElementById('doc-notes').value;
+            const notes = escapeHtml(document.getElementById('doc-notes').value);
 
             const logoSize = document.getElementById('logo-size').value;
             let logoHeightClass = 'max-h-12';
@@ -3948,7 +3949,7 @@ Standard 30 days payment terms apply.</textarea>
 
                 itemsTableHtml += `
                     <tr class="${borderClassStr}" style="${borderStyleStr}">
-                        <td class="py-3 px-3 font-semibold">${item.description}</td>
+                        <td class="py-3 px-3 font-semibold">${escapeHtml(item.description)}</td>
                         <td class="py-3 px-3 text-center">${item.quantity}</td>
                         <td class="py-3 px-3 text-right">${docCurrency} ${item.unitPrice.toFixed(2)}</td>
                         <td class="py-3 px-3 text-right font-semibold">${docCurrency} ${totalItemPrice.toFixed(2)}</td>
