@@ -178,43 +178,12 @@
         <div class="absolute -bottom-32 -right-32 w-[500px] h-[500px] bg-accent/10 rounded-full blur-[140px]"></div>
     </div>
 
-    <!-- Header -->
-    <header class="w-full max-w-7xl mx-auto px-4 sm:px-6 py-4 border-b border-[#11161d]/10 flex flex-col md:flex-row justify-between items-center gap-4 no-print relative z-20">
-        <div class="flex items-center gap-3 flex-wrap justify-center md:justify-start">
-            <span id="header-company-name-container" class="font-sans font-bold text-xl sm:text-2xl text-[#11161d] cursor-pointer" onclick="setUIMode('calendar')">By Janno<span class="text-accent">.</span></span>
-            <span class="h-4 w-px bg-[#11161d]/20"></span>
-            <span class="font-sans text-[10px] sm:text-xs uppercase tracking-widest text-[#11161d]/60">Hospitality Booking & Pricing Suite</span>
-        </div>
-        <div class="flex items-center gap-2 sm:gap-4 flex-wrap justify-center md:justify-end">
-            <button onclick="launchSetupTutorial()" class="text-xs font-sans text-accent hover:text-[#11161d] flex items-center gap-1.5 bg-accent/20 hover:bg-accent/40 px-3 py-1.5 rounded-lg border border-accent/40 font-bold transition-all min-h-[44px] sm:min-h-0">
-                <svg class="w-4 h-4 stroke-current text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
-                </svg>
-                Launch Setup & Tutorial
-            </button>
-            <button onclick="setUIMode('calendar')" class="text-xs font-sans text-[#11161d]/80 hover:text-[#11161d] flex items-center gap-1.5 bg-[#FFFDD0] px-3 py-1.5 rounded-lg border border-[#11161d]/15 min-h-[44px] sm:min-h-0 font-semibold">
-                <svg class="w-4 h-4 stroke-current text-[#11161d]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                </svg>
-                Booking Calendar (Home)
-            </button>
-            <button onclick="handleSignOut()" class="text-xs font-sans text-[#AA4628] hover:text-[#11161d] flex items-center gap-1.5 bg-[#FFFDD0] px-3 py-1.5 rounded-lg border border-[#AA4628]/30 transition-colors min-h-[44px] sm:min-h-0 font-semibold">
-                <svg class="w-4 h-4 stroke-current text-[#AA4628]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
-                    <polyline points="16 17 21 12 16 7"></polyline>
-                    <line x1="21" y1="12" x2="9" y2="12"></line>
-                </svg>
-                Sign Out
-            </button>
-            <span id="header-logo-studio-container" class="flex items-center">
-                <a href="index.html" class="text-xs font-sans font-bold tracking-widest uppercase text-[#11161d]/70 hover:text-accent transition-colors">BACK TO STUDIO</a>
-            </span>
-        </div>
-    </header>
+    <!-- Top Bar with Top-Right Sign Out Button -->
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 pt-4 flex justify-end items-center no-print relative z-20">
+        <button onclick="handleSignOut()" class="font-sans text-xs text-[#11161d]/70 hover:text-[#11161d] underline font-semibold transition-colors min-h-[44px] sm:min-h-0 flex items-center">
+            Sign Out
+        </button>
+    </div>
 
     <!-- MOBILE FIXED BOTTOM NAVIGATION BAR -->
     <nav id="mobile-bottom-nav" class="md:hidden fixed bottom-0 left-0 right-0 bg-darkcard border-t border-cream/10 z-50 flex justify-around items-center py-2 px-3 no-print shadow-2xl font-sans text-[10px]">
@@ -239,7 +208,7 @@
                 <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                 <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
             </svg>
-            <span>Booking Demo</span>
+            <span>Demo Page</span>
         </button>
         <button onclick="setUIMode('whatsapp')" id="mb-btn-whatsapp" class="flex flex-col items-center gap-1 text-cream/60 hover:text-cream min-h-[44px] justify-center px-1">
             <svg class="w-5 h-5 flex-shrink-0 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -324,13 +293,13 @@
                     </div>
                 </div>
 
-                <!-- 3. Booking Demo -->
-                <button onclick="setUIMode('guests')" id="m-btn-guests" title="Booking Demo Portal" class="w-full text-left px-3 py-3 rounded-xl text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-3 transition-all">
+                <!-- 3. Demo Page -->
+                <button onclick="setUIMode('guests')" id="m-btn-guests" title="Demo Page" class="w-full text-left px-3 py-3 rounded-xl text-cream/70 hover:text-cream hover:bg-darkbg/60 flex items-center gap-3 transition-all">
                     <svg class="w-5 h-5 flex-shrink-0 stroke-current text-cream/70 group-hover:text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                         <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                     </svg>
-                    <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold">Booking Demo</span>
+                    <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-semibold">Demo Page</span>
                 </button>
 
                 <!-- 4. WhatsApp Suite -->
@@ -1141,7 +1110,36 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 mb-2 border-b border-cream/10 pb-3">
                         <div class="flex items-center gap-2 sm:gap-3 font-sans flex-wrap">
                             <button onclick="changeCalendarMonth(-1)" class="bg-darkbg hover:bg-accent/20 border border-cream/15 text-cream px-2.5 py-1 rounded text-xs min-h-[44px] sm:min-h-0 flex items-center font-bold">◀ Prev Month</button>
-                            <span id="calendar-month-heading" class="text-xs sm:text-sm font-bold text-cream uppercase tracking-wider font-sans">September 2026</span>
+                            <div class="relative inline-block">
+                                <span id="calendar-month-heading" onclick="toggleCalendarDatePicker()" class="text-xs sm:text-sm font-bold text-cream uppercase tracking-wider font-sans cursor-pointer hover:text-accent transition-colors flex items-center gap-1">September 2026 ▾</span>
+                                <div id="calendar-date-picker-dropdown" class="hidden absolute left-0 mt-1 z-30 bg-darkcard border border-cream/15 rounded-xl shadow-2xl p-3 space-y-2 min-w-[200px]">
+                                    <div class="text-[10px] font-bold uppercase tracking-wider text-accent font-sans">Jump to Date</div>
+                                    <div class="flex gap-2">
+                                        <select id="cal-picker-month" class="bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream text-xs font-sans focus:outline-none focus:border-accent">
+                                            <option value="0">January</option>
+                                            <option value="1">February</option>
+                                            <option value="2">March</option>
+                                            <option value="3">April</option>
+                                            <option value="4">May</option>
+                                            <option value="5">June</option>
+                                            <option value="6">July</option>
+                                            <option value="7">August</option>
+                                            <option value="8">September</option>
+                                            <option value="9">October</option>
+                                            <option value="10">November</option>
+                                            <option value="11">December</option>
+                                        </select>
+                                        <select id="cal-picker-year" class="bg-darkbg border border-cream/15 rounded px-2 py-1 text-cream text-xs font-sans focus:outline-none focus:border-accent">
+                                            <option value="2024">2024</option>
+                                            <option value="2025">2025</option>
+                                            <option value="2026">2026</option>
+                                            <option value="2027">2027</option>
+                                            <option value="2028">2028</option>
+                                        </select>
+                                    </div>
+                                    <button onclick="applyCalendarDatePicker()" class="w-full bg-accent hover:bg-accent-hover text-cream py-1 rounded text-xs font-bold font-sans transition-all">Go</button>
+                                </div>
+                            </div>
                             <button onclick="changeCalendarMonth(1)" class="bg-darkbg hover:bg-accent/20 border border-cream/15 text-cream px-2.5 py-1 rounded text-xs min-h-[44px] sm:min-h-0 flex items-center font-bold">Next Month ▶</button>
                             <button onclick="resetCalendarToCurrentMonth()" class="bg-accent/20 border border-accent/40 text-cream px-2.5 py-1 rounded text-xs font-bold min-h-[44px] sm:min-h-0 flex items-center">Today</button>
                         </div>
@@ -1208,7 +1206,7 @@ Standard 30 days payment terms apply.</textarea>
                         <div class="flex items-center gap-2">
                             <button
                               onclick="simulateInboundOTAPing()"
-                              class="bg-amber-600/30 hover:bg-amber-600/50 text-amber-200 border border-amber-500/40 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
+                              class="bg-darkcard hover:bg-darkbg text-cream/80 border border-cream/15 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold transition-all flex items-center gap-1.5 cursor-pointer">
                               <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                               </svg>
@@ -1216,7 +1214,7 @@ Standard 30 days payment terms apply.</textarea>
                             </button>
                             <button
                               onclick="loadMockICalData()"
-                              class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold btn-depth transition-all flex items-center gap-1.5 cursor-pointer">
+                              class="bg-darkcard hover:bg-darkbg text-cream/80 border border-cream/15 px-3 py-1.5 rounded-lg font-sans text-[10px] font-bold transition-all flex items-center gap-1.5 cursor-pointer">
                               <svg class="w-3.5 h-3.5 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                                 <polyline points="17 8 12 3 7 8"></polyline>
@@ -1681,6 +1679,26 @@ Standard 30 days payment terms apply.</textarea>
             renderBookingCalendar();
         }
 
+        function toggleCalendarDatePicker() {
+            const dropdown = document.getElementById('calendar-date-picker-dropdown');
+            if (dropdown) {
+                dropdown.classList.toggle('hidden');
+                if (!dropdown.classList.contains('hidden')) {
+                    document.getElementById('cal-picker-month').value = currentCalendarDate.getMonth();
+                    document.getElementById('cal-picker-year').value = currentCalendarDate.getFullYear();
+                }
+            }
+        }
+
+        function applyCalendarDatePicker() {
+            const m = parseInt(document.getElementById('cal-picker-month').value, 10);
+            const y = parseInt(document.getElementById('cal-picker-year').value, 10);
+            currentCalendarDate = new Date(y, m, 1);
+            const dropdown = document.getElementById('calendar-date-picker-dropdown');
+            if (dropdown) dropdown.classList.add('hidden');
+            renderBookingCalendar();
+        }
+
         // ================= WHATSAPP TEMPLATES SYSTEM =================
         function loadWhatsAppTemplates() {
             try {
@@ -2015,11 +2033,44 @@ Standard 30 days payment terms apply.</textarea>
                 return;
             }
 
+            let activeGuest = guestsList.find(g => (guestId && g.id === guestId) || (g.name && g.name.trim().toLowerCase() === guestName.toLowerCase()));
+
+            if (!activeGuest) {
+                activeGuest = {
+                    id: 'guest-' + Date.now().toString(),
+                    name: guestName,
+                    email: finalEmail,
+                    phone: finalPhone,
+                    room: roomName,
+                    checkin,
+                    checkout,
+                    address: '',
+                    sentHistory: [],
+                    workflowStatus: {},
+                    customChecklist: []
+                };
+                guestsList.push(activeGuest);
+            } else {
+                activeGuest.name = guestName;
+                activeGuest.email = finalEmail;
+                activeGuest.phone = finalPhone;
+                activeGuest.room = roomName;
+                activeGuest.checkin = checkin;
+                activeGuest.checkout = checkout;
+            }
+            saveGuestsDatabase();
+            renderGuestDirectory();
+            populateGuestDropdownSelectors();
+
+            let createdStayId = editId;
+
             if (editId) {
                 const stay = staysList.find(s => s.id === editId);
                 if (stay) {
-                    stay.guestId = guestId;
+                    stay.guestId = activeGuest.id;
                     stay.guestName = guestName;
+                    stay.guestEmail = finalEmail;
+                    stay.guestPhone = finalPhone;
                     stay.roomName = roomName;
                     stay.checkin = checkin;
                     stay.checkout = checkout;
@@ -2027,8 +2078,10 @@ Standard 30 days payment terms apply.</textarea>
             } else {
                 const newStay = {
                     id: 'stay-' + Date.now().toString(),
-                    guestId: guestId || '',
+                    guestId: activeGuest.id,
                     guestName,
+                    guestEmail: finalEmail,
+                    guestPhone: finalPhone,
                     roomName,
                     checkin,
                     checkout,
@@ -2037,11 +2090,24 @@ Standard 30 days payment terms apply.</textarea>
                     customChecklist: []
                 };
                 staysList.push(newStay);
+                createdStayId = newStay.id;
             }
 
             saveStaysDatabase();
             closeStayModal();
             renderBookingCalendar();
+
+            // Populate currently active invoice template details with this new guest profile
+            if (document.getElementById('client-name')) document.getElementById('client-name').value = guestName;
+            if (document.getElementById('client-email')) document.getElementById('client-email').value = finalEmail;
+            if (document.getElementById('client-address')) document.getElementById('client-address').value = `Room: ${roomName}\nPhone: ${finalPhone}`;
+            updatePreview('preview-client-info');
+
+            // Trigger immediate dispatch of populated template via email
+            openSendConfirmationModal();
+
+            // Automatically generate and send Yoco WhatsApp payment link for this specific booking
+            sendStayWhatsAppPaymentLink(createdStayId);
         }
 
         function toggleStayWorkflowStep(stayId, stepKey) {
@@ -2574,64 +2640,19 @@ Standard 30 days payment terms apply.</textarea>
             const container = document.getElementById("ical-rooms-container");
             if (!container) return;
 
-            const rooms = getUserRooms();
             const urlsDB = getICalUrlsDB();
-
-            let rowsHtml = "";
-            rooms.forEach((room, idx) => {
-                const savedUrl = urlsDB[room] || "";
-                const safeRoomName = room.replace(/'/g, "\'");
-
-                rowsHtml += `
-                    <tr class="border-b border-cream/10 hover:bg-darkbg/40 transition-colors">
-                        <td class="py-3 px-3 font-sans font-bold text-cream flex items-center gap-2">
-                            <span>🏨</span>
-                            <span class="truncate max-w-[150px]" title="${room}">${room}</span>
-                        </td>
-                        <td class="py-3 px-3">
-                            <div class="flex gap-1.5 items-center">
-                                <input type="url" id="ical-url-input-${idx}" value="${savedUrl}" placeholder="Paste Airbnb / Booking.com iCal URL..." class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-2.5 py-1.5 text-xs text-cream focus:outline-none focus:border-accent font-sans">
-                                <button onclick="syncICalForRoom('${safeRoomName}', 'ical-url-input-${idx}')" id="sync-btn-${idx}" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3 py-1.5 rounded-lg text-xs font-sans font-bold transition-all flex items-center gap-1 flex-shrink-0 cursor-pointer">
-                                    ⚡ Sync
-                                </button>
-                            </div>
-                            <div id="sync-msg-${idx}" class="hidden text-[10px] text-emerald-400 font-sans mt-1"></div>
-                        </td>
-                        <td class="py-3 px-3 text-right">
-                            <div class="flex items-center justify-end gap-2 relative">
-                                <button onclick="copyRoomICalFeed('${safeRoomName}')" class="bg-accent/20 hover:bg-accent/40 text-cream border border-accent/40 px-3 py-1.5 rounded-lg text-xs font-sans font-semibold transition-all cursor-pointer">
-                                    📋 Copy Feed Link
-                                </button>
-                                <div class="relative inline-block text-left">
-                                    <button onclick="toggleICalMenu(${idx})" class="bg-darkcard hover:bg-darkbg text-cream/80 border border-cream/15 px-2.5 py-1.5 rounded-lg text-xs font-sans transition-all cursor-pointer">
-                                        ⋮
-                                    </button>
-                                    <div id="ical-menu-${idx}" class="hidden absolute right-0 mt-1 w-44 bg-darkcard border border-cream/15 rounded-xl shadow-2xl z-30 py-1 text-xs text-left">
-                                        <button onclick="downloadRoomICalFeed('${safeRoomName}'); toggleICalMenu(${idx});" class="w-full text-left px-3 py-2 text-cream/80 hover:text-cream hover:bg-accent/20 transition-colors flex items-center gap-2">
-                                            📥 Download .ics File
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                `;
-            });
+            const savedGlobalUrl = urlsDB['global_ical_url'] || urlsDB[getUserRooms()[0]] || "";
 
             container.innerHTML = `
-                <div class="overflow-x-auto w-full">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="border-b border-cream/15 text-[10px] font-sans font-bold uppercase tracking-wider text-cream/60 bg-darkbg/60">
-                                <th class="py-2.5 px-3">Room / Suite</th>
-                                <th class="py-2.5 px-3">External Feed iCal URL (Airbnb / Booking.com)</th>
-                                <th class="py-2.5 px-3 text-right">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-cream/10 text-xs font-sans">
-                            ${rowsHtml}
-                        </tbody>
-                    </table>
+                <div class="space-y-3 font-sans">
+                    <label class="block text-cream/70 text-[10px] uppercase font-bold">Primary iCal Feed URL (Airbnb / Booking.com / VRBO)</label>
+                    <div class="flex flex-col sm:flex-row gap-2">
+                        <input type="url" id="global-ical-url-input" value="${savedGlobalUrl}" placeholder="Paste your primary iCal link (.ics URL)..." class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-xs text-cream focus:outline-none focus:border-accent">
+                        <button onclick="syncGlobalICalFeed()" id="global-sync-btn" class="bg-accent hover:bg-accent-hover text-cream px-4 py-2 rounded-lg text-xs font-bold transition-all flex items-center justify-center gap-1.5 flex-shrink-0 cursor-pointer">
+                            ⚡ Sync & Import iCal
+                        </button>
+                    </div>
+                    <div id="global-sync-msg" class="hidden text-[10px] text-accent font-sans"></div>
                 </div>
             `;
         }
@@ -2704,28 +2725,27 @@ Standard 30 days payment terms apply.</textarea>
             document.body.removeChild(link);
         }
 
-        async function syncICalForRoom(roomName, inputId) {
-            const urlInput = document.getElementById(inputId);
+        async function syncGlobalICalFeed() {
+            const urlInput = document.getElementById('global-ical-url-input');
             if (!urlInput) return;
 
             const url = urlInput.value.trim();
             if (!url) {
-                alert('Please enter a valid external iCal (.ics) URL (e.g. from Airbnb or Booking.com)');
+                alert('Please enter a valid primary iCal (.ics) URL (e.g. from Airbnb or Booking.com)');
                 return;
             }
 
-            // Save URL
+            // Save URL globally
             const urlsDB = getICalUrlsDB();
-            urlsDB[roomName] = url;
+            urlsDB['global_ical_url'] = url;
             saveICalUrlsDB(urlsDB);
 
-            const btn = urlInput.nextElementSibling;
-            const originalBtnText = btn ? btn.innerHTML : '⚡ Sync iCal Now';
+            const btn = document.getElementById('global-sync-btn');
+            const originalBtnText = btn ? btn.innerHTML : '⚡ Sync & Import iCal';
             if (btn) btn.innerHTML = '⏳ Syncing...';
 
             let icsRawText = '';
             try {
-                // Try fetching directly or via CORS proxy
                 try {
                     const res = await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);
                     if (res.ok) {
@@ -2744,17 +2764,19 @@ Standard 30 days payment terms apply.</textarea>
                     throw new Error('Unable to retrieve iCal feed content from provided URL.');
                 }
 
-                // Parse iCal
                 if (typeof ICAL === 'undefined') {
                     throw new Error('ICAL parsing library not loaded.');
                 }
+
+                const rooms = getUserRooms();
+                const defaultRoom = rooms[0] || 'Suite 1 (Deluxe Ocean)';
 
                 const jcalData = ICAL.parse(icsRawText);
                 const comp = new ICAL.Component(jcalData);
                 const vevents = comp.getAllSubcomponents('vevent');
 
                 let importedCount = 0;
-                vevents.forEach(vevent => {
+                vevents.forEach((vevent, index) => {
                     const event = new ICAL.Event(vevent);
                     const summary = event.summary || 'OTA / External Booking';
                     
@@ -2766,11 +2788,12 @@ Standard 30 days payment terms apply.</textarea>
                     const checkin = startDate.toISOString().split('T')[0];
                     const checkout = endDate.toISOString().split('T')[0];
 
-                    // Check if existing stay for same room & dates already present
-                    const exists = staysList.some(s => (s.roomName || s.room) === roomName && s.checkin === checkin && s.checkout === checkout);
+                    const roomName = rooms[index % rooms.length] || defaultRoom;
+
+                    const exists = staysList.some(s => s.checkin === checkin && s.checkout === checkout && (s.roomName === roomName || s.room === roomName));
                     if (!exists) {
                         staysList.push({
-                            id: 'stay-ical-' + Date.now() + '-' + Math.random().toString(36).substr(2, 4),
+                            id: 'stay-ical-' + Date.now() + '-' + index,
                             guestName: summary.length > 30 ? summary.substring(0, 30) + '...' : summary,
                             guestEmail: 'ota@booking.com',
                             roomName: roomName,
@@ -2788,7 +2811,7 @@ Standard 30 days payment terms apply.</textarea>
                 saveStaysDatabase();
                 renderBookingCalendar();
 
-                alert(`✓ iCal sync complete for ${roomName}! ${importedCount} new external booking(s) imported and mapped to calendar.`);
+                alert(`✓ iCal sync complete! ${importedCount} external booking(s) imported and rendered on the visual calendar grid.`);
             } catch (error) {
                 console.error('iCal Sync Error:', error);
                 alert(`iCal Sync Error: ${error.message || 'Failed to fetch or parse iCal feed'}`);
@@ -4733,17 +4756,24 @@ Standard 30 days payment terms apply.</textarea>
             },
             {
                 step: 2,
-                title: "Invoice Designer & Saved Templates",
-                text: "Customize your property brand identity, edit document content and line items, save templates, and export PDF invoices.",
-                getTargetId: () => 'designer-panel',
+                title: "Invoices & Quotes Sidebar Tools",
+                text: "Access your Saved Templates and Invoice Designer on the left sidebar under Invoices & Quotes.",
+                getTargetId: () => {
+                    const isMobile = window.innerWidth < 768;
+                    return isMobile ? 'mb-btn-designer' : 'm-btn-designer';
+                },
                 setupView: () => {
+                    const submenu = document.getElementById('invoice-quote-submenu');
+                    if (submenu && submenu.classList.contains('hidden')) {
+                        toggleSubMenu('invoice-quote-submenu');
+                    }
                     setUIMode('designer');
                     switchTab('tab-profile');
                 }
             },
             {
                 step: 3,
-                title: "Booking Demo Portal",
+                title: "Demo Page",
                 text: "Simulate direct guest reservation requests and manage guest profiles in your directory.",
                 getTargetId: () => getTourTargetId('guests'),
                 setupView: () => {
