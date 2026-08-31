@@ -15,6 +15,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- ical.js CDN for iCal Synchronization -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ical.js/1.5.0/ical.min.js"></script>
+    <!-- Firebase SDKs (Compat v10.8.0) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+    <!-- html2pdf.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -1252,6 +1260,123 @@ Standard 30 days payment terms apply.</textarea>
     </footer>
 
     <script>
+        // Initialize Firebase
+        const firebaseConfig = {
+          apiKey: "AIzaSyAM6fjEqIoeamMx_m9KdcovVJlFzI4i08Y",
+          authDomain: "hospitalitysoftware-ee847.firebaseapp.com",
+          projectId: "hospitalitysoftware-ee847",
+          storageBucket: "hospitalitysoftware-ee847.firebasestorage.app",
+          messagingSenderId: "840926664625",
+          appId: "1:840926664625:web:4f61b287a2baee8bd9cf90",
+          measurementId: "G-DPT5MJ0YEW"
+        };
+
+        if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+          firebase.initializeApp(firebaseConfig);
+        }
+        const auth = (typeof firebase !== 'undefined') ? firebase.auth() : null;
+        const db = (typeof firebase !== 'undefined') ? firebase.firestore() : null;
+
+        // Initialize EmailJS
+        if (typeof emailjs !== 'undefined') {
+          emailjs.init("3xaR351MyAZk_Bn2r");
+        }
+
+        // Firestore User Data Scoped Persistence Helpers
+        async function saveUserDataToFirestore() {
+          if (!auth || !auth.currentUser || !db) return;
+          const userId = auth.currentUser.uid;
+          const userRef = db.collection('users').doc(userId);
+
+          const profileData = {
+            companyName: document.getElementById('company-name')?.value || '',
+            companyEmail: document.getElementById('company-email')?.value || '',
+            companyPhone: document.getElementById('company-phone')?.value || '',
+            companyAddress: document.getElementById('company-address')?.value || '',
+            companyTax: document.getElementById('company-tax')?.value || '',
+            companyWeb: document.getElementById('company-web')?.value || '',
+            logoBase64: docLogoBase64 || ''
+          };
+
+          const documentConfig = {
+            docType: document.getElementById('doc-type')?.value || 'invoice',
+            docNumber: document.getElementById('doc-number')?.value || '',
+            docCurrency: document.getElementById('doc-currency')?.value || 'R',
+            docDateIssued: document.getElementById('doc-date-issued')?.value || '',
+            docDateDue: document.getElementById('doc-date-due')?.value || '',
+            clientName: document.getElementById('client-name')?.value || '',
+            clientEmail: document.getElementById('client-email')?.value || '',
+            clientAddress: document.getElementById('client-address')?.value || '',
+            lineItems: lineItems || [],
+            taxRate: parseFloat(document.getElementById('tax-rate')?.value) || 0,
+            discountRate: parseFloat(document.getElementById('discount-rate')?.value) || 0,
+            docNotes: document.getElementById('doc-notes')?.value || ''
+          };
+
+          try {
+            await userRef.set({
+              userId: userId,
+              profile: profileData,
+              documentConfig: documentConfig,
+              guestsList: guestsList || [],
+              updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            }, { merge: true });
+          } catch (e) {
+            console.error('Firestore save error:', e);
+          }
+        }
+
+        async function loadUserDataFromFirestore() {
+          if (!auth || !auth.currentUser || !db) return;
+          const userId = auth.currentUser.uid;
+          const userRef = db.collection('users').doc(userId);
+
+          try {
+            const doc = await userRef.get();
+            if (doc.exists) {
+              const data = doc.data();
+              if (data.profile) {
+                if (data.profile.companyName && document.getElementById('company-name')) document.getElementById('company-name').value = data.profile.companyName;
+                if (data.profile.companyEmail && document.getElementById('company-email')) document.getElementById('company-email').value = data.profile.companyEmail;
+                if (data.profile.companyPhone && document.getElementById('company-phone')) document.getElementById('company-phone').value = data.profile.companyPhone;
+                if (data.profile.companyAddress && document.getElementById('company-address')) document.getElementById('company-address').value = data.profile.companyAddress;
+                if (data.profile.companyTax && document.getElementById('company-tax')) document.getElementById('company-tax').value = data.profile.companyTax;
+                if (data.profile.companyWeb && document.getElementById('company-web')) document.getElementById('company-web').value = data.profile.companyWeb;
+                if (data.profile.logoBase64) docLogoBase64 = data.profile.logoBase64;
+              }
+
+              if (data.documentConfig) {
+                if (data.documentConfig.docType && document.getElementById('doc-type')) document.getElementById('doc-type').value = data.documentConfig.docType;
+                if (data.documentConfig.docNumber && document.getElementById('doc-number')) document.getElementById('doc-number').value = data.documentConfig.docNumber;
+                if (data.documentConfig.docCurrency && document.getElementById('doc-currency')) document.getElementById('doc-currency').value = data.documentConfig.docCurrency;
+                if (data.documentConfig.docDateIssued && document.getElementById('doc-date-issued')) document.getElementById('doc-date-issued').value = data.documentConfig.docDateIssued;
+                if (data.documentConfig.docDateDue && document.getElementById('doc-date-due')) document.getElementById('doc-date-due').value = data.documentConfig.docDateDue;
+                if (data.documentConfig.clientName && document.getElementById('client-name')) document.getElementById('client-name').value = data.documentConfig.clientName;
+                if (data.documentConfig.clientEmail && document.getElementById('client-email')) document.getElementById('client-email').value = data.documentConfig.clientEmail;
+                if (data.documentConfig.clientAddress && document.getElementById('client-address')) document.getElementById('client-address').value = data.documentConfig.clientAddress;
+                if (data.documentConfig.lineItems && Array.isArray(data.documentConfig.lineItems)) {
+                  lineItems = data.documentConfig.lineItems;
+                  renderLineItemEditors();
+                }
+                if (data.documentConfig.taxRate !== undefined && document.getElementById('tax-rate')) document.getElementById('tax-rate').value = data.documentConfig.taxRate;
+                if (data.documentConfig.discountRate !== undefined && document.getElementById('discount-rate')) document.getElementById('discount-rate').value = data.documentConfig.discountRate;
+                if (data.documentConfig.docNotes && document.getElementById('doc-notes')) document.getElementById('doc-notes').value = data.documentConfig.docNotes;
+              }
+
+              if (data.guestsList && Array.isArray(data.guestsList)) {
+                guestsList = data.guestsList;
+                saveGuestsDatabase();
+                renderGuestDirectory();
+                populateGuestDropdownSelectors();
+              }
+
+              updatePreview();
+            }
+          } catch (e) {
+            console.error('Firestore load error:', e);
+          }
+        }
+
         // Security Utility: Escape HTML to prevent XSS attacks when rendering user-supplied strings into innerHTML
         function escapeHtml(str) {
             if (!str) return '';
@@ -3722,18 +3847,88 @@ Standard 30 days payment terms apply.</textarea>
             }
         }
 
-        // ================= Direct Email Sender API call with Fallback and Guest Logging =================
-        async function sendDocumentEmail() {
+        // ================= Direct Email Sender API & EmailJS Confirmation Modal =================
+        function openSendConfirmationModal() {
             const guestEmail = document.getElementById('client-email').value.trim();
             const guestName = document.getElementById('client-name').value.trim() || 'Guest';
-            const docNum = document.getElementById('doc-number').value || '0001';
             const docType = document.getElementById('doc-type').value;
-            const compName = document.getElementById('company-name').value || 'By Janno';
-            const currency = document.getElementById('doc-currency').value || 'R';
 
             if (!guestEmail || !guestEmail.includes('@')) {
-                alert('Valid Guest Email Address is required to send.');
+                alert('Valid Guest Email Address is required.');
                 return;
+            }
+
+            const existing = document.getElementById('email-confirm-modal');
+            if (existing) existing.remove();
+
+            const modalHtml = `
+                <div id="email-confirm-modal" class="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+                    <div class="max-w-md w-full bg-darkcard border border-cream/20 p-6 rounded-2xl shadow-2xl space-y-4 font-sans text-cream">
+                        <div class="flex justify-between items-center border-b border-cream/10 pb-3">
+                            <h3 class="font-bold text-sm uppercase text-accent tracking-wider">Confirm Email Dispatch</h3>
+                            <button onclick="closeEmailConfirmModal()" class="text-cream/40 hover:text-cream text-lg">✕</button>
+                        </div>
+
+                        <div class="space-y-3 text-xs">
+                            <div>
+                                <label class="block text-cream/60 text-[10px] uppercase font-bold mb-1">Document Type</label>
+                                <div class="bg-darkbg p-2 rounded-lg border border-cream/10 font-bold uppercase text-accent">${docType === 'invoice' ? 'Tax Invoice' : 'Quotation'}</div>
+                            </div>
+                            <div>
+                                <label class="block text-cream/60 text-[10px] uppercase font-bold mb-1">Recipient Name</label>
+                                <input type="text" id="modal-client-name" value="${escapeHtml(guestName)}" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream font-semibold focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block text-cream/60 text-[10px] uppercase font-bold mb-1">Recipient Email</label>
+                                <input type="email" id="modal-client-email" value="${escapeHtml(guestEmail)}" class="w-full bg-darkbg border border-cream/15 rounded-lg px-3 py-2 text-cream font-semibold focus:outline-none focus:border-accent">
+                            </div>
+                            <div>
+                                <label class="block text-cream/60 text-[10px] uppercase font-bold mb-1">Personal Message (Optional)</label>
+                                <textarea id="modal-custom-message" rows="3" placeholder="Add an optional custom personal message to the client..." class="w-full bg-darkbg border border-cream/15 rounded-lg p-2.5 text-cream placeholder-cream/30 focus:outline-none focus:border-accent"></textarea>
+                            </div>
+                        </div>
+
+                        <div id="email-modal-error" class="hidden text-xs text-red-400 font-semibold text-center"></div>
+
+                        <div class="flex gap-2 pt-2 border-t border-cream/10">
+                            <button onclick="closeEmailConfirmModal()" class="flex-1 py-2.5 rounded-xl bg-darkbg border border-cream/15 text-cream/70 hover:text-cream font-bold text-xs">Cancel</button>
+                            <button onclick="confirmAndSendEmailJS()" id="btn-modal-send-emailjs" class="flex-1 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold text-xs btn-depth">Send Email (PDF)</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+
+        function closeEmailConfirmModal() {
+            const modal = document.getElementById('email-confirm-modal');
+            if (modal) modal.remove();
+        }
+
+        async function confirmAndSendEmailJS() {
+            const clientName = document.getElementById('modal-client-name')?.value.trim() || document.getElementById('client-name').value.trim() || 'Guest';
+            const clientEmail = document.getElementById('modal-client-email')?.value.trim() || document.getElementById('client-email').value.trim();
+            const customMessage = document.getElementById('modal-custom-message')?.value.trim() || '';
+            const docNum = document.getElementById('doc-number').value || '0001';
+            const docTypeRaw = document.getElementById('doc-type').value;
+            const docType = docTypeRaw === 'invoice' ? 'Invoice' : 'Quotation';
+            const compName = document.getElementById('company-name').value || 'By Janno';
+            const compEmail = document.getElementById('company-email').value || '';
+            const currency = document.getElementById('doc-currency').value || 'R';
+
+            const errEl = document.getElementById('email-modal-error');
+            if (!clientEmail || !clientEmail.includes('@')) {
+                if (errEl) {
+                    errEl.textContent = 'Please provide a valid client email address.';
+                    errEl.classList.remove('hidden');
+                }
+                return;
+            }
+
+            const sendBtn = document.getElementById('btn-modal-send-emailjs');
+            if (sendBtn) {
+                sendBtn.disabled = true;
+                sendBtn.textContent = 'Compiling PDF & Dispatching...';
             }
 
             let subtotal = 0;
@@ -3744,81 +3939,70 @@ Standard 30 days payment terms apply.</textarea>
             const grandTotal = subAfterDiscount * (1 + taxRate / 100);
             const totalFormatted = `${currency} ${grandTotal.toFixed(2)}`;
 
-            const sendBtn = document.getElementById('btn-send-email');
-            const wizardSendBtn = document.getElementById('btn-w-send');
-            const originalText = sendBtn ? sendBtn.textContent : 'Send to Guest';
-            
-            if (sendBtn) {
-                sendBtn.disabled = true;
-                sendBtn.textContent = 'Preparing PDF...';
-            }
-            if (wizardSendBtn) {
-                wizardSendBtn.disabled = true;
-                wizardSendBtn.textContent = 'Preparing PDF...';
-            }
-
             try {
-                const previewClone = document.getElementById('document-preview-container').cloneNode(true);
-                const noPrintEl = previewClone.querySelector('.no-print');
-                if (noPrintEl) noPrintEl.remove();
+                // Generate PDF using html2pdf.js
+                let pdfBase64 = '';
+                const previewEl = document.getElementById('document-preview-container');
 
-                const finalHtml = `
-                    <!DOCTYPE html>
-                    <html>
-                    <head>
-                        <meta charset="UTF-8">
-                        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
-                        <script src="https://cdn.tailwindcss.com"><\/script>
-                        <style>
-                            @page { size: A4; margin: 12mm; }
-                            body { background: white !important; color: black !important; }
-                        </style>
-                    </head>
-                    <body class="p-6">
-                        ${previewClone.innerHTML}
-                    </body>
-                    </html>
-                `;
-
-                let sentViaApi = false;
-
-                try {
-                    const response = await fetch('http://localhost:3000/api/send-document', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            email: guestEmail,
-                            subject: `${docType === 'invoice' ? 'Invoice' : 'Quotation'} ${docNum} from ${compName}`,
-                            htmlContent: finalHtml,
-                            filename: `${docType === 'invoice' ? 'Invoice' : 'Quotation'}_${docNum}.pdf`
-                        })
-                    });
-
-                    if (response.ok) {
-                        sentViaApi = true;
-                    }
-                } catch (e) {
+                if (typeof html2pdf !== 'undefined' && previewEl) {
+                    const opt = {
+                        margin: 5,
+                        filename: `${docType}_${docNum}.pdf`,
+                        image: { type: 'jpeg', quality: 0.98 },
+                        html2canvas: { scale: 2, useCORS: true },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                    };
+                    pdfBase64 = await html2pdf().set(opt).from(previewEl).outputPdf('datauristring');
                 }
 
-                logSentDocumentToGuest(guestEmail, docType, docNum, totalFormatted);
+                // Map EmailJS Payload strictly per exact variables
+                const templateParams = {
+                    document_type: docType,
+                    company_name: compName,
+                    client_name: clientName,
+                    custom_message: customMessage,
+                    client_email: clientEmail,
+                    reply_to: compEmail || clientEmail,
+                    content: pdfBase64,
+                    attachment: pdfBase64,
+                    pdf_attachment: pdfBase64
+                };
 
-                if (sentViaApi) {
-                    alert(`✨ Success! ${docType === 'invoice' ? 'Invoice' : 'Quotation'} ${docNum} (${totalFormatted}) sent via email to ${guestName} (${guestEmail}).`);
+                let sentViaEmailJS = false;
+                if (typeof emailjs !== 'undefined') {
+                    try {
+                        const res = await emailjs.send('service_m0bjc7h', 'template_2qapzc6', templateParams, '3xaR351MyAZk_Bn2r');
+                        if (res && (res.status === 200 || res.text === 'OK')) {
+                            sentViaEmailJS = true;
+                        }
+                    } catch (ejsErr) {
+                        console.error("EmailJS dispatch error:", ejsErr);
+                    }
+                }
+
+                logSentDocumentToGuest(clientEmail, docTypeRaw, docNum, totalFormatted);
+                closeEmailConfirmModal();
+
+                if (sentViaEmailJS) {
+                    alert(`✨ PDF ${docType} #${docNum} successfully generated and emailed to ${clientName} (${clientEmail})!`);
                 } else {
-                    alert(`🚀 Document Generated & Dispatched!\n\n${docType === 'invoice' ? 'Invoice' : 'Quotation'} #: ${docNum}\nRecipient: ${guestName} (${guestEmail})\nTotal: ${totalFormatted}\n\nNote: Recorded in Guest Document History log.`);
+                    alert(`🚀 PDF ${docType} #${docNum} generated!\n\nRecipient: ${clientName} (${clientEmail})\nTotal: ${totalFormatted}\nMessage: ${customMessage || '(None)'}\n\nRecorded in Guest Document History.`);
                 }
             } catch (err) {
-                alert(`Dispatch failed: ${err.message}`);
-            } finally {
+                console.error("Dispatch Error:", err);
+                if (errEl) {
+                    errEl.textContent = `Dispatch error: ${err.message || err}`;
+                    errEl.classList.remove('hidden');
+                }
                 if (sendBtn) {
                     sendBtn.disabled = false;
-                    sendBtn.textContent = originalText;
-                }
-                if (wizardSendBtn) {
-                    wizardSendBtn.disabled = false;
-                    wizardSendBtn.textContent = '✉ Email Guest';
+                    sendBtn.textContent = 'Retry Email Dispatch';
                 }
             }
+        }
+
+        function sendDocumentEmail() {
+            openSendConfirmationModal();
         }
 
         // ================= Template Renderer & Live Update Engine =================
@@ -4097,6 +4281,10 @@ Standard 30 days payment terms apply.</textarea>
             if (highlightTargetId) {
                 highlightField(highlightTargetId);
             }
+
+            if (typeof saveUserDataToFirestore === 'function') {
+                saveUserDataToFirestore();
+            }
         }
 
         // ================= Authentication, Onboarding, Light Mode & Personalized Theme Mode =================
@@ -4181,12 +4369,12 @@ Standard 30 days payment terms apply.</textarea>
                         <!-- Sign In Form Only -->
                         <div id="auth-form-signin" class="space-y-4">
                             <div>
-                                <label class="block text-[#11161d] font-sans text-[10px] uppercase font-bold mb-1">Username</label>
-                                <input type="text" id="signin-username" placeholder="jan" class="w-full bg-[#FFFDD0]/30 border border-[#11161d]/20 rounded-lg px-3 py-2 text-[#11161d] focus:outline-none focus:border-accent text-xs font-sans font-semibold">
+                                <label class="block text-[#11161d] font-sans text-[10px] uppercase font-bold mb-1">Email / Username</label>
+                                <input type="text" id="signin-username" placeholder="test@example.com" value="test@example.com" class="w-full bg-[#FFFDD0]/30 border border-[#11161d]/20 rounded-lg px-3 py-2 text-[#11161d] focus:outline-none focus:border-accent text-xs font-sans font-semibold">
                             </div>
                             <div>
                                 <label class="block text-[#11161d] font-sans text-[10px] uppercase font-bold mb-1">Password</label>
-                                <input type="password" id="signin-password" placeholder="••••••••" class="w-full bg-[#FFFDD0]/30 border border-[#11161d]/20 rounded-lg px-3 py-2 text-[#11161d] focus:outline-none focus:border-accent text-xs font-sans font-semibold">
+                                <input type="password" id="signin-password" placeholder="demo" value="demo" class="w-full bg-[#FFFDD0]/30 border border-[#11161d]/20 rounded-lg px-3 py-2 text-[#11161d] focus:outline-none focus:border-accent text-xs font-sans font-semibold">
                             </div>
                             <div id="signin-error" class="hidden text-xs text-red-600 font-sans font-semibold text-center">Invalid login credentials.</div>
                             <button onclick="handleSignInSubmit()" class="w-full bg-accent hover:bg-accent-hover text-white font-sans font-bold py-3 rounded-lg transition-all uppercase tracking-wider text-xs btn-depth shadow-md">Sign In to Dashboard</button>
@@ -4202,19 +4390,88 @@ Standard 30 days payment terms apply.</textarea>
             saveStaysDatabase();
         }
 
-        function handleSignInSubmit() {
-            const user = document.getElementById('signin-username').value.trim();
-            const pass = document.getElementById('signin-password').value.trim();
+        async function handleSignInSubmit() {
+            const userVal = document.getElementById('signin-username').value.trim();
+            const passVal = document.getElementById('signin-password').value.trim();
             const errEl = document.getElementById('signin-error');
 
-            // Strictly check for jan / jp2604
-            if (user === 'jan' && pass === 'jp2604') {
+            let email = userVal;
+            let password = passVal;
+
+            if (userVal === 'test' || userVal === 'test@example.com' || !userVal.includes('@')) {
+                if (userVal === 'test' || userVal === 'test@example.com') {
+                    email = 'test@example.com';
+                    password = passVal || 'demo';
+                }
+            }
+
+            // Check Firebase Auth if email is used or test account
+            if (email === 'test@example.com' || email.includes('@')) {
+                if (auth) {
+                    try {
+                        let userCredential;
+                        try {
+                            userCredential = await auth.signInWithEmailAndPassword(email, password);
+                        } catch (signInErr) {
+                            if (signInErr.code === 'auth/user-not-found' || signInErr.code === 'auth/invalid-credential') {
+                                // Automatically register/seed test user
+                                userCredential = await auth.createUserWithEmailAndPassword(email, password);
+                            } else {
+                                throw signInErr;
+                            }
+                        }
+
+                        if (userCredential && userCredential.user) {
+                            sessionStorage.setItem('byjanno_active_user', email);
+
+                            // Seed account record locally
+                            let accounts = getAccountsDB();
+                            let account = accounts.find(a => a.username.toLowerCase() === email.toLowerCase());
+                            if (!account) {
+                                account = {
+                                    username: email,
+                                    password: password,
+                                    setupCompleted: true,
+                                    companyName: 'By Janno Digital Studio',
+                                    logoBase64: '',
+                                    rooms: ['Suite 1 (Deluxe Ocean)', 'Suite 2 (Honeymoon)', 'Room 3 (Garden View)', 'Room 4 (Penthouse)', 'Villa Beachfront']
+                                };
+                                accounts.push(account);
+                                saveAccountsDB(accounts);
+                            }
+
+                            // If test user account, reset/start the user from the very beginning of the creation process
+                            if (email === 'test@example.com') {
+                                resetDemoState();
+                                setWizardStep(1);
+                                setUIMode('wizard');
+                                if (document.getElementById('company-name')) document.getElementById('company-name').value = 'By Janno Digital Studio';
+                                if (document.getElementById('client-name')) document.getElementById('client-name').value = 'Acme Corporation';
+                                updatePreview();
+                            }
+
+                            await loadUserDataFromFirestore();
+                            await saveUserDataToFirestore();
+
+                            const overlay = document.getElementById('auth-overlay');
+                            if (overlay) overlay.remove();
+                            checkAuthAndOnboarding();
+                            return;
+                        }
+                    } catch (fbErr) {
+                        console.error("Firebase auth error:", fbErr);
+                    }
+                }
+            }
+
+            // Strictly check for jan / jp2604 fallback or offline local user
+            if ((userVal === 'jan' && passVal === 'jp2604') || (userVal === 'test@example.com' && passVal === 'demo')) {
                 let accounts = getAccountsDB();
-                let account = accounts.find(a => a.username.toLowerCase() === 'jan');
+                let account = accounts.find(a => a.username.toLowerCase() === userVal.toLowerCase());
                 if (!account) {
                     account = {
-                        username: 'jan',
-                        password: 'jp2604',
+                        username: userVal,
+                        password: passVal,
                         setupCompleted: true,
                         companyName: 'By Janno Digital Studio',
                         logoBase64: '',
@@ -4223,14 +4480,20 @@ Standard 30 days payment terms apply.</textarea>
                     accounts.push(account);
                     saveAccountsDB(accounts);
                 }
-                sessionStorage.setItem('byjanno_active_user', 'jan');
+                sessionStorage.setItem('byjanno_active_user', userVal);
                 resetDemoState();
+
+                if (userVal === 'test@example.com') {
+                    setWizardStep(1);
+                    setUIMode('wizard');
+                }
+
                 const overlay = document.getElementById('auth-overlay');
                 if (overlay) overlay.remove();
                 checkAuthAndOnboarding();
             } else {
                 if (errEl) {
-                    errEl.textContent = 'Invalid credentials. Only authorized portal users may sign in.';
+                    errEl.textContent = 'Invalid credentials. Please use test@example.com / demo.';
                     errEl.classList.remove('hidden');
                 }
             }
@@ -4257,55 +4520,60 @@ Standard 30 days payment terms apply.</textarea>
         const tourStepsConfig = [
             {
                 step: 1,
-                title: "Company Profile / Settings",
-                text: "Enter your Property Name and upload your logo to customize your brand identity across invoices, quotes, and guest notices.",
+                title: "Company Profile Setup",
+                text: "Enter your Property Name and metadata to customize your brand identity across invoices and quotes.",
                 getTargetId: () => "tab-profile",
                 setupView: () => {
                     setUIMode('designer');
                     switchTab('tab-profile');
+                    const compInput = document.getElementById('company-name');
+                    if (compInput) compInput.focus();
                 }
             },
             {
                 step: 2,
-                title: "Invoices & Quotations Controls",
-                text: "Here you can quickly configure document profile settings, customize line items, and adjust template typography or style.",
-                getTargetId: () => getTourTargetId('designer'),
+                title: "Document Content & Details",
+                text: "Configure document type, client details, line items, and payment terms for quotes or invoices.",
+                getTargetId: () => "tab-details",
                 setupView: () => {
                     setUIMode('designer');
+                    switchTab('tab-details');
+                    const clientInput = document.getElementById('client-name');
+                    if (clientInput) clientInput.focus();
                 }
             },
             {
                 step: 3,
-                title: "Guest CRM Directory",
-                text: "Manage guest profiles, stay records, email contacts, and individual stay notes in your property CRM.",
-                getTargetId: () => getTourTargetId('guests'),
+                title: "Booking Demo Portal",
+                text: "Simulate direct guest reservation requests and manage stay bookings.",
+                getTargetId: () => "guests-panel",
                 setupView: () => {
                     setUIMode('guests');
                 }
             },
             {
                 step: 4,
-                title: "WhatsApp Suite",
-                text: "Automate pre-arrival instructions, stay check-in messages, and post-checkout review links via WhatsApp.",
-                getTargetId: () => getTourTargetId('whatsapp'),
+                title: "WhatsApp Communications",
+                text: "Configure automated pre-travel, during-stay, and post-stay guest message templates.",
+                getTargetId: () => "whatsapp-panel",
                 setupView: () => {
                     setUIMode('whatsapp');
                 }
             },
             {
                 step: 5,
-                title: "Booking Calendar",
-                text: "Create manual stay bookings and configure 2-way iCal synchronization with external channels like Airbnb and Booking.com.",
-                getTargetId: () => getTourTargetId('calendar'),
+                title: "Landscape Booking Calendar",
+                text: "Manage stay bookings, view monthly grid/agendas, and configure 2-way iCal feeds.",
+                getTargetId: () => "calendar-panel",
                 setupView: () => {
                     setUIMode('calendar');
                 }
             },
             {
                 step: 6,
-                title: "Direct Booking Rates",
-                text: "Set base nightly rates, weekend & seasonal surcharges, minimum stay rules, and calculate target channel listing prices.",
-                getTargetId: () => getTourTargetId('pricing'),
+                title: "Channel Rate Engine",
+                text: "Configure room base rates, seasonal markups, and calculate OTA channel listing prices.",
+                getTargetId: () => "pricing-panel",
                 setupView: () => {
                     setUIMode('pricing');
                 }
