@@ -333,7 +333,7 @@
         <!-- Footer / System status -->
         <div class="p-3 border-t border-cream/10 text-[10px] text-cream/40 font-sans">
             <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-500 flex-shrink-0 animate-pulse"></span>
+                <span class="w-2 h-2 rounded-full bg-accent flex-shrink-0 animate-pulse"></span>
                 <span class="whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">System Online</span>
             </div>
         </div>
@@ -355,7 +355,7 @@
                     <select id="template-selector" class="flex-1 bg-darkbg border border-cream/15 rounded-lg px-2.5 py-1.5 text-cream text-xs focus:outline-none focus:border-accent font-semibold" onchange="loadTemplate(this.value)">
                         <option value="">-- Select Saved Template --</option>
                     </select>
-                    <button onclick="renameSelectedTemplate()" title="Rename Template" aria-label="Rename Template" class="text-xs text-amber-400 hover:text-amber-300 border border-amber-500/20 px-2 py-1 rounded bg-darkbg">✏️ Rename</button>
+                    <button onclick="renameSelectedTemplate()" title="Rename Template" aria-label="Rename Template" class="text-xs text-cream/80 hover:text-cream border border-cream/20 px-2 py-1 rounded bg-darkbg">✏️ Rename</button>
                     <button onclick="deleteSelectedTemplate()" title="Delete Template" aria-label="Delete Template" class="text-xs text-red-400 hover:text-red-300 border border-red-500/20 px-2 py-1 rounded bg-darkbg">🗑</button>
                 </div>
             </div>
@@ -809,8 +809,8 @@ Standard 30 days payment terms apply.</textarea>
                                     </svg>
                                     Test Email Invoice
                                 </button>
-                                <button onclick="testDemoWhatsAppLink()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-sans font-bold tracking-wider py-3 rounded-xl transition-all uppercase text-xs btn-depth shadow-lg flex items-center justify-center gap-2">
-                                    <svg class="w-4 h-4 stroke-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <button onclick="testDemoWhatsAppLink()" class="w-full bg-accent hover:bg-accent-hover text-cream font-sans font-bold tracking-wider py-3 rounded-xl transition-all uppercase text-xs btn-depth shadow-lg flex items-center justify-center gap-2">
+                                    <svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
                                     </svg>
                                     Test WhatsApp Link
@@ -831,7 +831,7 @@ Standard 30 days payment terms apply.</textarea>
             <div id="pricing-panel" class="space-y-6 hidden text-xs">
                 <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                     <div>
-                        <span class="text-[9px] font-sans text-emerald-400 uppercase tracking-widest font-bold">REVENUE & CHANNEL DISTRIBUTION HUB</span>
+                        <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">REVENUE & CHANNEL DISTRIBUTION HUB</span>
                         <h3 class="text-sm font-bold text-cream mt-0.5 flex items-center gap-2">
                             <svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"></circle>
@@ -842,7 +842,7 @@ Standard 30 days payment terms apply.</textarea>
                         </h3>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span id="rate-engine-saved-indicator" class="text-[10px] font-sans text-emerald-400 hidden">✓ Saved to LocalStorage</span>
+                        <span id="rate-engine-saved-indicator" class="text-[10px] font-sans text-accent hidden">✓ Saved to LocalStorage</span>
                         <button onclick="setUIMode('calendar')" class="text-[10px] font-sans text-cream/40 hover:text-cream border border-cream/10 px-2.5 py-1 rounded hover:bg-darkbg transition-colors">Back to Calendar</button>
                     </div>
                 </div>
@@ -852,7 +852,7 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="lg:col-span-6 space-y-4">
                         
                         <!-- 1. Room Base Rates & Min Stay Rules -->
-                        <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
+                        <div class="bg-darkbg/40 border border-cream/10 p-5 rounded-xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-2">
                                 <span class="font-sans text-[10px] text-accent uppercase font-bold">1. Room Base Nightly Rates & Min Stay</span>
                                 <span class="text-[9px] font-sans text-cream/40">Direct Portal Pricing</span>
@@ -864,7 +864,7 @@ Standard 30 days payment terms apply.</textarea>
                         </div>
 
                         <!-- 2. Seasonal & Weekend Surcharges -->
-                        <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
+                        <div class="bg-darkbg/40 border border-cream/10 p-5 rounded-xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-2">
                                 <span class="font-sans text-[10px] text-accent uppercase font-bold">2. Seasonal & Weekend Surcharges</span>
                                 <span class="text-[9px] font-sans text-cream/40">% Markups</span>
@@ -903,7 +903,7 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="lg:col-span-6 space-y-4">
 
                         <!-- OTA Fee & Tax Settings -->
-                        <div class="bg-darkbg/60 border border-cream/10 p-5 rounded-2xl space-y-4">
+                        <div class="bg-darkbg/40 border border-cream/10 p-5 rounded-xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-2">
                                 <span class="font-sans text-[10px] text-accent uppercase font-bold">3. OTA Platform Fees & Taxes</span>
                                 <span class="text-[9px] font-sans text-cream/40">Markup Calculator</span>
@@ -952,10 +952,10 @@ Standard 30 days payment terms apply.</textarea>
                         </div>
 
                         <!-- Target Room Selector & Channel Comparison Matrix -->
-                        <div class="bg-darkbg/40 border border-emerald-500/30 p-5 rounded-2xl space-y-4">
+                        <div class="bg-darkbg/40 border border-cream/10 p-5 rounded-xl space-y-4">
                             <div class="flex justify-between items-center border-b border-cream/10 pb-3">
                                 <div>
-                                    <span class="font-sans text-[9px] text-emerald-400 uppercase font-bold">4. CHANNEL RATE COMPARISON MATRIX</span>
+                                    <span class="font-sans text-[9px] text-accent uppercase font-bold">4. CHANNEL RATE COMPARISON MATRIX</span>
                                     <h4 class="text-xs font-bold text-cream">Target Extranet Listing Prices</h4>
                                 </div>
                                 <select id="rate-matrix-room-select" class="bg-darkbg border border-cream/15 text-cream text-[10px] font-sans rounded px-2 py-1 focus:outline-none focus:border-accent" onchange="calculateOTARates()">
@@ -976,7 +976,7 @@ Standard 30 days payment terms apply.</textarea>
             <div id="whatsapp-panel" class="space-y-6 hidden text-xs">
                 <div class="flex justify-between items-center">
                     <div>
-                        <span class="text-[9px] font-sans text-emerald-400 uppercase tracking-widest font-bold">COMMUNICATIONS SUITE</span>
+                        <span class="text-[9px] font-sans text-accent uppercase tracking-widest font-bold">COMMUNICATIONS SUITE</span>
                         <h3 class="text-sm font-bold text-cream mt-0.5 flex items-center gap-2">
                             <svg class="w-4 h-4 stroke-current text-cream" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
@@ -1002,21 +1002,21 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
                         <!-- Pre-Travel Template -->
                         <div class="bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-2">
-                            <span class="font-sans text-[10px] text-emerald-400 font-bold block uppercase">1. Pre-Travel Welcome Message</span>
+                            <span class="font-sans text-[10px] text-accent font-bold block uppercase">1. Pre-Travel Welcome Message</span>
                             <p class="text-[9px] text-cream/40">Sent prior to arrival with directions and check-in instructions.</p>
                             <textarea id="wa-tpl-pre" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-sans text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
                         </div>
 
                         <!-- During-Travel Template -->
                         <div class="bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-2">
-                            <span class="font-sans text-[10px] text-emerald-400 font-bold block uppercase">2. During-Stay Concierge Message</span>
+                            <span class="font-sans text-[10px] text-accent font-bold block uppercase">2. During-Stay Concierge Message</span>
                             <p class="text-[9px] text-cream/40">Sent during stay for breakfast times and concierge service assistance.</p>
                             <textarea id="wa-tpl-during" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-sans text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
                         </div>
 
                         <!-- Post-Travel Template -->
                         <div class="bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-2">
-                            <span class="font-sans text-[10px] text-emerald-400 font-bold block uppercase">3. Post-Stay Follow-Up & Review</span>
+                            <span class="font-sans text-[10px] text-accent font-bold block uppercase">3. Post-Stay Follow-Up & Review</span>
                             <p class="text-[9px] text-cream/40">Sent after checkout for safe travels home and requesting reviews.</p>
                             <textarea id="wa-tpl-post" rows="5" class="w-full bg-darkbg border border-cream/15 rounded p-2 text-cream font-sans text-[10px] focus:outline-none focus:border-accent" oninput="saveWhatsAppTemplates()"></textarea>
                         </div>
@@ -1029,9 +1029,9 @@ Standard 30 days payment terms apply.</textarea>
                             <select id="wa-test-guest-selector" class="bg-darkbg border border-cream/15 rounded px-3 py-1.5 text-cream text-xs flex-1 font-sans focus:outline-none focus:border-accent">
                                 <option value="">-- Select Guest Profile to Test --</option>
                             </select>
-                            <button onclick="testWhatsAppMessage('pre')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-sans text-[10px]">Test Pre-Travel</button>
-                            <button onclick="testWhatsAppMessage('during')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-sans text-[10px]">Test During-Stay</button>
-                            <button onclick="testWhatsAppMessage('post')" class="bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 border border-emerald-500/40 px-3 py-1.5 rounded font-sans text-[10px]">Test Post-Stay</button>
+                            <button onclick="testWhatsAppMessage('pre')" class="bg-accent/20 hover:bg-accent/40 text-cream border border-accent/40 px-3 py-1.5 rounded font-sans text-[10px]">Test Pre-Travel</button>
+                            <button onclick="testWhatsAppMessage('during')" class="bg-accent/20 hover:bg-accent/40 text-cream border border-accent/40 px-3 py-1.5 rounded font-sans text-[10px]">Test During-Stay</button>
+                            <button onclick="testWhatsAppMessage('post')" class="bg-accent/20 hover:bg-accent/40 text-cream border border-accent/40 px-3 py-1.5 rounded font-sans text-[10px]">Test Post-Stay</button>
                         </div>
                     </div>
                 </div>
@@ -1167,8 +1167,8 @@ Standard 30 days payment terms apply.</textarea>
                                 </button>
                             </div>
                             <div class="hidden md:flex items-center gap-3 text-[9px]">
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Stay Confirmed</span>
-                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Pending Quote</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-accent"></span> Stay Confirmed</span>
+                                <span class="flex items-center gap-1"><span class="w-2.5 h-2.5 rounded-full bg-cream/40"></span> Pending Quote</span>
                             </div>
                         </div>
                     </div>
@@ -1541,9 +1541,9 @@ Standard 30 days payment terms apply.</textarea>
 
             container.innerHTML = `
                 <!-- Check-Ins Card Section -->
-                <div class="bg-darkbg/80 border border-emerald-500/30 p-4 rounded-xl space-y-3 shadow-lg">
+                <div class="bg-darkbg/80 border border-cream/10 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-sans text-xs font-bold text-emerald-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <span class="font-sans text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1.5">
                             <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
                                 <circle cx="12" cy="7" r="4"></circle>
@@ -1556,7 +1556,7 @@ Standard 30 days payment terms apply.</textarea>
                             <div class="bg-darkcard p-3 rounded-lg border border-cream/10 text-xs space-y-1">
                                 <div class="flex justify-between font-bold text-cream">
                                     <span>${escapeHtml(stay.guestName)}</span>
-                                    <span class="text-emerald-400 font-sans text-[10px]">IN</span>
+                                    <span class="text-accent font-sans text-[10px]">IN</span>
                                 </div>
                                 <div class="text-[10px] font-sans text-accent">${escapeHtml(stay.roomName || 'Suite')}</div>
                                 <div class="text-[9px] font-sans text-cream/50">Stay: ${escapeHtml(stay.checkin)} → ${escapeHtml(stay.checkout)}</div>
@@ -1566,9 +1566,9 @@ Standard 30 days payment terms apply.</textarea>
                 </div>
 
                 <!-- Check-Outs Card Section -->
-                <div class="bg-darkbg/80 border border-amber-500/30 p-4 rounded-xl space-y-3 shadow-lg">
+                <div class="bg-darkbg/80 border border-cream/10 p-4 rounded-xl space-y-3 shadow-lg">
                     <div class="flex justify-between items-center border-b border-cream/10 pb-2">
-                        <span class="font-sans text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <span class="font-sans text-xs font-bold text-accent uppercase tracking-wider flex items-center gap-1.5">
                             <svg class="w-4 h-4 stroke-current" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                 <polyline points="16 17 21 12 16 7"></polyline>
@@ -1582,7 +1582,7 @@ Standard 30 days payment terms apply.</textarea>
                             <div class="bg-darkcard p-3 rounded-lg border border-cream/10 text-xs space-y-1">
                                 <div class="flex justify-between font-bold text-cream">
                                     <span>${escapeHtml(stay.guestName)}</span>
-                                    <span class="text-amber-400 font-sans text-[10px]">OUT</span>
+                                    <span class="text-accent font-sans text-[10px]">OUT</span>
                                 </div>
                                 <div class="text-[10px] font-sans text-accent">${escapeHtml(stay.roomName || 'Suite')}</div>
                                 <div class="text-[9px] font-sans text-cream/50">Stay: ${escapeHtml(stay.checkin)} → ${escapeHtml(stay.checkout)}</div>
@@ -2206,7 +2206,7 @@ Standard 30 days payment terms apply.</textarea>
 
             const toast = document.createElement('div');
             toast.id = 'celebration-toast';
-            toast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 z-[210] bg-gradient-to-r from-emerald-600 via-accent to-emerald-600 text-white font-sans font-extrabold px-6 py-3.5 rounded-2xl shadow-2xl border border-cream/30 text-xs md:text-sm tracking-wide flex items-center gap-3 animate-bounce';
+            toast.className = 'fixed bottom-8 left-1/2 -translate-x-1/2 z-[210] bg-darkcard text-cream font-sans font-extrabold px-6 py-3.5 rounded-2xl shadow-2xl border border-accent text-xs md:text-sm tracking-wide flex items-center gap-3 animate-bounce';
             toast.innerHTML = `<span>🎉</span> <span>${messageText || '1-Click Automation Executed!'}</span>`;
             document.body.appendChild(toast);
 
@@ -2359,11 +2359,11 @@ Standard 30 days payment terms apply.</textarea>
 
                     if (activeStay) {
                         const isStart = activeStay.checkin === dateFormatted;
-                        let cellClass = "bg-emerald-600/40 border-l border-emerald-500/40 text-emerald-900 hover:bg-emerald-600/60";
+                        let cellClass = "bg-accent/40 border-l border-accent/60 text-cream hover:bg-accent/60";
                         let labelText = isStart ? activeStay.guestName.split(' ')[0] : '•';
 
                         if (activeStay.status === 'pending_approval') {
-                            cellClass = "bg-amber-500/80 border-l border-amber-600 text-[#11161d] hover:bg-amber-500 font-bold bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(0,0,0,0.05)_4px,rgba(0,0,0,0.05)_8px)]";
+                            cellClass = "bg-darkbg/80 border-l border-cream/30 text-cream hover:bg-darkbg font-bold bg-[repeating-linear-gradient(45deg,transparent,transparent_4px,rgba(0,0,0,0.05)_4px,rgba(0,0,0,0.05)_8px)]";
                             if (isStart) labelText = `⚠️ ${activeStay.guestName.split(' ')[0]}`;
                         } else if (activeStay.status === 'ota_buffer') {
                             cellClass = "bg-slate-400/50 border-l border-slate-500 text-slate-900 hover:bg-slate-400/70 font-semibold bg-[repeating-linear-gradient(-45deg,transparent,transparent_5px,rgba(0,0,0,0.1)_5px,rgba(0,0,0,0.1)_10px)]";
@@ -2418,27 +2418,27 @@ Standard 30 days payment terms apply.</textarea>
                 card.id = `stay-card-${stay.id}`;
 
                 if (stay.status === 'pending_approval') {
-                    card.className = 'bg-amber-500/10 border border-amber-500/50 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 shadow-xl';
+                    card.className = 'bg-darkbg/70 border border-accent/40 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 shadow-xl';
                     card.innerHTML = `
                         <div class="space-y-3">
-                            <div class="flex justify-between items-start border-b border-amber-500/20 pb-2">
+                            <div class="flex justify-between items-start border-b border-cream/10 pb-2">
                                 <div>
-                                    <span class="font-bold text-[#11161d] text-xs flex items-center gap-1.5">
+                                    <span class="font-bold text-cream text-xs flex items-center gap-1.5">
                                         ⚠️ ${stay.guestName}
-                                        <span class="text-[9px] bg-amber-500/20 text-amber-800 px-1.5 py-0.5 rounded border border-amber-500/40 font-bold">PENDING APPROVAL</span>
+                                        <span class="text-[9px] bg-accent/20 text-accent px-1.5 py-0.5 rounded border border-accent/40 font-bold">PENDING APPROVAL</span>
                                     </span>
                                     <span class="text-[9px] font-sans text-accent font-semibold">${stay.roomName}</span>
-                                    <span class="text-[8px] font-sans text-[#11161d]/60 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
+                                    <span class="text-[8px] font-sans text-cream/50 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
                                 </div>
                             </div>
-                            <div class="bg-amber-500/15 border border-amber-500/30 p-3 rounded-lg space-y-2">
-                                <p class="text-[10px] font-sans text-[#11161d] font-bold">Approval Action Panel</p>
-                                <p class="text-[9px] font-sans text-[#11161d]/70">Direct web booking request from Elementor/WordPress Widget.</p>
+                            <div class="bg-darkbg/50 border border-cream/10 p-3 rounded-lg space-y-2">
+                                <p class="text-[10px] font-sans text-cream font-bold">Approval Action Panel</p>
+                                <p class="text-[9px] font-sans text-cream/70">Direct web booking request from Elementor/WordPress Widget.</p>
                                 <div class="flex flex-col gap-2 pt-1">
-                                    <button onclick="approveBookingRequest('${stay.id}')" class="w-full py-2 px-3 rounded-lg bg-accent hover:bg-accent-hover text-white font-sans font-bold text-[10px] tracking-wider transition-colors shadow-sm uppercase">
+                                    <button onclick="approveBookingRequest('${stay.id}')" class="w-full py-2 px-3 rounded-lg bg-accent hover:bg-accent-hover text-cream font-sans font-bold text-[10px] tracking-wider transition-colors shadow-sm uppercase">
                                         ✓ Approve & Request Payment
                                     </button>
-                                    <button onclick="rejectBookingRequest('${stay.id}')" class="w-full py-1.5 px-3 rounded-lg bg-red-600/20 hover:bg-red-600/30 text-red-700 font-sans font-bold text-[9px] border border-red-500/30 transition-colors uppercase">
+                                    <button onclick="rejectBookingRequest('${stay.id}')" class="w-full py-1.5 px-3 rounded-lg bg-darkbg border border-cream/20 hover:border-cream/40 text-cream/60 font-sans font-bold text-[9px] transition-colors uppercase">
                                         ✕ Reject Request (Double Booked)
                                     </button>
                                 </div>
@@ -2450,20 +2450,20 @@ Standard 30 days payment terms apply.</textarea>
                 }
 
                 if (stay.status === 'ota_buffer') {
-                    card.className = 'bg-slate-400/20 border border-slate-400/40 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 shadow-xl';
+                    card.className = 'bg-darkbg/70 border border-cream/10 p-4 rounded-xl space-y-3 flex flex-col justify-between relative overflow-hidden transition-all duration-300 shadow-xl';
                     card.innerHTML = `
                         <div class="space-y-3">
-                            <div class="flex justify-between items-start border-b border-slate-400/20 pb-2">
+                            <div class="flex justify-between items-start border-b border-cream/10 pb-2">
                                 <div>
-                                    <span class="font-bold text-[#11161d] text-xs flex items-center gap-1.5">
+                                    <span class="font-bold text-cream text-xs flex items-center gap-1.5">
                                         🔒 ${stay.guestName}
-                                        <span class="text-[9px] bg-slate-400/30 text-slate-800 px-1.5 py-0.5 rounded border border-slate-400/50 font-bold">15-MIN SYNC HOLD</span>
+                                        <span class="text-[9px] bg-accent/20 text-cream px-1.5 py-0.5 rounded border border-accent/40 font-bold">15-MIN SYNC HOLD</span>
                                     </span>
-                                    <span class="text-[9px] font-sans text-slate-700 font-semibold">${stay.roomName}</span>
-                                    <span class="text-[8px] font-sans text-[#11161d]/60 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
+                                    <span class="text-[9px] font-sans text-accent font-semibold">${stay.roomName}</span>
+                                    <span class="text-[8px] font-sans text-cream/50 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
                                 </div>
                             </div>
-                            <p class="text-[10px] font-sans text-slate-700 italic">Temporary hold state while external iCal feed syncs.</p>
+                            <p class="text-[10px] font-sans text-cream/60 italic">Temporary hold state while external iCal feed syncs.</p>
                         </div>
                     `;
                     checklistsContainer.appendChild(card);
@@ -2477,28 +2477,28 @@ Standard 30 days payment terms apply.</textarea>
                             <div>
                                 <span class="font-bold text-cream text-xs block flex items-center gap-1.5">
                                     ${stay.guestName}
-                                    ${percent === 100 ? '<span class="text-[9px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded border border-emerald-500/40">✓ ALL SET</span>' : ''}
+                                    ${percent === 100 ? '<span class="text-[9px] bg-accent/20 text-cream px-1.5 py-0.5 rounded border border-accent/40">✓ ALL SET</span>' : ''}
                                 </span>
                                 <span class="text-[9px] font-sans text-accent font-semibold">${stay.roomName}</span>
                                 <span class="text-[8px] font-sans text-cream/50 block mt-0.5">Stay: ${stay.checkin} → ${stay.checkout}</span>
                             </div>
                             <div class="text-right font-sans">
-                                <span class="text-[11px] font-bold text-emerald-400 block">${percent}% Done</span>
+                                <span class="text-[11px] font-bold text-accent block">${percent}% Done</span>
                                 <button onclick="deleteStayBooking('${stay.id}')" class="text-[8px] text-red-400 hover:text-red-300">Delete Stay</button>
                             </div>
                         </div>
 
                         <!-- High Impact 1-Click Automate Button -->
-                        <button onclick="executeOneClickStayAutomation('${stay.id}', event)" class="w-full py-2.5 px-3 rounded-xl bg-accent hover:bg-accent-hover text-white font-sans font-bold text-[10px] tracking-wider transition-colors btn-depth flex items-center justify-center gap-1.5 uppercase border border-cream/20">
+                        <button onclick="executeOneClickStayAutomation('${stay.id}', event)" class="w-full py-2.5 px-3 rounded-xl bg-accent hover:bg-accent-hover text-cream font-sans font-bold text-[10px] tracking-wider transition-colors btn-depth flex items-center justify-center gap-1.5 uppercase border border-cream/20">
                             <svg class="w-3.5 h-3.5 stroke-current text-[#FFFDD0]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path>
                             </svg>
                             <span>1-CLICK AUTOMATE WORKFLOW</span>
                         </button>
 
-                        <!-- Progress Bar with Glow -->
+                        <!-- Progress Bar -->
                         <div class="w-full bg-darkbg h-2 rounded-full overflow-hidden border border-cream/10 relative">
-                            <div class="bg-gradient-to-r from-emerald-600 to-emerald-400 h-full transition-all duration-500 shadow-[0_0_12px_rgba(16,185,129,0.5)]" style="width: ${percent}%;"></div>
+                            <div class="bg-accent h-full transition-all duration-500" style="width: ${percent}%;"></div>
                         </div>
 
                         <!-- Stay Specific Tasks & Checklist -->
@@ -2509,7 +2509,7 @@ Standard 30 days payment terms apply.</textarea>
                                     <input type="checkbox" ${hasSentQuote ? 'checked' : ''} onchange="toggleStayWorkflowStep('${stay.id}', 'quoteSent')" class="accent-accent">
                                     <span class="${hasSentQuote ? 'line-through text-cream/40' : 'text-cream/80'}">1. Quote Dispatch</span>
                                 </div>
-                                <span class="text-[8px] px-1.5 py-0.5 rounded ${hasSentQuote ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/10 text-amber-400'}">${hasSentQuote ? '✓ SENT' : 'PENDING'}</span>
+                                <span class="text-[8px] px-1.5 py-0.5 rounded ${hasSentQuote ? 'bg-accent/20 text-cream' : 'bg-darkbg text-cream/60'}">${hasSentQuote ? '✓ SENT' : 'PENDING'}</span>
                             </div>
 
                             <!-- 2. Invoice -->
@@ -2520,8 +2520,8 @@ Standard 30 days payment terms apply.</textarea>
                                 </div>
                                 <div class="flex items-center gap-1">
                                     <button onclick="sendStayInvoiceDirectEmail('${stay.id}')" class="text-[8px] bg-accent/30 hover:bg-accent/50 text-cream px-1.5 py-0.5 rounded font-bold" title="1-Click Send Invoice PDF to Guest Email">✉ PDF</button>
-                                    <button onclick="sendStayWhatsAppPaymentLink('${stay.id}')" class="text-[8px] bg-emerald-600/30 hover:bg-emerald-600/50 text-emerald-200 px-1.5 py-0.5 rounded font-bold" title="1-Click Send WhatsApp Payment Link">💬 Pay Link</button>
-                                    <span class="text-[8px] px-1 py-0.5 rounded ${hasSentInvoice ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/10 text-amber-400'}">${hasSentInvoice ? '✓ SENT' : 'PENDING'}</span>
+                                    <button onclick="sendStayWhatsAppPaymentLink('${stay.id}')" class="text-[8px] bg-accent/20 hover:bg-accent/40 text-cream px-1.5 py-0.5 rounded font-bold" title="1-Click Send WhatsApp Payment Link">💬 Pay Link</button>
+                                    <span class="text-[8px] px-1 py-0.5 rounded ${hasSentInvoice ? 'bg-accent/20 text-cream' : 'bg-darkbg text-cream/60'}">${hasSentInvoice ? '✓ SENT' : 'PENDING'}</span>
                                 </div>
                             </div>
 
@@ -2531,7 +2531,7 @@ Standard 30 days payment terms apply.</textarea>
                                     <input type="checkbox" ${preTravelDone ? 'checked' : ''} onchange="toggleStayWorkflowStep('${stay.id}', 'pre')" class="accent-accent">
                                     <span class="${preTravelDone ? 'line-through text-cream/40' : 'text-cream/80'}">3. Pre-Travel WA</span>
                                 </div>
-                                <button onclick="dispatchWhatsAppToGuest('${stay.guestId || 'sample'}', 'pre')" class="text-[8px] bg-emerald-600/30 text-emerald-200 px-1.5 py-0.5 rounded">💬 Send</button>
+                                <button onclick="dispatchWhatsAppToGuest('${stay.guestId || 'sample'}', 'pre')" class="text-[8px] bg-accent/20 text-cream px-1.5 py-0.5 rounded">💬 Send</button>
                             </div>
 
                             <!-- 4. During WA -->
@@ -2540,7 +2540,7 @@ Standard 30 days payment terms apply.</textarea>
                                     <input type="checkbox" ${duringTravelDone ? 'checked' : ''} onchange="toggleStayWorkflowStep('${stay.id}', 'during')" class="accent-accent">
                                     <span class="${duringTravelDone ? 'line-through text-cream/40' : 'text-cream/80'}">4. During WA Concierge</span>
                                 </div>
-                                <button onclick="dispatchWhatsAppToGuest('${stay.guestId || 'sample'}', 'during')" class="text-[8px] bg-emerald-600/30 text-emerald-200 px-1.5 py-0.5 rounded">💬 Send</button>
+                                <button onclick="dispatchWhatsAppToGuest('${stay.guestId || 'sample'}', 'during')" class="text-[8px] bg-accent/20 text-cream px-1.5 py-0.5 rounded">💬 Send</button>
                             </div>
 
                             <!-- 5. Post WA -->
@@ -2549,7 +2549,7 @@ Standard 30 days payment terms apply.</textarea>
                                     <input type="checkbox" ${postTravelDone ? 'checked' : ''} onchange="toggleStayWorkflowStep('${stay.id}', 'post')" class="accent-accent">
                                     <span class="${postTravelDone ? 'line-through text-cream/40' : 'text-cream/80'}">5. Post-Stay WA Review</span>
                                 </div>
-                                <button onclick="dispatchWhatsAppToGuest('${stay.guestId || 'sample'}', 'post')" class="text-[8px] bg-emerald-600/30 text-emerald-200 px-1.5 py-0.5 rounded">💬 Send</button>
+                                <button onclick="dispatchWhatsAppToGuest('${stay.guestId || 'sample'}', 'post')" class="text-[8px] bg-accent/20 text-cream px-1.5 py-0.5 rounded">💬 Send</button>
                             </div>
 
                             <!-- Custom Stay Tasks -->
@@ -3513,13 +3513,13 @@ Standard 30 days payment terms apply.</textarea>
 
                 const card = document.createElement('div');
                 card.className = ch.isDirect
-                    ? 'bg-emerald-950/40 border border-emerald-500/50 p-4 rounded-xl space-y-2 col-span-1 md:col-span-2 shadow-lg'
+                    ? 'bg-darkbg/80 border border-accent/40 p-4 rounded-xl space-y-2 col-span-1 md:col-span-2 shadow-lg'
                     : 'bg-darkbg/80 border border-cream/10 p-4 rounded-xl space-y-2';
 
                 card.innerHTML = `
                     <div class="flex justify-between items-center border-b border-cream/5 pb-2">
                         <span class="font-bold text-cream text-xs flex items-center gap-1.5">${ch.icon} ${ch.name}</span>
-                        <span class="text-[9px] font-sans ${ch.isDirect ? 'bg-emerald-500/20 border border-emerald-500/40 text-emerald-300' : 'bg-accent/20 border border-accent/30 text-cream'} px-1.5 py-0.5 rounded">
+                        <span class="text-[9px] font-sans ${ch.isDirect ? 'bg-accent/20 border border-accent/40 text-cream' : 'bg-accent/20 border border-accent/30 text-cream'} px-1.5 py-0.5 rounded">
                             ${ch.isDirect ? '🔥 BEST PRICE DIRECT' : (commissionRate * 100).toFixed(0) + '% Fee'}
                         </span>
                     </div>
@@ -3527,7 +3527,7 @@ Standard 30 days payment terms apply.</textarea>
                     <div class="pt-1 space-y-1 font-sans">
                         <div class="flex justify-between items-baseline">
                             <span class="text-[9px] text-cream/50 uppercase">${ch.isDirect ? 'Direct Guest Price:' : 'Extranet List Price:'}</span>
-                            <span class="text-sm font-bold ${ch.isDirect ? 'text-emerald-400 text-base' : 'text-cream'}">${currencySymbol} ${totalGrossListingPrice.toFixed(2)}</span>
+                            <span class="text-sm font-bold ${ch.isDirect ? 'text-accent text-base' : 'text-cream'}">${currencySymbol} ${totalGrossListingPrice.toFixed(2)}</span>
                         </div>
                         <div class="flex justify-between text-[8px] text-cream/40 pt-1 border-t border-cream/5">
                             <span>Platform & Payment Deductions:</span>
@@ -3535,7 +3535,7 @@ Standard 30 days payment terms apply.</textarea>
                         </div>
                         <div class="flex justify-between text-[9px] text-cream font-semibold pt-0.5">
                             <span>Min Stay Rule / Net Payout:</span>
-                            <span class="text-emerald-300">${minStay} night min | ${currencySymbol} ${targetNet.toFixed(2)}/nt</span>
+                            <span class="text-cream/80">${minStay} night min | ${currencySymbol} ${targetNet.toFixed(2)}/nt</span>
                         </div>
                     </div>
                 `;
@@ -4110,9 +4110,8 @@ Standard 30 days payment terms apply.</textarea>
             const totalFormatted = `${currency} ${grandTotal.toFixed(2)}`;
 
             try {
-                // Generate PDF using html2pdf.js
+                // Generate PDF using html2pdf.js as full datauristring (base64 with data URI header)
                 let pdfDataUri = '';
-                let pdfPureBase64 = '';
                 const previewEl = document.getElementById('document-preview-container');
 
                 if (typeof html2pdf !== 'undefined' && previewEl) {
@@ -4124,12 +4123,9 @@ Standard 30 days payment terms apply.</textarea>
                         jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
                     };
                     pdfDataUri = await html2pdf().set(opt).from(previewEl).outputPdf('datauristring');
-                    if (pdfDataUri && pdfDataUri.includes(',')) {
-                        pdfPureBase64 = pdfDataUri.split(',')[1];
-                    }
                 }
 
-                const pdfAttachment = pdfPureBase64 || pdfDataUri;
+                const pdfAttachment = pdfDataUri;
 
                 // Map EmailJS Payload strictly per exact variables for EmailJS dispatch
                 const templateParams = {
@@ -4483,7 +4479,7 @@ Standard 30 days payment terms apply.</textarea>
                                 <span>${docCurrency} ${subtotal.toFixed(2)}</span>
                             </div>
                             ${discountRate > 0 ? `
-                            <div class="flex justify-between text-emerald-500">
+                            <div class="flex justify-between text-accent">
                                 <span>Discount (${discountRate}%)</span>
                                 <span>-${docCurrency} ${discountAmount.toFixed(2)}</span>
                             </div>` : ''}
@@ -4734,7 +4730,7 @@ Standard 30 days payment terms apply.</textarea>
 
         // ================= INTERACTIVE SPOTLIGHT ONBOARDING TOUR ENGINE =================
         let tourStepCurrent = 1;
-        const tourStepsTotal = 5;
+        const tourStepsTotal = 6;
 
         function getTourTargetId(key) {
             const isMobile = window.innerWidth < 768;
@@ -4747,8 +4743,8 @@ Standard 30 days payment terms apply.</textarea>
         const tourStepsConfig = [
             {
                 step: 1,
-                title: "Booking Calendar",
-                text: "View your interactive monthly booking calendar, manage active stays, check guest workflows, and sync 2-way iCal feeds.",
+                title: "1. Booking Calendar",
+                text: "View monthly guest stays, manage active bookings, track workflow checklists, and sync 2-way iCal feeds.",
                 getTargetId: () => getTourTargetId('calendar'),
                 setupView: () => {
                     setUIMode('calendar');
@@ -4756,8 +4752,8 @@ Standard 30 days payment terms apply.</textarea>
             },
             {
                 step: 2,
-                title: "Invoices & Quotes Sidebar Tools",
-                text: "Access your Saved Templates and Invoice Designer on the left sidebar under Invoices & Quotes.",
+                title: "2. Invoices & Quotes",
+                text: "Access saved invoice templates and design customized client invoices or quotations.",
                 getTargetId: () => {
                     const isMobile = window.innerWidth < 768;
                     return isMobile ? 'mb-btn-designer' : 'm-btn-designer';
@@ -4773,8 +4769,8 @@ Standard 30 days payment terms apply.</textarea>
             },
             {
                 step: 3,
-                title: "Demo Page",
-                text: "Simulate direct guest reservation requests and manage guest profiles in your directory.",
+                title: "3. Demo Page",
+                text: "Test 1-click email dispatches, WhatsApp links, and submit demo guest bookings directly to the calendar.",
                 getTargetId: () => getTourTargetId('guests'),
                 setupView: () => {
                     setUIMode('guests');
@@ -4782,8 +4778,8 @@ Standard 30 days payment terms apply.</textarea>
             },
             {
                 step: 4,
-                title: "WhatsApp Suite",
-                text: "Configure automated pre-travel, during-stay, and post-stay guest messaging templates.",
+                title: "4. WhatsApp Suite",
+                text: "Configure automated pre-travel, during-stay concierge, and post-stay review messaging templates.",
                 getTargetId: () => getTourTargetId('whatsapp'),
                 setupView: () => {
                     setUIMode('whatsapp');
@@ -4791,11 +4787,20 @@ Standard 30 days payment terms apply.</textarea>
             },
             {
                 step: 5,
-                title: "Direct Booking Rates",
-                text: "Configure room base rates, seasonal markups, commission fees, and calculate real-time OTA channel listing prices.",
+                title: "5. Direct Booking Rates",
+                text: "Manage room nightly rates, seasonal markups, platform fees, and calculate channel listing prices.",
                 getTargetId: () => getTourTargetId('pricing'),
                 setupView: () => {
                     setUIMode('pricing');
+                }
+            },
+            {
+                step: 6,
+                title: "6. Setup & Settings",
+                text: "Re-launch this guided onboarding tour anytime to explore the sidebar navigation options.",
+                getTargetId: () => getTourTargetId('setup'),
+                setupView: () => {
+                    // Retain current view for setup settings step
                 }
             }
         ];
@@ -4876,7 +4881,7 @@ Standard 30 days payment terms apply.</textarea>
                 if (nextBtn) {
                     if (config.step === tourStepsTotal) {
                         nextBtn.textContent = 'Finish 🚀';
-                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold font-sans tracking-wider transition-all cursor-pointer';
+                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer';
                     } else {
                         nextBtn.textContent = 'Next ▶';
                         nextBtn.className = 'px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer';
