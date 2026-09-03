@@ -247,7 +247,7 @@
             <div class="sidebar-header px-4 flex items-center gap-3 border-b border-cream/10 pb-4 h-12 overflow-hidden">
                 <div id="sidebar-logo-container">
                     <div class="w-8 h-8 rounded-xl bg-accent flex items-center justify-center flex-shrink-0 font-bold text-cream text-sm shadow-md">
-                        BJ
+                        J
                     </div>
                 </div>
                 <span id="sidebar-header-title" class="font-sans font-extrabold text-base text-cream tracking-tight whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -4864,7 +4864,7 @@ Standard 30 days payment terms apply.</textarea>
                 } else {
                     sidebarLogoContainer.innerHTML = `
                         <div class="w-8 h-8 rounded-xl bg-accent flex items-center justify-center flex-shrink-0 font-bold text-cream text-sm shadow-md">
-                            BJ
+                            J
                         </div>
                     `;
                 }
@@ -5156,7 +5156,7 @@ Standard 30 days payment terms apply.</textarea>
                 } else {
                     sidebarLogoContainer.innerHTML = `
                         <div class="w-8 h-8 rounded-xl bg-accent flex items-center justify-center flex-shrink-0 font-bold text-cream text-sm shadow-md">
-                            BJ
+                            J
                         </div>
                     `;
                 }
@@ -5226,7 +5226,7 @@ Standard 30 days payment terms apply.</textarea>
                 step: 1,
                 title: "1. White-Label Branding",
                 text: "Brand the CRM for your own property session.",
-                getTargetId: () => 'left-nav-rail',
+                getTargetId: () => null,
                 setupView: () => {
                     setUIMode('setup');
                 }
@@ -5298,16 +5298,16 @@ Standard 30 days payment terms apply.</textarea>
             if (existing) existing.remove();
 
             const overlayHtml = `
-                <div id="spotlight-tour-overlay" class="fixed inset-0 z-[9990] pointer-events-none">
+                <div id="spotlight-tour-overlay" class="fixed inset-0 z-[9990] pointer-events-none" style="width: 100vw; height: 100vh; position: fixed; inset: 0; backdrop-filter: blur(2px);">
                     <!-- SVG Backdrop with Spotlight Cutout -->
-                    <svg id="spotlight-svg" class="fixed inset-0 w-full h-full pointer-events-none z-[9991]">
+                    <svg id="spotlight-svg" class="fixed inset-0 w-full h-full pointer-events-none z-[9991]" style="width: 100vw; height: 100vh; position: fixed; inset: 0;">
                         <defs>
                             <mask id="spotlight-mask">
                                 <rect x="0" y="0" width="100%" height="100%" fill="white" />
                                 <rect id="spotlight-cutout" x="0" y="0" width="0" height="0" rx="12" ry="12" fill="black" />
                             </mask>
                         </defs>
-                        <rect x="0" y="0" width="100%" height="100%" fill="rgba(0,0,0,0.72)" mask="url(#spotlight-mask)" class="pointer-events-auto" />
+                        <rect x="0" y="0" width="100%" height="100%" fill="rgba(0,0,0,0.85)" mask="url(#spotlight-mask)" class="pointer-events-auto" />
                         <!-- Highlight Glow Box -->
                         <rect id="spotlight-glow-box" x="0" y="0" width="0" height="0" rx="12" ry="12" fill="none" stroke="#AA4628" stroke-width="3" class="animate-pulse pointer-events-none" />
                     </svg>
@@ -5421,8 +5421,8 @@ Standard 30 days payment terms apply.</textarea>
 
                 if (targetEl) {
                     targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-                    repositionSpotlightOverlay();
                 }
+                repositionSpotlightOverlay();
             }, 120);
         }
 
@@ -5431,12 +5431,33 @@ Standard 30 days payment terms apply.</textarea>
             if (!config) return;
 
             const targetId = typeof config.getTargetId === 'function' ? config.getTargetId() : config.targetId;
-            const targetEl = document.getElementById(targetId);
+            const targetEl = targetId ? document.getElementById(targetId) : null;
             const cutout = document.getElementById('spotlight-cutout');
             const glowBox = document.getElementById('spotlight-glow-box');
             const tooltipCard = document.getElementById('spotlight-tooltip-card');
 
-            if (!targetEl || !cutout || !glowBox || !tooltipCard) return;
+            if (!cutout || !glowBox || !tooltipCard) return;
+
+            if (!targetEl) {
+                cutout.setAttribute('x', 0);
+                cutout.setAttribute('y', 0);
+                cutout.setAttribute('width', 0);
+                cutout.setAttribute('height', 0);
+
+                glowBox.setAttribute('x', 0);
+                glowBox.setAttribute('y', 0);
+                glowBox.setAttribute('width', 0);
+                glowBox.setAttribute('height', 0);
+
+                const cardWidth = 320;
+                const cardHeight = tooltipCard.offsetHeight || 280;
+                const cardLeft = Math.max(16, (window.innerWidth - cardWidth) / 2);
+                const cardTop = Math.max(16, (window.innerHeight - cardHeight) / 2);
+
+                tooltipCard.style.top = `${cardTop}px`;
+                tooltipCard.style.left = `${cardLeft}px`;
+                return;
+            }
 
             void targetEl.offsetHeight;
             const rect = targetEl.getBoundingClientRect();
