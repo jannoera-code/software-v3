@@ -1,3 +1,4 @@
+<!-- Copyright (c) 2026 By Janno Digital Studio. All Rights Reserved. -->
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 
@@ -1679,6 +1680,7 @@ Standard 30 days payment terms apply.</textarea>
 
         // Initialize App State
         document.addEventListener('DOMContentLoaded', () => {
+            initSessionBranding();
             const today = new Date();
             const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, today.getDate());
 
@@ -4814,6 +4816,12 @@ Standard 30 days payment terms apply.</textarea>
                 }
             }
 
+            const sidebarHeaderTitle = document.getElementById('sidebar-header-title');
+            if (sidebarHeaderTitle) {
+                const compTitle = (sessionBranding && sessionBranding.companyName) ? sessionBranding.companyName : "By Janno Digital Studio";
+                sidebarHeaderTitle.innerHTML = escapeHtml(compTitle) + '<span class="text-accent">.</span>';
+            }
+
             if (highlightTargetId) {
                 highlightField(highlightTargetId);
             }
@@ -5043,12 +5051,97 @@ Standard 30 days payment terms apply.</textarea>
         function handleSignOut() {
             resetDemoState();
             sessionStorage.removeItem('byjanno_active_user');
+            sessionStorage.removeItem('byjanno_session_branding');
+            applySessionBranding(null);
             showAuthOverlay('signin');
+        }
+
+        // ================= SESSION-ONLY WHITE-LABEL BRANDING =================
+        let sessionBranding = null;
+        let tourTempLogoBase64 = '';
+
+        function handleTourLogoUpload(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                tourTempLogoBase64 = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function handleTourLogoUrlInput(val) {
+            if (val && val.trim()) {
+                tourTempLogoBase64 = val.trim();
+            }
+        }
+
+        function applySessionBranding(branding) {
+            sessionBranding = branding;
+            if (branding && (branding.companyName || branding.logoBase64)) {
+                sessionStorage.setItem('byjanno_session_branding', JSON.stringify(branding));
+            }
+
+            const compName = (branding && branding.companyName) ? branding.companyName : "By Janno Digital Studio";
+            const logoBase64 = (branding && branding.logoBase64) ? branding.logoBase64 : "";
+            const logoSize = (branding && branding.logoSize) ? branding.logoSize : "medium";
+
+            const headerTitleEl = document.getElementById('sidebar-header-title');
+            if (headerTitleEl) {
+                headerTitleEl.innerHTML = escapeHtml(compName) + '<span class="text-accent">.</span>';
+            }
+
+            const sidebarLogoContainer = document.getElementById('sidebar-logo-container');
+            if (sidebarLogoContainer) {
+                if (logoBase64) {
+                    let sbHeightClass = 'h-8 max-w-[32px]';
+                    if (logoSize === 'small') sbHeightClass = 'h-6 max-w-[24px]';
+                    if (logoSize === 'large') sbHeightClass = 'h-10 max-w-[40px]';
+
+                    sidebarLogoContainer.innerHTML = `<img src="${logoBase64}" alt="Logo" class="${sbHeightClass} object-contain rounded flex-shrink-0" />`;
+                } else {
+                    sidebarLogoContainer.innerHTML = `
+                        <div class="w-8 h-8 rounded-xl bg-accent flex items-center justify-center flex-shrink-0 font-bold text-cream text-sm shadow-md">
+                            BJ
+                        </div>
+                    `;
+                }
+            }
+
+            const compNameInput = document.getElementById('company-name');
+            if (compNameInput && branding && branding.companyName) {
+                compNameInput.value = branding.companyName;
+            }
+            if (logoBase64) {
+                docLogoBase64 = logoBase64;
+            }
+            const logoSizeSelect = document.getElementById('logo-size');
+            if (logoSizeSelect && logoSize) {
+                logoSizeSelect.value = logoSize;
+            }
+
+            if (typeof updatePreview === 'function') {
+                updatePreview();
+            }
+        }
+
+        function initSessionBranding() {
+            try {
+                const saved = sessionStorage.getItem('byjanno_session_branding');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    applySessionBranding(parsed);
+                } else {
+                    applySessionBranding(null);
+                }
+            } catch (e) {
+                applySessionBranding(null);
+            }
         }
 
         // ================= INTERACTIVE SPOTLIGHT ONBOARDING TOUR ENGINE =================
         let tourStepCurrent = 1;
-        const tourStepsTotal = 6;
+        let tourStepsTotal = 7;
 
         function getTourTargetId(key) {
             const isMobile = window.innerWidth < 768;
@@ -5077,7 +5170,14 @@ Standard 30 days payment terms apply.</textarea>
         const tourStepsConfig = [
             {
                 step: 1,
-                title: "1. Booking Calendar",
+                title: "1. White-Label Branding",
+                text: "Brand the CRM for your own property session.",
+                getTargetId: () => 'left-nav-rail',
+                setupView: () => {}
+            },
+            {
+                step: 2,
+                title: "2. Booking Calendar",
                 text: "View monthly guest stays, manage active bookings, track workflow checklists, and sync 2-way iCal feeds.",
                 getTargetId: () => getTourTargetId('calendar'),
                 setupView: () => {
@@ -5085,8 +5185,8 @@ Standard 30 days payment terms apply.</textarea>
                 }
             },
             {
-                step: 2,
-                title: "2. Invoices & Quotes",
+                step: 3,
+                title: "3. Invoices & Quotes",
                 text: "Access saved invoice templates and design customized client invoices or quotations.",
                 getTargetId: () => getTourTargetId('invoices'),
                 setupView: () => {
@@ -5094,8 +5194,8 @@ Standard 30 days payment terms apply.</textarea>
                 }
             },
             {
-                step: 3,
-                title: "3. Demo Page",
+                step: 4,
+                title: "4. Demo Page",
                 text: "Test 1-click email dispatches, WhatsApp links, and submit demo guest bookings directly to the calendar.",
                 getTargetId: () => getTourTargetId('demo'),
                 setupView: () => {
@@ -5103,8 +5203,8 @@ Standard 30 days payment terms apply.</textarea>
                 }
             },
             {
-                step: 4,
-                title: "4. WhatsApp Suite",
+                step: 5,
+                title: "5. WhatsApp Suite",
                 text: "Configure automated pre-travel, during-stay concierge, and post-stay review messaging templates.",
                 getTargetId: () => getTourTargetId('messages'),
                 setupView: () => {
@@ -5112,8 +5212,8 @@ Standard 30 days payment terms apply.</textarea>
                 }
             },
             {
-                step: 5,
-                title: "5. Direct Booking Rates",
+                step: 6,
+                title: "6. Direct Booking Rates",
                 text: "Manage room nightly rates, seasonal markups, platform fees, and calculate channel listing prices.",
                 getTargetId: () => getTourTargetId('rates'),
                 setupView: () => {
@@ -5121,8 +5221,8 @@ Standard 30 days payment terms apply.</textarea>
                 }
             },
             {
-                step: 6,
-                title: "6. Setup & Settings",
+                step: 7,
+                title: "7. Setup & Settings",
                 text: "Re-launch this guided onboarding tour anytime to explore the sidebar navigation options.",
                 getTargetId: () => getTourTargetId('settings'),
                 setupView: () => {}
@@ -5159,24 +5259,43 @@ Standard 30 days payment terms apply.</textarea>
                     <!-- Floating Tooltip Card -->
                     <div id="spotlight-tooltip-card" class="fixed z-[9999] bg-darkcard border border-cream/20 p-5 rounded-2xl shadow-2xl w-80 text-cream space-y-3 font-sans transition-all duration-300 pointer-events-auto">
                         <div class="flex justify-between items-center text-xs font-sans">
-                            <span id="spotlight-step-indicator" class="text-accent font-bold uppercase tracking-wider">Step 1 of 6</span>
+                            <span id="spotlight-step-indicator" class="text-accent font-bold uppercase tracking-wider">Step 1 of 7</span>
                             <button onclick="exitSetupTutorial()" title="Close Tour" class="text-cream/50 hover:text-cream text-sm transition-colors cursor-pointer">✖</button>
                         </div>
                         <div class="space-y-1">
                             <h3 id="spotlight-step-title" class="font-sans font-bold text-base text-cream">Title</h3>
                             <p id="spotlight-step-text" class="text-xs text-cream/70 leading-relaxed">Description text</p>
+                            <div id="spotlight-custom-form"></div>
                         </div>
                         <div class="flex justify-between items-center pt-3 border-t border-cream/10 text-xs">
                             <button onclick="exitSetupTutorial()" class="text-cream/50 hover:text-cream font-sans transition-colors cursor-pointer">Skip Tour</button>
                             <div class="flex gap-2">
                                 <button onclick="changeTourStep(-1)" id="spotlight-btn-prev" class="px-3 py-1.5 rounded-xl bg-darkbg border border-cream/15 text-cream/80 hover:text-cream disabled:opacity-30 disabled:pointer-events-none font-bold font-sans transition-colors cursor-pointer">Back</button>
-                                <button onclick="changeTourStep(1)" id="spotlight-btn-next" class="px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer">Next ▶</button>
+                                <button onclick="handleTourNextClick()" id="spotlight-btn-next" class="px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer">Next ▶</button>
                             </div>
                         </div>
                     </div>
                 </div>
             `;
             document.body.insertAdjacentHTML('beforeend', overlayHtml);
+        }
+
+        function handleTourNextClick() {
+            if (tourStepCurrent === 1) {
+                const nameVal = document.getElementById('tour-brand-name')?.value;
+                const logoUrlVal = document.getElementById('tour-brand-logo-url')?.value;
+                const sizeVal = document.getElementById('tour-brand-size')?.value;
+
+                const logoVal = tourTempLogoBase64 || logoUrlVal || (sessionBranding?.logoBase64) || '';
+                const nameFinal = (nameVal && nameVal.trim()) ? nameVal.trim() : 'By Janno Digital Studio';
+
+                applySessionBranding({
+                    companyName: nameFinal,
+                    logoBase64: logoVal,
+                    logoSize: sizeVal || 'medium'
+                });
+            }
+            changeTourStep(1);
         }
 
         function showTourStep(stepNum) {
@@ -5194,6 +5313,7 @@ Standard 30 days payment terms apply.</textarea>
                 const stepInd = document.getElementById('spotlight-step-indicator');
                 const titleEl = document.getElementById('spotlight-step-title');
                 const textEl = document.getElementById('spotlight-step-text');
+                const formEl = document.getElementById('spotlight-custom-form');
                 const prevBtn = document.getElementById('spotlight-btn-prev');
                 const nextBtn = document.getElementById('spotlight-btn-next');
 
@@ -5201,9 +5321,40 @@ Standard 30 days payment terms apply.</textarea>
                 if (titleEl) titleEl.textContent = config.title;
                 if (textEl) textEl.textContent = config.text;
 
+                if (formEl) {
+                    if (config.step === 1) {
+                        formEl.innerHTML = `
+                            <div class="space-y-2.5 mt-2 pt-2 border-t border-cream/10 text-xs">
+                                <div>
+                                    <label class="block text-cream/70 text-[10px] uppercase font-bold mb-1">Property / Company Name</label>
+                                    <input type="text" id="tour-brand-name" placeholder="e.g. Grand Azure Hotel" value="${escapeHtml(sessionBranding?.companyName || '')}" class="w-full bg-darkbg border border-cream/20 rounded-lg px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent text-xs font-semibold">
+                                </div>
+                                <div>
+                                    <label class="block text-cream/70 text-[10px] uppercase font-bold mb-1">Property Logo</label>
+                                    <input type="file" id="tour-brand-logo-file" accept="image/*" class="w-full text-[10px] text-cream/60 file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-accent file:text-cream hover:file:bg-accent-hover cursor-pointer" onchange="handleTourLogoUpload(this)">
+                                    <input type="text" id="tour-brand-logo-url" placeholder="or enter Logo Image URL" value="${sessionBranding?.logoBase64 && !sessionBranding.logoBase64.startsWith('data:') ? escapeHtml(sessionBranding.logoBase64) : ''}" class="w-full bg-darkbg border border-cream/20 rounded-lg px-2.5 py-1 text-cream focus:outline-none focus:border-accent text-[10px] mt-1" oninput="handleTourLogoUrlInput(this.value)">
+                                </div>
+                                <div>
+                                    <label class="block text-cream/70 text-[10px] uppercase font-bold mb-1">Logo Size</label>
+                                    <select id="tour-brand-size" class="w-full bg-darkbg border border-cream/20 rounded-lg px-2.5 py-1.5 text-cream focus:outline-none focus:border-accent text-xs font-semibold">
+                                        <option value="small" ${sessionBranding?.logoSize === 'small' ? 'selected' : ''}>Small</option>
+                                        <option value="medium" ${!sessionBranding?.logoSize || sessionBranding?.logoSize === 'medium' ? 'selected' : ''}>Medium</option>
+                                        <option value="large" ${sessionBranding?.logoSize === 'large' ? 'selected' : ''}>Large</option>
+                                    </select>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        formEl.innerHTML = '';
+                    }
+                }
+
                 if (prevBtn) prevBtn.disabled = config.step === 1;
                 if (nextBtn) {
-                    if (config.step === tourStepsTotal) {
+                    if (config.step === 1) {
+                        nextBtn.textContent = 'Apply & Next';
+                        nextBtn.className = 'px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer';
+                    } else if (config.step === tourStepsTotal) {
                         nextBtn.textContent = 'Finish 🚀';
                         nextBtn.className = 'px-4 py-1.5 rounded-xl bg-accent hover:bg-accent-hover text-cream font-bold font-sans tracking-wider transition-all cursor-pointer';
                     } else {
